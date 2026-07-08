@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Main Menu -->
+    <menuitem id="menu_intranet_root"
+              name="Intranet"
+              web_icon="intranet_srm,static/description/icon.png"
+              sequence="50"/>
+
+    <!-- Main Menu Items -->
+    <menuitem id="menu_intranet_main"
+              name="Intranet"
+              parent="menu_intranet_root"
+              sequence="10"/>
+
+    <menuitem id="menu_intranet_content"
+              name="Contenu"
+              parent="menu_intranet_root"
+              sequence="20"/>
+
+    <menuitem id="menu_intranet_config"
+              name="Configuration"
+              parent="menu_intranet_root"
+              sequence="30"/>
+</odoo>

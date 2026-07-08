@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Document List View -->
+        <record id="document_list_view" model="ir.ui.view">
+            <field name="name">Document List</field>
+            <field name="model">intranet.document</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="file_type"/>
+                    <field name="file_size"/>
+                    <field name="category"/>
+                    <field name="created_at"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Document Form View -->
+        <record id="document_form_view" model="ir.ui.view">
+            <field name="name">Document Form</field>
+            <field name="model">intranet.document</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="file_name"/>
+                                <field name="file_type"/>
+                                <field name="category"/>
+                            </group>
+                            <group>
+                                <field name="direction_id"/>
+                                <field name="public"/>
+                            </group>
+                        </group>
+                        <field name="description"/>
+                        <field name="file"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Document Action -->
+        <record id="document_action" model="ir.actions.act_window">
+            <field name="name">Documents</field>
+            <field name="res_model">intranet.document</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_document" name="Documents" action="document_action" parent="menu_intranet_content"/>
+    </data>
+</odoo>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Employee List View -->
+        <record id="employee_list_view" model="ir.ui.view">
+            <field name="name">Employee List</field>
+            <field name="model">intranet.employee</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="phone"/>
+                    <field name="job_title"/>
+                    <field name="direction_name"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Employee Form View -->
+        <record id="employee_form_view" model="ir.ui.view">
+            <field name="name">Employee Form</field>
+            <field name="model">intranet.employee</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="email"/>
+                                <field name="phone"/>
+                                <field name="job_title"/>
+                            </group>
+                            <group>
+                                <field name="direction_id"/>
+                                <field name="is_manager"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Employee Action -->
+        <record id="employee_action" model="ir.actions.act_window">
+            <field name="name">Employés</field>
+            <field name="res_model">intranet.employee</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_employee" name="Employés" action="employee_action" parent="menu_intranet_main"/>
+    </data>
+</odoo>

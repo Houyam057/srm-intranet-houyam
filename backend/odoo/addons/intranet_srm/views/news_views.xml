@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- News List View -->
+        <record id="news_list_view" model="ir.ui.view">
+            <field name="name">News List</field>
+            <field name="model">intranet.news</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="title"/>
+                    <field name="author_name"/>
+                    <field name="priority"/>
+                    <field name="category"/>
+                    <field name="published_date"/>
+                    <field name="view_count"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- News Form View -->
+        <record id="news_form_view" model="ir.ui.view">
+            <field name="name">News Form</field>
+            <field name="model">intranet.news</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1>
+                            <field name="title"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="author_id"/>
+                                <field name="priority"/>
+                                <field name="category"/>
+                                <field name="published"/>
+                            </group>
+                            <group>
+                                <field name="published_date"/>
+                                <field name="view_count" readonly="1"/>
+                            </group>
+                        </group>
+                        <field name="summary" placeholder="Résumé de l'actualité"/>
+                        <field name="content"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- News Action -->
+        <record id="news_action" model="ir.actions.act_window">
+            <field name="name">Actualités</field>
+            <field name="res_model">intranet.news</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_news" name="Actualités" action="news_action" parent="menu_intranet_content"/>
+    </data>
+</odoo>

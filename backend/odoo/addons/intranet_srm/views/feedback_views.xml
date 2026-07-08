@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Feedback List View -->
+        <record id="feedback_list_view" model="ir.ui.view">
+            <field name="name">Feedback List</field>
+            <field name="model">intranet.feedback</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="employee_id"/>
+                    <field name="mood"/>
+                    <field name="category"/>
+                    <field name="anonymous"/>
+                    <field name="created_at"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Feedback Form View -->
+        <record id="feedback_form_view" model="ir.ui.view">
+            <field name="name">Feedback Form</field>
+            <field name="model">intranet.feedback</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="employee_id"/>
+                                <field name="mood"/>
+                            </group>
+                            <group>
+                                <field name="category"/>
+                                <field name="anonymous"/>
+                            </group>
+                        </group>
+                        <field name="comment" placeholder="Ajouter un commentaire..."/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Feedback Action -->
+        <record id="feedback_action" model="ir.actions.act_window">
+            <field name="name">Feedback</field>
+            <field name="res_model">intranet.feedback</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_feedback" name="Feedback" action="feedback_action" parent="menu_intranet_content"/>
+    </data>
+</odoo>

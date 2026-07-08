@@ -1,0 +1,20 @@
+{
+    'name': 'Intranet SRM-TTA',
+    'version': '19.0.1.0.0',
+    'category': 'Tools',
+    'author': 'SRM-TTA',
+    'depends': ['base', 'web'],
+    'data': [
+        'security/ir.model.access.csv',
+        'views/menu.xml',
+        'views/pole_views.xml',
+        'views/direction_views.xml',
+        'views/employee_views.xml',
+        'views/news_views.xml',
+        'views/document_views.xml',
+        'views/feedback_views.xml',
+        'data/demo_data.xml',
+    ],
+    'installable': True,
+    'application': True,
+}

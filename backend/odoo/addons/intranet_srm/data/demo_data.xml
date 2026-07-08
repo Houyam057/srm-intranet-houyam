@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- POLES -->
+        <record id="pole_dg" model="intranet.pole">
+            <field name="name">Direction Générale</field>
+            <field name="description">Pôle de la Direction Générale</field>
+        </record>
+
+        <record id="pole_exploitations" model="intranet.pole">
+            <field name="name">Pôle Exploitations</field>
+            <field name="description">Pôle des exploitations</field>
+        </record>
+
+        <record id="pole_support" model="intranet.pole">
+            <field name="name">Pôle Fonctions Support</field>
+            <field name="description">Pôle des fonctions de support</field>
+        </record>
+
+        <!-- DIRECTIONS -->
+        <record id="direction_dg" model="intranet.direction">
+            <field name="name">Direction Générale</field>
+            <field name="code">DG</field>
+            <field name="pole_id" ref="pole_dg"/>
+            <field name="description">Direction Générale de SRM-TTA</field>
+        </record>
+
+        <record id="direction_exploit" model="intranet.direction">
+            <field name="name">Direction en charge des Exploitations</field>
+            <field name="code">EXPLOIT</field>
+            <field name="pole_id" ref="pole_dg"/>
+            <field name="description">Direction responsable des exploitations</field>
+        </record>
+
+        <record id="direction_eau" model="intranet.direction">
+            <field name="name">Direction Exploitation Eau Potable</field>
+            <field name="code">EAU</field>
+            <field name="pole_id" ref="pole_exploitations"/>
+            <field name="description">Gestion de l'eau potable</field>
+        </record>
+
+        <record id="direction_assain" model="intranet.direction">
+            <field name="name">Direction Exploitation Assainissement Liquide</field>
+            <field name="code">ASSAIN</field>
+            <field name="pole_id" ref="pole_exploitations"/>
+            <field name="description">Gestion de l'assainissement</field>
+        </record>
+
+        <record id="direction_elec" model="intranet.direction">
+            <field name="name">Direction Exploitation Électricité</field>
+            <field name="code">ELEC</field>
+            <field name="pole_id" ref="pole_exploitations"/>
+            <field name="description">Gestion de l'électricité</field>
+        </record>
+
+        <record id="direction_rh" model="intranet.direction">
+            <field name="name">Direction du Capital Humain</field>
+            <field name="code">RH</field>
+            <field name="pole_id" ref="pole_support"/>
+            <field name="description">Gestion des ressources humaines</field>
+        </record>
+
+        <!-- EMPLOYEES -->
+        <record id="employee_drissi" model="intranet.employee">
+            <field name="name">DRISSI KAMILI Bouchra</field>
+            <field name="email">bouchra.drissi@srm-tta.ma</field>
+            <field name="phone">+212 5 32 21 34 56</field>
+            <field name="job_title">Directrice Générale</field>
+            <field name="direction_id" ref="direction_dg"/>
+            <field name="is_manager">True</field>
+        </record>
+
+        <record id="employee_hajjaj" model="intranet.employee">
+            <field name="name">HAJJAJ Younes</field>
+            <field name="email">younes.hajjaj@srm-tta.ma</field>
+            <field name="phone">+212 5 32 21 34 57</field>
+            <field name="job_title">Directeur Exploitations</field>
+            <field name="direction_id" ref="direction_exploit"/>
+            <field name="is_manager">True</field>
+        </record>
+
+        <record id="employee_kanice" model="intranet.employee">
+            <field name="name">KANICE Mohammed</field>
+            <field name="email">mohammed.kanice@srm-tta.ma</field>
+            <field name="phone">+212 5 32 21 34 58</field>
+            <field name="job_title">Directeur Eau Potable</field>
+            <field name="direction_id" ref="direction_eau"/>
+            <field name="is_manager">True</field>
+        </record>
+
+        <record id="employee_ghammad" model="intranet.employee">
+            <field name="name">GHAMMAD Souhail</field>
+            <field name="email">souhail.ghammad@srm-tta.ma</field>
+            <field name="phone">+212 5 32 21 34 59</field>
+            <field name="job_title">Directeur RH</field>
+            <field name="direction_id" ref="direction_rh"/>
+            <field name="is_manager">True</field>
+        </record>
+
+        <!-- NEWS -->
+        <record id="news_1" model="intranet.news">
+            <field name="title">Bienvenue sur l'Intranet SRM-TTA</field>
+            <field name="summary">Découvrez la plateforme collaborative de SRM-TTA</field>
+            <field name="content">&lt;p&gt;Bienvenue sur le nouvel intranet de SRM-TTA! Cette plateforme est conçue pour faciliter la communication et la collaboration entre tous les employés.&lt;/p&gt;</field>
+            <field name="author_id" ref="employee_drissi"/>
+            <field name="priority">high</field>
+            <field name="category">Actualité</field>
+            <field name="published">True</field>
+        </record>
+
+        <record id="news_2" model="intranet.news">
+            <field name="title">Nouvelle politique de télétravail</field>
+            <field name="summary">Retrouvez les détails de la nouvelle politique</field>
+            <field name="content">&lt;p&gt;La direction a approuvé une nouvelle politique de télétravail. Consultez les détails dans la section Ressources Humaines.&lt;/p&gt;</field>
+            <field name="author_id" ref="employee_ghammad"/>
+            <field name="priority">medium</field>
+            <field name="category">RH</field>
+            <field name="published">True</field>
+        </record>
+
+        <record id="news_3" model="intranet.news">
+            <field name="title">Réunion trimestrielle - Juin 2026</field>
+            <field name="summary">Préparez-vous pour la réunion de juin</field>
+            <field name="content">&lt;p&gt;La réunion trimestrielle aura lieu le 15 juin 2026. Les détails de l'agenda seront partagés prochainement.&lt;/p&gt;</field>
+            <field name="author_id" ref="employee_drissi"/>
+            <field name="priority">high</field>
+            <field name="category">Réunion</field>
+            <field name="published">True</field>
+        </record>
+    </data>
+</odoo>
