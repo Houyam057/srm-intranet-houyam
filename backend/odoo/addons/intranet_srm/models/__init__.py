@@ -4,3 +4,4 @@ from . import news
 from . import document
 from . import feedback
 from . import pole
+from . import user

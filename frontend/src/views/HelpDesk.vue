@@ -15,9 +15,13 @@ function submitForm() {
 
     alert("Votre demande a été envoyée.");
 
-    form.subject = "";
-    form.category = "";
-    form.message = "";
+    const { subject, category, message } = form;
+    
+    emit('submit',{
+            subject,
+            category,
+            message
+    })
 }
 
 
@@ -100,7 +104,7 @@ function selectCategory(category) {
                 </form>
             </div>
 
-            <div class="info" style="margin-right:14px; margin-top:5px;">
+               <div class="info" style="margin-right:14px; margin-top:5px;">
                 <div class="card-h">
                     <h3>Informations utiles</h3>
                 </div>
@@ -109,21 +113,27 @@ function selectCategory(category) {
                         <MapPin class="info-icon" />
                         <div>
                             <span class="info-title">Adresse</span>
-                            <p>Siège de l'entreprise</p>
+                            <div class="text-static">
+                                <p>Siège de l'entreprise</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="info-item" style="margin-top:10%;margin-bottom:10%">
+                    <div class="info-item" style="margin-bottom:10%">
                         <Phone class="info-icon" />
                         <div>
                             <span class="info-title">Téléphone</span>
-                            <p>+212 5 XX XX XX XX</p>
+                            <div class="text-static">
+                                <p>+212 5 XX XX XX XX</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="info-item" style="margin-top:10%;margin-bottom:10%">
+                    <div class="info-item" >
                         <Phone class="info-icon" />
                         <div>
                             <span class="info-title">Support</span>
-                            <p>+212 5 XX XX XX XX</p>
+                            <div class="text-static">
+                                <p>+212 5 XX XX XX XX</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -171,10 +181,6 @@ function selectCategory(category) {
     padding: 14px;
     border-radius: 12px;
     transition: .25s ease;
-}
-
-.info-item:hover {
-    background: rgba(0, 147, 221, 0.08);
 }
 
 .info-icon {

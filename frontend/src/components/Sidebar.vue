@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { NAV_DIRECTIONS } from '../data/directions.js'
+import { Info } from 'lucide-vue-next'
 import logo from '../assets/logo.png'
 const route = useRoute()
 const router = useRouter()
@@ -14,6 +15,11 @@ const isDirectionsArea = computed(() =>
   route.name === 'mesdirections' || route.name === 'direction-comm' || route.name === 'direction-generique'
 )
 const isHelpDesk = computed(() => route.name === 'helpdesk')
+const isFlashInfo = computed(() => route.name === 'flashinfo')
+
+function goToFlashInfo() {
+  router.push({ name: 'flashinfo' })
+}
 
 function HelpDesk() {
   router.push({ name: 'helpdesk' })
@@ -62,6 +68,11 @@ const goToWebsite = () => {
     <div class="nav-item">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s7 7.5 7 12a7 7 0 0 1-14 0c0-4.5 7-12 7-12z"/></svg>
       <span>Nos métiers</span>
+    </div>
+    
+    <div class="nav-item" :class="{ active: isFlashInfo }" @click="goToFlashInfo">
+      <Info />
+      <span>Flash Info</span>
     </div>
 
     <div class="nav-item nav-dir" :class="{ active: isDirectionsArea, open: subOpen }" @click="toggleDirections">

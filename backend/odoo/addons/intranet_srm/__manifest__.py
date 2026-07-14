@@ -13,6 +13,7 @@
         'views/news_views.xml',
         'views/document_views.xml',
         'views/feedback_views.xml',
+        'views/user_views.xml',
         'data/demo_data.xml',
     ],
     'installable': True,

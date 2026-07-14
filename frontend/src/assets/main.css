@@ -568,30 +568,17 @@ select option {
 
 /* liste déroulante */
 .dropdown__list {
-
   position: absolute;
-
   z-index: 100;
-
   top: calc(100% + var(--space-sm));
-
   left: 0;
   right: 0;
-
   display: grid;
-
-
-  border: 1px solid var(--blue);
-
+  border: 1px solid var(--border-light);
   border-radius: var(--radius-md);
-
   background: var(--color-background);
-
   box-shadow: var(--shadow-md);
-
-
   max-height: calc(2.5rem * var(--visible-options));
-
   overflow-y: auto;
 }
 
@@ -642,7 +629,25 @@ select option {
 
 }
 
-
+.text-static {
+  display: inline-block;
+  width: auto;
+  padding: 14px 16px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--ink);
+  background: var(--bg);
+  transition: all 0.25s ease;
+  outline: none;
+  box-sizing: border-box;
+}
+.text-row {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
 @media(max-width:1150px){
     .app{grid-template-columns:1fr}
     .sidebar{display:none}
