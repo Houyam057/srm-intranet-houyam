@@ -1,21 +1,29 @@
 from odoo import models, fields, api
 
-class IntranetUser(models.Model):
+
+class User(models.Model):
     _name = 'intranet.user'
     _description = 'Utilisateur Intranet'
     _rec_name = 'name'
+    _auto = False
+    _table = 'intranet_user'
 
-    name = fields.Char('Nom', required=True)
-    prenom = fields.Char('Prénom', required=True)
-    email = fields.Char('Email', required=True)
-    phone = fields.Char('Numéro de téléphone')
-
-    active = fields.Boolean('Actif', default=True)
-    created_at = fields.Datetime('Date de création', default=fields.Datetime.now)
-
-    _sql_constraints = [
-        ('email_unique', 'unique(email)', 'L\'email doit être unique!'),
+    ROLE_SELECTION = [
+        ('user', 'Utilisateur'),
+        ('admin', 'Administrateur'),
     ]
 
-    def __str__(self):
-        return f'{self.name} {self.prenom}'
+    id = fields.Id('ID', readonly=True)
+    name = fields.Char('Nom', readonly=True)
+    email = fields.Char('Email', readonly=True)
+    phone = fields.Char('Téléphone', readonly=True)
+    login = fields.Char('Login', readonly=True)
+    role = fields.Selection(ROLE_SELECTION, string='Rôle', readonly=True)
+    direction_id = fields.Integer('Direction ID')
+    direction_name = fields.Char('Direction', readonly=True)
+    job_title = fields.Char('Titre du Poste', readonly=True)
+    is_manager = fields.Boolean('Est Manager', readonly=True)
+    manages_direction_id = fields.Integer('Gère la Direction ID')
+    avatar_url = fields.Char('URL Avatar', readonly=True)
+    active = fields.Boolean('Actif', readonly=True)
+    created_at = fields.Datetime('Date de création', readonly=True)

@@ -44,6 +44,24 @@ export const useAuthStore = defineStore('auth', () => {
           partnerId: result.partner_id,
           companyId: result.company_id
         }
+
+        try {
+          const meRes = await odooApi.get('/api/user/me')
+          const me = meRes.data?.data
+          if (me) {
+            user.value.intranetUserId = me.id
+            user.value.name = me.name || user.value.name
+            user.value.email = me.email
+            user.value.phone = me.phone
+            user.value.role = me.role
+            user.value.direction_name = me.direction_name
+            user.value.job_title = me.job_title
+            user.value.avatar_url = me.avatar_url
+          }
+        } catch {
+          // intranet user not yet synced, that's fine
+        }
+
         return true
       } else {
         error.value = 'Identifiants incorrects'
@@ -78,6 +96,23 @@ export const useAuthStore = defineStore('auth', () => {
           partnerId: result.partner_id,
           companyId: result.company_id
         }
+
+        try {
+          const meRes = await odooApi.get('/api/user/me')
+          const me = meRes.data?.data
+          if (me) {
+            user.value.intranetUserId = me.id
+            user.value.name = me.name || user.value.name
+            user.value.email = me.email
+            user.value.phone = me.phone
+            user.value.role = me.role
+            user.value.direction_name = me.direction_name
+            user.value.job_title = me.job_title
+            user.value.avatar_url = me.avatar_url
+          }
+        } catch {
+          // intranet user not yet synced
+        }
       } else {
         user.value = null
       }
@@ -85,6 +120,18 @@ export const useAuthStore = defineStore('auth', () => {
       user.value = null
     } finally {
       loading.value = false
+    }
+  }
+
+  async function fetchProfile() {
+    try {
+      const res = await odooApi.get('/api/user/me')
+      const me = res.data?.data
+      if (me) {
+        user.value = { ...user.value, ...me }
+      }
+    } catch {
+      // silent
     }
   }
 
@@ -110,6 +157,7 @@ export const useAuthStore = defineStore('auth', () => {
     userInitials,
     login,
     fetchUser,
+    fetchProfile,
     logout
   }
 })

@@ -109,7 +109,7 @@
   /* ===== FLASH INFO ===== */
   .flash{display:flex;align-items:center;gap:20px;padding:16px 22px}
   .flash .tag{display:flex;align-items:center;gap:10px;background:var(--navy);color:#fff;font-weight:800;font-size:13px;letter-spacing:.5px;padding:12px 18px;border-radius:12px;flex:none}
-  .flash .tag svg{width:18px;height:18px;stroke:#ffd25e;fill:none}
+  .flash .tag svg{width:18px;height:18px;fill:none}
   .flash .imp{background:var(--red);color:#fff;font-size:11px;font-weight:800;padding:5px 11px;border-radius:7px;letter-spacing:.5px;flex:none}
   .flash .txt{flex:1;min-width:0}
   .flash .txt b{font-size:14px}
@@ -186,7 +186,7 @@
   .btn-primary:hover{background:#0a2454}
 
   /* ===== FOOTER ===== */
-  .footer{display:flex;align-items:center;justify-content:space-between;padding:22px 34px;background:#fff;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;margin-top:8px}
+  .footer{display:flex;align-items:center;justify-content:space-between;padding:22px 34px;background:#fff;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;margin-top:auto }
   .footer .safe{display:flex;align-items:center;gap:12px;color:#3a4a63;font-weight:600}
   .footer .safe svg{width:30px;height:30px;stroke:var(--navy)}
   .footer .soc{display:flex;gap:10px}

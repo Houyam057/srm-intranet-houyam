@@ -24,7 +24,7 @@ class Document(models.Model):
     file_size = fields.Integer('Taille (bytes)')
     
     direction_id = fields.Many2one('intranet.direction', string='Direction')
-    uploader_id = fields.Many2one('intranet.employee', string='Uploader')
+    uploader_id = fields.Many2one('intranet.user', string='Uploader')
     
     category = fields.Char('Catégorie', default='Général')
     public = fields.Boolean('Public', default=True)

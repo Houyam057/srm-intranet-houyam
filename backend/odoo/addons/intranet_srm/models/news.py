@@ -21,7 +21,7 @@ class News(models.Model):
     image = fields.Binary('Image')
     image_url = fields.Char('URL Image')
     
-    author_id = fields.Many2one('intranet.employee', string='Auteur')
+    author_id = fields.Many2one('intranet.user', string='Auteur')
     author_name = fields.Char('Nom de l\'auteur', related='author_id.name', store=True)
     
     priority = fields.Selection(PRIORITY_SELECTION, string='Priorité', default='medium')

@@ -6,6 +6,8 @@ const routes = [
   {path:'/profil', name:'profil', component: () => import('../views/Profile.vue')},
   // Page détaillée "riche" : correspond à la page-direction (Communication & Marketing) de la maquette
   { path: '/directions/comm', name: 'direction-comm', component: () => import('../views/Direction.vue') },
+  { path: "/profileAdmin", name: "profileAdmin", component: () => import('../views/ProfileAdmin.vue') },
+  { path: '/test', name: 'test', component: () => import('../views/Test.vue') },
   {
     // équivalent de goDir(key) du mockup : une page générique alimentée par le param :key
     path: '/directions/:key',
