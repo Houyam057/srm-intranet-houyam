@@ -15,17 +15,18 @@ const routes = [
   },
   { path: '/helpdesk', name: 'helpdesk', component: () => import('../views/HelpDesk.vue') },
   {path : '/flashinfo', name: 'flashinfo', component: () => import('../views/FlashInfo.vue')},
-{  path: '/login',
-  name: 'login',
-  component: () => import('../views/Login.vue'),
-  meta: {
-    showSidebar: false,
-    showTopbar: false,
-    showFooter: false
+  {path: '/notre-societe', name: 'notre-societe', component: () => import('../views/NotreSociete.vue')},
+  {  path: '/login',
+    name: 'login',
+    component: () => import('../views/Login.vue'),
+    meta: {
+      showSidebar: false,
+      showTopbar: false,
+      showFooter: false
 
-  }
-}
-]
+    }
+   }
+  ]
 
 const router = createRouter({
   history: createWebHistory(),

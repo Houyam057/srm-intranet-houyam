@@ -11,7 +11,6 @@ const open = ref(false)
 
 const choices = [
   "Profil",
-  "Paramètres",
   "Se Déconnecter"
 ]
 
@@ -81,7 +80,7 @@ function selectChoice(item) {
     :class="['dropdown__option', { 'is-logout': item === 'Se Déconnecter' }]"
     @click.stop="selectChoice(item)"
   >
-    {{ item }}
+    <b>{{ item }}</b>
   </button>
 </div>
       </div> </div>

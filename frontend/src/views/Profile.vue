@@ -1,8 +1,10 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth.js'
-import { User, Lock, CreditCard, FileText, Pencil, X, Save } from 'lucide-vue-next'
+import { Pencil, X, Save, LogOut } from 'lucide-vue-next'
 
+const router = useRouter()
 const authStore = useAuthStore()
 const activeTab = ref('profile')
 
@@ -55,80 +57,36 @@ function toggleEdit(section) {
 function save(section) {
   editing[section] = false
 }
+
+async function handleLogout() {
+  await authStore.logout()
+  router.push({ name: 'login' })
+}
+
 </script>
 
 <template>
   <div class="page show">
     <div class="crumbs">
       Accueil <span class="sep">›</span>
-      <span class="cur">Profil</span>
+      <span class="cur">Mon Profil</span>
     </div>
-
-    <h1 style="font-size:22px;font-weight:800;margin-bottom:20px">Mon Profil</h1>
-
-    <div style="display:grid;grid-template-columns:220px 1fr;gap:20px">
-      <!-- Sidebar Navigation -->
-      <aside class="card" style="padding:12px;height:fit-content;position:sticky;top:20px">
-        <nav style="display:flex;flex-direction:column;gap:4px">
-          <button
-            class="nav-item"
-            :class="{ active: activeTab === 'profile' }"
-            @click="activeTab = 'profile'"
-          >
-            <User :size="20" />
-            Mon Profil
-          </button>
-          <button
-            class="nav-item"
-            :class="{ active: activeTab === 'security' }"
-            @click="activeTab = 'security'"
-          >
-            <Lock :size="20" />
-            Sécurité
-          </button>
-          <button
-            class="nav-item"
-            :class="{ active: activeTab === 'billing' }"
-            @click="activeTab = 'billing'"
-          >
-            <CreditCard :size="20" />
-            Facturation
-          </button>
-          <button
-            class="nav-item"
-            :class="{ active: activeTab === 'terms' }"
-            @click="activeTab = 'terms'"
-          >
-            <FileText :size="20" />
-            Conditions
-          </button>
-        </nav>
-      </aside>
-
       <!-- Main Content -->
       <main>
         <!-- Profile Tab -->
-        <div v-if="activeTab === 'profile'">
-          <!-- Profile Header Card -->
           <div class="card card-pad" style="margin-bottom:20px">
             <div class="card-h">
               <h3>Informations du profil</h3>
             </div>
-            <div style="display:flex;align-items:center;gap:20px">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                <div style="grid-column:span 2;display:flex;align-items:center;gap:20px;margin-bottom:16px">
               <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#2b5cad,#0f2f6b);color:#fff;display:grid;place-items:center;font-weight:700;font-size:24px;flex:none">
                 {{ user.firstName?.[0] }}{{ user.lastName?.[0] }}
               </div>
-              <div>
-                <h2 style="font-size:18px;font-weight:800">{{ user.firstName }} {{ user.lastName }}</h2>
-                <p style="font-size:13px;color:var(--muted)">{{ user.email }}</p>
-              </div>
+              <h2 style="font-size:18px;font-weight:800">{{ user.firstName }} {{ user.lastName }}</h2>
             </div>
-          </div>
-
-          <div class="card card-pad" style="margin-bottom:20px">
-            <div class="card-h">
-              <h3>Informations personnelles</h3>
-              <div style="display:flex;gap:8px">
+            <!--<div class="card-h">
+              <div style="display:flex;gap:8px;margin-left:auto">
                 <button :class="['btn-primary', editing.personal ? 'btn-cancel' : '']" style="padding:8px 16px;font-size:12px" @click="toggleEdit('personal')">
                   <Pencil v-if="!editing.personal" :size="14" />
                   <X v-else :size="14" />
@@ -140,19 +98,8 @@ function save(section) {
                 </button>
               </div>
             </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-              <div class="form-group">
-                <label class="floating-label">
-                  <span>Prénom</span>
-                  <input v-model="user.firstName" type="text" :readonly="!editing.personal" />
-                </label>
-              </div>
-              <div class="form-group">
-                <label class="floating-label">
-                  <span>Nom</span>
-                  <input v-model="user.lastName" type="text" :readonly="!editing.personal" />
-                </label>
-              </div>
+        -->
+
               <div class="form-group">
                 <label class="floating-label">
                   <span>Email</span>
@@ -165,6 +112,12 @@ function save(section) {
                   <input v-model="user.phone" type="tel" :readonly="!editing.personal" />
                 </label>
               </div>
+            </div>
+            <div style="display:flex;justify-content:flex-end;margin-top:16px">
+              <button class="btn-primary btn-logout" style="flex:none;white-space:nowrap" @click="handleLogout">
+                <LogOut :size="14" />
+                Se déconnecter
+              </button>
             </div>
           </div>
 
@@ -188,18 +141,9 @@ function save(section) {
               </div>
             </div>
           </div>
-        </div>
-
         <!-- Other Tabs -->
-        <div v-else class="card card-pad">
-          <div class="card-h">
-            <h3>{{ activeTab === 'security' ? 'Sécurité' : activeTab === 'billing' ? 'Facturation' : 'Conditions' }}</h3>
-          </div>
-          <p style="color:var(--muted);font-size:13px">Contenu en cours de développement...</p>
-        </div>
       </main>
     </div>
-  </div>
 </template>
 
 <style scoped>
@@ -214,5 +158,13 @@ function save(section) {
 }
 .btn-save:hover {
   background: var(--green-2) !important;
+}
+.btn-logout {
+  background: var(--red) !important;
+}
+.btn-logout:hover {
+  background: white !important;
+  color: var(--red) !important;
+  border : 1px solid var(--red) !important;
 }
 </style>

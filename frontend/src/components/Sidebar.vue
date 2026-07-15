@@ -16,6 +16,7 @@ const isDirectionsArea = computed(() =>
 )
 const isHelpDesk = computed(() => route.name === 'helpdesk')
 const isFlashInfo = computed(() => route.name === 'flashinfo')
+const isNotreSociete = computed(() => route.name === 'notre-societe')
 
 function goToFlashInfo() {
   router.push({ name: 'flashinfo' })
@@ -40,9 +41,9 @@ function goToDirection(key) {
   router.push({ name: 'direction-generique', params: { key } })
 }
 
-const goToWebsite = () => {
-  window.open("https://srm-tta.ma/", "_blank");
-};
+function goToWebsite() {
+  router.push({ name: 'notre-societe' })
+}
 </script>
 
 <template>
@@ -57,7 +58,7 @@ const goToWebsite = () => {
       <span>Accueil</span>
     </div>
     
-    <div class="nav-item" @click="goToWebsite">
+    <div class="nav-item" :class="{ active: isNotreSociete }" @click="goToWebsite">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M3 21h18M5 21V7l7-4 7 4v14"/>
         <path d="M9 12h.01M15 12h.01M9 16h6"/>
@@ -75,27 +76,11 @@ const goToWebsite = () => {
       <span>Flash Info</span>
     </div>
 
-    <div class="nav-item nav-dir" :class="{ active: isDirectionsArea, open: subOpen }" @click="toggleDirections">
+    <div class="nav-item nav-dir" :class="{ active: isDirectionsArea }" @click="toggleDirections">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
       <span>Nos Directions</span>
-      <svg class="chev-sm" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
     </div>
 
-    <div class="submenu" :class="{ open: subOpen }">
-      <template v-for="group in NAV_DIRECTIONS" :key="group.group">
-        <div class="sub-gh">{{ group.group }}</div>
-        <div
-          v-for="item in group.items"
-          :key="item.key"
-          class="subitem"
-          :class="{ cur: item.me }"
-          @click.stop="goToDirection(item.key)"
-        >
-          {{ item.label }}
-          <span v-if="item.me" class="me">MOI</span>
-        </div>
-      </template>
-    </div>
 
     <div class="nav-item">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M8 6V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1"/><circle cx="9" cy="12" r="2"/><path d="M6 17c.8-1.5 4.2-1.5 6 0M15 11h3M15 15h3"/></svg>
