@@ -1,6 +1,7 @@
 <script setup>
 import { reactive, ref } from "vue";
 import { MapPin, Phone } from "lucide-vue-next";
+import { odooApi } from "../api/odoo.js";
 
 const form = reactive({
     subject: "",
@@ -8,25 +9,10 @@ const form = reactive({
     message: ""
 });
 
-function submitForm() {
-    console.log(form);
-
-    // Appel API ici
-
-    alert("Votre demande a été envoyée.");
-
-    const { subject, category, message } = form;
-    
-    emit('submit',{
-            subject,
-            category,
-            message
-    })
-}
-
-
 const open = ref(false);
-
+const loading = ref(false);
+const successMsg = ref("");
+const errorMsg = ref("");
 
 const categories = [
     "Support informatique",
@@ -36,14 +22,40 @@ const categories = [
     "Autre"
 ];
 
+async function submitForm() {
+    successMsg.value = "";
+    errorMsg.value = "";
+
+    if (!form.category) {
+        errorMsg.value = "Veuillez selectionner une categorie.";
+        return;
+    }
+
+    loading.value = true;
+    try {
+        await odooApi.post("/api/helpdesk", {
+            subject: form.subject,
+            category: form.category,
+            message: form.message
+        });
+
+        successMsg.value = "Votre demande a bien ete envoyee.";
+        form.subject = "";
+        form.category = "";
+        form.message = "";
+    } catch (error) {
+        errorMsg.value = error.response?.data?.error || "Impossible d'envoyer votre demande pour le moment.";
+    } finally {
+        loading.value = false;
+    }
+}
 
 function selectCategory(category) {
-
     form.category = category;
-
     open.value = false;
 }
 </script>
+
 <template>
     <div class="page page-direction show">
         <div class="crumbs">
@@ -56,30 +68,33 @@ function selectCategory(category) {
                     <h3>Besoin d'aide ?</h3>
                 </div>
 
+                <div v-if="successMsg" class="message success-msg">{{ successMsg }}</div>
+                <div v-if="errorMsg" class="message error-msg">{{ errorMsg }}</div>
+
                 <form @submit.prevent="submitForm">
                     <div class="form-group">
                         <label class="floating-label">
                             <span>Sujet</span>
                             <input v-model="form.subject" name="subject" type="text" required
-                                placeholder="Sujet de votre demande" autocomplete="subject" />
+                                placeholder="Sujet de votre demande" autocomplete="subject" :disabled="loading" />
                         </label>
                     </div>
                     <br>
                     <div class="form-group">
                         <label class="floating-label">
-                            <span>Catégorie</span>
+                            <span>Categorie</span>
 
                             <div class="dropdown">
 
-                                <button type="button" class="form-select dropdown__button" @click="open = !open">
-                                    {{ form.category || "Sélectionnez une catégorie" }}
+                                <button type="button" class="form-select dropdown__button" @click="open = !open" :disabled="loading">
+                                    {{ form.category || "Selectionnez une categorie" }}
                                 </button>
 
 
                                 <div v-if="open" class="dropdown__list">
 
                                     <button v-for="item in categories" :key="item" type="button"
-                                        class="dropdown__option" @click="selectCategory(item)">
+                                        class="dropdown__option" @click="selectCategory(item)" :disabled="loading">
                                         {{ item }}
                                     </button>
 
@@ -94,12 +109,12 @@ function selectCategory(category) {
                         <label class="floating-label">
                             <span>Message</span>
                             <textarea v-model="form.message" name="message" type="text" required
-                                placeholder="Votre message..." autocomplete="message"></textarea>
+                                placeholder="Votre message..." autocomplete="message" :disabled="loading"></textarea>
                         </label>
                     </div>
                     <br>
-                    <button type="submit" class="btn-primary">
-                        Envoyer la demande
+                    <button type="submit" class="btn-primary" :disabled="loading">
+                        {{ loading ? "Envoi en cours..." : "Envoyer la demande" }}
                     </button>
                 </form>
             </div>
@@ -114,14 +129,14 @@ function selectCategory(category) {
                         <div>
                             <span class="info-title">Adresse</span>
                             <div class="text-static">
-                                <p>Siège de l'entreprise</p>
+                                <p>Siege de l'entreprise</p>
                             </div>
                         </div>
                     </div>
                     <div class="info-item" style="margin-bottom:10%">
                         <Phone class="info-icon" />
                         <div>
-                            <span class="info-title">Téléphone</span>
+                            <span class="info-title">Telephone</span>
                             <div class="text-static">
                                 <p>+212 5 XX XX XX XX</p>
                             </div>
@@ -205,5 +220,24 @@ function selectCategory(category) {
     font-size: .9rem;
     font-weight: 500;
     color: var(--muted);
+}
+
+.message {
+    border-radius: 8px;
+    font-size: .9rem;
+    margin: 12px 0 16px;
+    padding: 10px 14px;
+}
+
+.success-msg {
+    background: #e9f7ee;
+    border: 1px solid #b7e1c1;
+    color: var(--green);
+}
+
+.error-msg {
+    background: #fdecea;
+    border: 1px solid #f5b8b0;
+    color: var(--red);
 }
 </style>

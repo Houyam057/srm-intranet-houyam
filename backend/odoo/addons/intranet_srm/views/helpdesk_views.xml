@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- HelpDesk Ticket List View -->
+        <record id="helpdesk_ticket_list_view" model="ir.ui.view">
+            <field name="name">HelpDesk Ticket List</field>
+            <field name="model">intranet.helpdesk.ticket</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="subject"/>
+                    <field name="category"/>
+                    <field name="employee_id"/>
+                    <field name="status"/>
+                    <field name="created_at"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- HelpDesk Ticket Form View -->
+        <record id="helpdesk_ticket_form_view" model="ir.ui.view">
+            <field name="name">HelpDesk Ticket Form</field>
+            <field name="model">intranet.helpdesk.ticket</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1>
+                            <field name="subject"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="category"/>
+                                <field name="employee_id"/>
+                            </group>
+                            <group>
+                                <field name="status"/>
+                                <field name="created_at" readonly="1"/>
+                            </group>
+                        </group>
+                        <field name="message" placeholder="Message de la demande..."/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- HelpDesk Ticket Action -->
+        <record id="helpdesk_ticket_action" model="ir.actions.act_window">
+            <field name="name">HelpDesk</field>
+            <field name="res_model">intranet.helpdesk.ticket</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_helpdesk_ticket"
+                  name="HelpDesk"
+                  action="helpdesk_ticket_action"
+                  parent="menu_intranet_main"/>
+    </data>
+</odoo>

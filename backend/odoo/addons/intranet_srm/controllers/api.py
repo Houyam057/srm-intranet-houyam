@@ -290,6 +290,69 @@ class IntranetAPI(http.Controller):
         except Exception as e:
             return self._response(error=str(e), status=500)
 
+    # ===== HELPDESK =====
+    def _helpdesk_ticket_data(self, ticket):
+        status_labels = dict(ticket._fields['status'].selection)
+        return {
+            'id': ticket.id,
+            'subject': ticket.subject,
+            'category': ticket.category,
+            'message': ticket.message,
+            'employee_id': ticket.employee_id.id if ticket.employee_id else False,
+            'employee_name': ticket.employee_id.name if ticket.employee_id else '',
+            'status': ticket.status,
+            'status_label': status_labels.get(ticket.status, ticket.status),
+            'created_at': ticket.created_at.isoformat() if ticket.created_at else None,
+        }
+
+    @http.route('/api/helpdesk', auth='user', methods=['POST'], csrf=False, cors='*')
+    def create_helpdesk_ticket(self):
+        try:
+            data = request.get_json_data()
+            subject = data.get('subject')
+            category = data.get('category')
+            message = data.get('message')
+
+            if not subject or not category or not message:
+                return self._response(error='Sujet, catégorie et message sont obligatoires', status=400)
+
+            employee = request.env['intranet.user'].sudo().browse(request.env.user.id)
+            HelpdeskTicket = request.env['intranet.helpdesk.ticket']
+
+            new_ticket = HelpdeskTicket.create({
+                'subject': subject,
+                'category': category,
+                'message': message,
+                'employee_id': employee.id if employee.exists() else False,
+            })
+
+            return self._response(data=self._helpdesk_ticket_data(new_ticket), status=201)
+        except Exception as e:
+            return self._response(error=str(e), status=400)
+
+    @http.route('/api/helpdesk', auth='user', methods=['GET'], csrf=False, cors='*')
+    def get_helpdesk_tickets(self):
+        try:
+            HelpdeskTicket = request.env['intranet.helpdesk.ticket'].sudo()
+            tickets = HelpdeskTicket.search([], order='created_at DESC')
+            data = [self._helpdesk_ticket_data(ticket) for ticket in tickets]
+            return self._response(data={'tickets': data})
+        except Exception as e:
+            return self._response(error=str(e), status=500)
+
+    @http.route('/api/helpdesk/<int:ticket_id>', auth='user', methods=['GET'], csrf=False, cors='*')
+    def get_helpdesk_ticket(self, ticket_id):
+        try:
+            HelpdeskTicket = request.env['intranet.helpdesk.ticket'].sudo()
+            ticket = HelpdeskTicket.browse(ticket_id)
+
+            if not ticket.exists():
+                return self._response(error='Ticket HelpDesk non trouvé', status=404)
+
+            return self._response(data=self._helpdesk_ticket_data(ticket))
+        except Exception as e:
+            return self._response(error=str(e), status=500)
+
     # ===== FEEDBACK =====
     @http.route('/api/feedback', auth='user', methods=['POST'], csrf=False, cors='*')
     def create_feedback(self):

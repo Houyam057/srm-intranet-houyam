@@ -7,6 +7,8 @@ access_document_user,document_user,model_intranet_document,base.group_user,1,0,0
 access_document_manager,document_manager,model_intranet_document,base.group_system,1,1,1,1
 access_feedback_user,feedback_user,model_intranet_feedback,base.group_user,1,1,1,1
 access_feedback_manager,feedback_manager,model_intranet_feedback,base.group_system,1,1,1,1
+access_helpdesk_ticket_user,helpdesk_ticket_user,model_intranet_helpdesk_ticket,base.group_user,1,1,1,0
+access_helpdesk_ticket_manager,helpdesk_ticket_manager,model_intranet_helpdesk_ticket,base.group_system,1,1,1,1
 access_pole_user,pole_user,model_intranet_pole,base.group_user,1,0,0,0
 access_pole_manager,pole_manager,model_intranet_pole,base.group_system,1,1,1,1
 access_user_user,user_user,model_intranet_user,base.group_user,1,1,1,0
