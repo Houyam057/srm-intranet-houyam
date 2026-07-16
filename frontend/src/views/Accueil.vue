@@ -4,6 +4,10 @@ import HeroCarousel from '../components/HeroCarousel.vue'
 import MoodBarometer from '../components/MoodBarometer.vue'
 import KPI from '../components/KPI.vue'
 import { odooApi } from '../api/odoo.js'
+import { useRouter } from 'vue-router'
+import {Bell } from 'lucide-vue-next'
+
+const router = useRouter()
 
 // Dans une vraie appli, ces tableaux viendraient d'appels à l'API Express :
 // GET /api/kpi, GET /api/notes-service, GET /api/actualites, GET /api/flash-info
@@ -58,19 +62,21 @@ onMounted(async () => {
     // Keep local mock data when Odoo is not reachable.
   }
 })
+
+function toHelpdesk(){
+  router.push({ name: 'helpdesk' })
+}
 </script>
 
 <template>
   <div class="page page-accueil show">
     <!-- FLASH INFO -->
     <div class="card flash" style="margin-bottom:20px">
-      <div class="tag">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
-        </svg>
+      <div class="tag" style="background:var(--red)">
+        <Bell />
         {{ flash.tag }}
       </div>
-      <span v-if="flash.important" class="imp">IMPORTANT</span>
+      <!--<span v-if="flash.important" class="imp">IMPORTANT</span>-->
       <div class="txt">
         <b>{{ flash.title }}</b>
         <p>{{ flash.text }}</p>
@@ -132,7 +138,7 @@ onMounted(async () => {
             </div>
             <b>Votre avis compte !</b>
             <p>Partagez vos idées et suggestions pour améliorer notre environnement de travail.</p>
-            <button class="btn-primary">Soumettre une suggestion</button>
+            <button class="btn-primary" @click="toHelpdesk">Soumettre une suggestion</button>
           </div>
         </div>
 

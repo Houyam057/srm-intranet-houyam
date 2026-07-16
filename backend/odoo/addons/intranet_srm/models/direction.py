@@ -7,13 +7,13 @@ class Direction(models.Model):
 
     name = fields.Char('Nom de la Direction', required=True)
     code = fields.Char('Code')
-    manager_id = fields.Many2one('intranet.employee', string='Manager')
+    manager_id = fields.Many2one('intranet.user', string='Manager')
     manager_name = fields.Char('Nom du Manager', related='manager_id.name', store=True)
-    
+
     pole_id = fields.Many2one('intranet.pole', string='Pôle')
     pole_name = fields.Char('Nom du Pôle', related='pole_id.name', store=True)
-    
-    employee_ids = fields.One2many('intranet.employee', 'direction_id', string='Employés')
+
+    employee_ids = fields.One2many('intranet.user', 'direction_id', string='Employés')
     employee_count = fields.Integer('Nombre d\'employés', compute='_compute_employee_count', store=True)
     
     description = fields.Text('Description')

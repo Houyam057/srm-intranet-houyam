@@ -13,7 +13,7 @@ class Feedback(models.Model):
         ('very_good', '😄 Très bon'),
     ]
 
-    employee_id = fields.Many2one('intranet.employee', string='Employé')
+    employee_id = fields.Many2one('intranet.user', string='Utilisateur')
     mood = fields.Selection(MOOD_SELECTION, string='Sentiment', required=True)
     comment = fields.Text('Commentaire')
     
