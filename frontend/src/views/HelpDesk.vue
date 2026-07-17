@@ -14,14 +14,6 @@ function submitForm() {
     // Appel API ici
 
     alert("Votre demande a été envoyée.");
-
-    const { subject, category, message } = form;
-    
-    emit('submit',{
-            subject,
-            category,
-            message
-    })
 }
 
 
