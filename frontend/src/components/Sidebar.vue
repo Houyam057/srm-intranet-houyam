@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { NAV_DIRECTIONS } from '../data/directions.js'
-import { Info } from 'lucide-vue-next'
+import { Info,Phone  } from 'lucide-vue-next'
 import logo from '../assets/logo.png'
 const route = useRoute()
 const router = useRouter()
@@ -17,9 +17,18 @@ const isDirectionsArea = computed(() =>
 const isHelpDesk = computed(() => route.name === 'helpdesk')
 const isFlashInfo = computed(() => route.name === 'flashinfo')
 const isNotreSociete = computed(() => route.name === 'notre-societe')
+const isApps = computed(() => ['apps', 'sap', 'sap-bi', 'odoo'].includes(route.name))
+const isFormation = computed(() => route.name==='formations-competences' )
 
+function goToFormation(){
+  router.push({name:'formations-competences'})
+}
 function goToFlashInfo() {
   router.push({ name: 'flashinfo' })
+}
+
+function goToApps(){
+  router.push({name : 'apps'})
 }
 
 function HelpDesk() {
@@ -90,11 +99,11 @@ function goToWebsite() {
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
       <span>Documents &amp; Procédures</span>
     </div>
-    <div class="nav-item">
+    <div class="nav-item" :class="{ active: isApps }" @click="goToApps">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
       <span>Outils &amp; Applications</span>
     </div>
-    <div class="nav-item">
+    <div class="nav-item" :class="{active: isFormation }" @click="goToFormation">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
       <span>Formation &amp; Compétences</span>
     </div>
@@ -105,11 +114,11 @@ function goToWebsite() {
 
     <div class="side-help">
       <div class="h-ic">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-5h3zM3 19a2 2 0 0 0 2 2h1v-5H3z"/></svg>
+        <Phone />
       </div>
       <div>
-        <b>Besoin d'aide ?</b>
-        <p>Contactez le support IT</p>
+        <!--<b>Besoin d'aide ?</b>-->
+        <b style="font-size:11.5px;">Contactez le support IT</b>
         <div class="num">0801 000 042</div>
         <div class="bar"></div>
       </div>

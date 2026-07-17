@@ -1,4 +1,7 @@
 from . import direction
+from . import direction_p
+from . import direction_new
+from . import sub_direction
 from . import news
 from . import document
 from . import feedback

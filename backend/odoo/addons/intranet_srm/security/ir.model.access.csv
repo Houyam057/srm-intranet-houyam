@@ -1,6 +1,12 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_direction_user,direction_user,model_intranet_direction,base.group_user,1,1,1,0
 access_direction_manager,direction_manager,model_intranet_direction,base.group_system,1,1,1,1
+access_direction_old_user,direction_old_user,model_intranet_direction_old,base.group_user,1,1,1,0
+access_direction_old_manager,direction_old_manager,model_intranet_direction_old,base.group_system,1,1,1,1
+access_direction_p_user,direction_p_user,model_intranet_direction_p,base.group_user,1,1,1,0
+access_direction_p_manager,direction_p_manager,model_intranet_direction_p,base.group_system,1,1,1,1
+access_sub_direction_user,sub_direction_user,model_intranet_sub_direction,base.group_user,1,1,1,0
+access_sub_direction_manager,sub_direction_manager,model_intranet_sub_direction,base.group_system,1,1,1,1
 access_news_user,news_user,model_intranet_news,base.group_user,1,0,0,0
 access_news_manager,news_manager,model_intranet_news,base.group_system,1,1,1,1
 access_document_user,document_user,model_intranet_document,base.group_user,1,0,0,0
@@ -9,5 +15,7 @@ access_feedback_user,feedback_user,model_intranet_feedback,base.group_user,1,1,1
 access_feedback_manager,feedback_manager,model_intranet_feedback,base.group_system,1,1,1,1
 access_pole_user,pole_user,model_intranet_pole,base.group_user,1,0,0,0
 access_pole_manager,pole_manager,model_intranet_pole,base.group_system,1,1,1,1
+access_pole_old_user,pole_old_user,model_intranet_pole_old,base.group_user,1,0,0,0
+access_pole_old_manager,pole_old_manager,model_intranet_pole_old,base.group_system,1,1,1,1
 access_user_user,user_user,model_intranet_user,base.group_user,1,1,1,0
 access_user_manager,user_manager,model_intranet_user,base.group_system,1,1,1,1

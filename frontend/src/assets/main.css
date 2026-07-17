@@ -43,7 +43,7 @@
   .side-help .h-ic svg{width:22px;height:22px;stroke:var(--navy)}
   .side-help b{font-size:12px}
   .side-help p{font-size:11px;color:var(--muted)}
-  .side-help .num{font-weight:800;color:var(--navy);font-size:15px;margin-top:2px}
+  .side-help .num{font-weight:800;color:var(--navy);font-size:13px;margin-top:2px}
   .side-help .bar{height:3px;width:60px;background:linear-gradient(90deg,var(--navy),var(--red) 55%,var(--green));border-radius:2px;margin-top:6px}
 
   /* ===== TOPBAR ===== */
@@ -76,7 +76,7 @@
   .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
   .card-pad{padding:20px 22px}
   .card-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-  .card-h h3{font-size:16px;font-weight:800;color:var(--ink)}
+  .card-h h3{font-size:20px;font-weight:800;color:var(--ink)}
   .see{color:var(--blue);font-size:12px;font-weight:700;cursor:pointer}
   .tri{height:4px;width:118px;border-radius:3px;background:linear-gradient(90deg,var(--navy) 0 34%,var(--red) 34% 67%,var(--green) 67% 100%)}
 

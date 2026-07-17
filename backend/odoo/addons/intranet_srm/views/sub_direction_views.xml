@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Sub Direction List View -->
+        <record id="sub_direction_list_view" model="ir.ui.view">
+            <field name="name">Sous-Direction List</field>
+            <field name="model">intranet.sub_direction</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="manager_name"/>
+                    <field name="direction_name"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Sub Direction Form View -->
+        <record id="sub_direction_form_view" model="ir.ui.view">
+            <field name="name">Sous-Direction Form</field>
+            <field name="model">intranet.sub_direction</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="manager_id"/>
+                                <field name="direction_id"/>
+                            </group>
+                        </group>
+                        <field name="description"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Sub Direction Action -->
+        <record id="sub_direction_action" model="ir.actions.act_window">
+            <field name="name">Sous-Directions</field>
+            <field name="res_model">intranet.sub_direction</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_sub_direction" name="Sous-Directions" action="sub_direction_action" parent="menu_intranet_main"/>
+    </data>
+</odoo>

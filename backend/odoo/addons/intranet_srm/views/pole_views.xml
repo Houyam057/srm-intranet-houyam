@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="pole_view_tree" model="ir.ui.view">
-        <field name="name">intranet.pole.tree</field>
-        <field name="model">intranet.pole</field>
+        <field name="name">intranet.pole_old.tree</field>
+        <field name="model">intranet.pole_old</field>
         <field name="arch" type="xml">
             <list string="Pôles">
                 <field name="name"/>
@@ -12,8 +12,8 @@
     </record>
 
     <record id="pole_view_form" model="ir.ui.view">
-        <field name="name">intranet.pole.form</field>
-        <field name="model">intranet.pole</field>
+        <field name="name">intranet.pole_old.form</field>
+        <field name="model">intranet.pole_old</field>
         <field name="arch" type="xml">
             <form string="Pôle">
                 <sheet>
@@ -23,24 +23,19 @@
                     <group>
                         <field name="description"/>
                     </group>
-                    <notebook>
-                        <page string="Directions">
-                            <field name="direction_ids" readonly="1"/>
-                        </page>
-                    </notebook>
                 </sheet>
             </form>
         </field>
     </record>
 
     <record id="pole_action" model="ir.actions.act_window">
-        <field name="name">Pôles</field>
-        <field name="res_model">intranet.pole</field>
+        <field name="name">Pôles (ancien)</field>
+        <field name="res_model">intranet.pole_old</field>
         <field name="view_mode">list,form</field>
     </record>
 
     <menuitem id="pole_menu"
-              name="Pôles"
+              name="Pôles (ancien)"
               parent="menu_intranet_config"
               action="pole_action"
               sequence="20"/>

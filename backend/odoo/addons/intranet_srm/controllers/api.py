@@ -331,38 +331,48 @@ class IntranetAPI(http.Controller):
             """)
             models = [r[0] for r in request.env.cr.fetchall()]
 
-            request.env.cr.execute("""
+            def _fetch_messages(query, params):
+                request.env.cr.execute(query, params)
+                columns = [desc[0] for desc in request.env.cr.description]
+                rows = request.env.cr.fetchall()
+                result = []
+                for row in rows:
+                    r = dict(zip(columns, row))
+                    body = r['body'] or ''
+                    body_clean = body.replace('<p>', '').replace('</p>', '').replace('<br>', '').replace('<br/>', '').strip()
+                    result.append({
+                        'id': r['id'],
+                        'subject': r['subject'] or '(Sans objet)',
+                        'body': body_clean[:200],
+                        'author_name': r['author_name'],
+                        'author_email': r['author_email'],
+                        'message_type': r['message_type'] or '',
+                        'model': r['model'] or '',
+                        'date': r['date'].isoformat() if r['date'] else '',
+                        'is_read': False,
+                    })
+                return result
+
+            base_query = """
                 SELECT m.id, m.subject, m.body, m.date, m.message_type, m.model,
                        COALESCE(p.name, 'Inconnu') AS author_name,
                        COALESCE(p.email, '') AS author_email
                 FROM mail_message m
                 LEFT JOIN res_partner p ON m.author_id = p.id
                 WHERE m.author_id != %s
-                  AND COALESCE(p.name, '') NOT LIKE '%OdooBot%'
-                ORDER BY m.date DESC
-                LIMIT 50
-            """, (int(partner_id),))
-            columns = [desc[0] for desc in request.env.cr.description]
-            rows = request.env.cr.fetchall()
+            """
 
-            data = []
-            for row in rows:
-                r = dict(zip(columns, row))
-                body = r['body'] or ''
-                body_clean = body.replace('<p>', '').replace('</p>', '').replace('<br>', '').replace('<br/>', '').strip()
-                data.append({
-                    'id': r['id'],
-                    'subject': r['subject'] or '(Sans objet)',
-                    'body': body_clean[:200],
-                    'author_name': r['author_name'],
-                    'author_email': r['author_email'],
-                    'message_type': r['message_type'] or '',
-                    'model': r['model'] or '',
-                    'date': r['date'].isoformat() if r['date'] else '',
-                    'is_read': False,
-                })
+            emails = _fetch_messages(
+                base_query + " AND COALESCE(m.message_type, '') NOT IN ('email_outgoing', 'notification') ORDER BY m.date DESC LIMIT 50",
+                (int(partner_id),)
+            )
 
-            return self._response(data={'emails': data, 'models': models})
+            notifications = _fetch_messages(
+                base_query + " AND COALESCE(m.message_type, '') IN ('email_outgoing', 'notification') ORDER BY m.date DESC LIMIT 50",
+                (int(partner_id),)
+            )
+
+            return self._response(data={'emails': emails, 'notifications': notifications, 'models': models})
         except Exception as e:
             return self._response(error=str(e), status=500)
 

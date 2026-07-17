@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!-- Direction List View -->
-        <record id="direction_list_view" model="ir.ui.view">
-            <field name="name">Direction List</field>
-            <field name="model">intranet.direction</field>
+        <!-- Direction Old List View -->
+        <record id="direction_old_list_view" model="ir.ui.view">
+            <field name="name">Direction Old List</field>
+            <field name="model">intranet.direction_old</field>
             <field name="arch" type="xml">
                 <list>
                     <field name="name"/>
                     <field name="code"/>
-                    <field name="manager_name"/>
-                    <field name="pole_name"/>
-                    <field name="employee_count"/>
                 </list>
             </field>
         </record>
 
-        <!-- Direction Form View -->
-        <record id="direction_form_view" model="ir.ui.view">
-            <field name="name">Direction Form</field>
-            <field name="model">intranet.direction</field>
+        <!-- Direction Old Form View -->
+        <record id="direction_old_form_view" model="ir.ui.view">
+            <field name="name">Direction Old Form</field>
+            <field name="model">intranet.direction_old</field>
             <field name="arch" type="xml">
                 <form>
                     <sheet>
@@ -27,14 +24,7 @@
                             <field name="name"/>
                         </h1>
                         <group>
-                            <group>
-                                <field name="code"/>
-                                <field name="pole_id"/>
-                            </group>
-                            <group>
-                                <field name="manager_id"/>
-                                <field name="employee_count" readonly="1"/>
-                            </group>
+                            <field name="code"/>
                         </group>
                         <field name="description"/>
                     </sheet>
@@ -42,14 +32,14 @@
             </field>
         </record>
 
-        <!-- Direction Action -->
-        <record id="direction_action" model="ir.actions.act_window">
-            <field name="name">Directions</field>
-            <field name="res_model">intranet.direction</field>
+        <!-- Direction Old Action -->
+        <record id="direction_old_action" model="ir.actions.act_window">
+            <field name="name">Directions (ancien)</field>
+            <field name="res_model">intranet.direction_old</field>
             <field name="view_mode">list,form</field>
         </record>
 
         <!-- Menu Item -->
-        <menuitem id="menu_direction" name="Directions" action="direction_action" parent="menu_intranet_main"/>
+        <menuitem id="menu_direction_old" name="Directions (ancien)" action="direction_old_action" parent="menu_intranet_config"/>
     </data>
 </odoo>

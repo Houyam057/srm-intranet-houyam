@@ -15,7 +15,8 @@ const activeTab = ref('infos')
 const tabs = computed(() => {
   const list = [
     { key: 'infos', label: 'Profil' },
-    { key: 'emails', label: 'Emails' }
+    { key: 'emails', label: 'Emails' },
+    { key: 'notifications', label: 'Notifications' }
   ]
   if (isAdmin.value) {
     list.splice(1, 0, { key: 'users', label: 'Users' })
@@ -36,6 +37,7 @@ const user = reactive({
 const employees = ref([])
 const loadingEmployees = ref(false)
 const emails = ref([])
+const notifications = ref([])
 const loadingEmails = ref(false)
 
 onMounted(async () => {
@@ -72,6 +74,9 @@ function onTabChange(key) {
   if (key === 'emails' && emails.value.length === 0) {
     fetchEmails()
   }
+  if (key === 'notifications' && notifications.value.length === 0) {
+    fetchEmails()
+  }
 }
 
 async function fetchEmails() {
@@ -79,8 +84,10 @@ async function fetchEmails() {
   try {
     const res = await odooApi.get('/api/emails')
     emails.value = res.data?.data?.emails || []
+    notifications.value = res.data?.data?.notifications || []
   } catch {
     emails.value = []
+    notifications.value = []
   } finally {
     loadingEmails.value = false
   }
@@ -274,6 +281,55 @@ async function handleLogout() {
                   <td class="email-body">{{ email.body }}</td>
                   <td>{{ email.date }}</td>
                   <td><span class="read-badge">{{ email.message_type }}</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </template>
+
+      <!-- Notifications Tab -->
+      <template v-if="activeTab === 'notifications'">
+        <div class="card card-pad">
+          <div class="card-h">
+            <h3>Notifications</h3>
+          </div>
+
+          <div v-if="loadingEmails" style="text-align:center;padding:40px;color:var(--muted)">
+            Chargement...
+          </div>
+
+          <div v-else-if="notifications.length === 0" style="text-align:center;padding:40px;color:var(--muted)">
+            Aucune notification trouvée
+          </div>
+
+          <div v-else class="table-wrap">
+            <table class="users-table emails-table">
+              <thead>
+                <tr>
+                  <th>État</th>
+                  <th>De</th>
+                  <th>Objet</th>
+                  <th>Aperçu</th>
+                  <th>Date</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="notif in notifications" :key="notif.id"
+                    :class="{ 'email-unread': !notif.is_read }"
+                    @click="markAsRead(notif.id)"
+                    style="cursor:pointer">
+                  <td>
+                    <span :class="['read-badge', notif.is_read ? 'read' : 'unread']">
+                      {{ notif.is_read ? 'Lu' : 'Non lu' }}
+                    </span>
+                  </td>
+                  <td><b>{{ notif.author_name }}</b></td>
+                  <td>{{ notif.subject }}</td>
+                  <td class="email-body">{{ notif.body }}</td>
+                  <td>{{ notif.date }}</td>
+                  <td><span class="read-badge">{{ notif.message_type }}</span></td>
                 </tr>
               </tbody>
             </table>
