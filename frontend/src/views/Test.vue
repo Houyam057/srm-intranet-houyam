@@ -1,14 +1,7 @@
 <script setup>
-import { ref, computed, watch } from "vue";
-import {Check,Hourglass,Award,LibraryBig  } from 'lucide-vue-next'
+import { ref, computed } from "vue";
 
 const search = ref("");
-const pageStart = ref(0);
-const cataloguePage = ref(0);
-const PAGE_SIZE = 3;
-const CATALOGUE_PAGE_SIZE = 5;
-
-watch(search, () => { pageStart.value = 0; cataloguePage.value = 0; });
 
 const formations = ref([
     { id: 1, title: "Excel Avancé", category: "Bureautique", level: "Intermédiaire", duration: "8 heures", trainer: "Service Informatique", status: "En cours", progress: 65, date: "20 Septembre 2026", places: 12, color: "navy", icon: "📊" },
@@ -16,13 +9,7 @@ const formations = ref([
     { id: 3, title: "Leadership", category: "Management", level: "Avancé", duration: "6 heures", trainer: "Direction RH", status: "Terminée", progress: 100, date: "5 Août 2026", places: 0, color: "green", icon: "👥" },
     { id: 4, title: "CyberSécurité", category: "Sécurité", level: "Intermédiaire", duration: "10 heures", trainer: "DSI", status: "Disponible", progress: 0, date: "30 Septembre 2026", places: 20, color: "red", icon: "🛡️" },
     { id: 5, title: "Gestion des Achats", category: "Achats", level: "Expert", duration: "15 heures", trainer: "Direction Achats", status: "En cours", progress: 45, date: "15 Novembre 2026", places: 10, color: "navy", icon: "📦" },
-    { id: 6, title: "Communication Professionnelle", category: "RH", level: "Débutant", duration: "4 heures", trainer: "Direction RH", status: "Disponible", progress: 0, date: "3 Décembre 2026", places: 25, color: "blue", icon: "💬" },
-    { id: 7, title: "Excel Avancé", category: "Bureautique", level: "Intermédiaire", duration: "8 heures", trainer: "Service Informatique", status: "En cours", progress: 65, date: "20 Septembre 2026", places: 12, color: "navy", icon: "📊" },
-    { id: 8, title: "Power BI", category: "Business Intelligence", level: "Débutant", duration: "12 heures", trainer: "Consultant BI", status: "Disponible", progress: 0, date: "12 Octobre 2026", places: 18, color: "blue", icon: "📈" },
-    { id: 9, title: "Leadership", category: "Management", level: "Avancé", duration: "6 heures", trainer: "Direction RH", status: "Terminée", progress: 100, date: "5 Août 2026", places: 0, color: "green", icon: "👥" },
-    { id: 10, title: "CyberSécurité", category: "Sécurité", level: "Intermédiaire", duration: "10 heures", trainer: "DSI", status: "Disponible", progress: 0, date: "30 Septembre 2026", places: 20, color: "red", icon: "🛡️" },
-    { id: 11, title: "Gestion des Achats", category: "Achats", level: "Expert", duration: "15 heures", trainer: "Direction Achats", status: "En cours", progress: 45, date: "15 Novembre 2026", places: 10, color: "navy", icon: "📦" },
-    { id: 12, title: "Communication Professionnelle", category: "RH", level: "Débutant", duration: "4 heures", trainer: "Direction RH", status: "Disponible", progress: 0, date: "3 Décembre 2026", places: 25, color: "blue", icon: "💬" }
+    { id: 6, title: "Communication Professionnelle", category: "RH", level: "Débutant", duration: "4 heures", trainer: "Direction RH", status: "Disponible", progress: 0, date: "3 Décembre 2026", places: 25, color: "blue", icon: "💬" }
 ]);
 
 const badges = ref([
@@ -66,21 +53,6 @@ const recommended = computed(() => {
     return formations.value.filter(f => f.progress === 0).slice(0, 3);
 });
 
-const mesFormations = computed(() => formations.value.filter(f => f.progress > 0));
-const visibleMesFormations = computed(() => mesFormations.value.slice(0, pageStart.value + PAGE_SIZE));
-const hasMoreMesFormations = computed(() => pageStart.value + PAGE_SIZE < mesFormations.value.length);
-
-function loadMoreMesFormations() {
-    pageStart.value += PAGE_SIZE;
-}
-
-const visibleCatalogue = computed(() => filteredFormations.value.slice(0, cataloguePage.value + CATALOGUE_PAGE_SIZE));
-const hasMoreCatalogue = computed(() => cataloguePage.value + CATALOGUE_PAGE_SIZE < filteredFormations.value.length);
-
-function loadMoreCatalogue() {
-    cataloguePage.value += CATALOGUE_PAGE_SIZE;
-}
-
 function inscrire(formation) {
     formation.status = "Inscrit";
     alert("Vous êtes inscrit à : " + formation.title);
@@ -112,12 +84,8 @@ function getColor(color) {
 
 <template>
     <div class="page show formation-page">
-        <div class="crumbs">
-            Accueil <span class="sep">›</span>
-            <span class="cur">Formations & Compétences</span>
-        </div>
         <!-- HERO -->
-     <!--   <section class="hero">
+        <section class="hero">
             <div class="bg"></div>
             <div class="content">
                 <div class="eyebrow">Plateforme de Formation</div>
@@ -131,114 +99,101 @@ function getColor(color) {
                 </div>
             </div>
         </section>
-    -->
+
         <!-- KPI -->
         <div class="kpi-row">
-            <div class="card-grid" >
             <div class="card">
                 <div class="card-pad">
-                    <div class="kpi" style="border: transparent;">
-                        <div class="head"><div class="ic ic-navy"><LibraryBig /></div> <h2>Catalogue</h2></div>
+                    <div class="kpi">
+                        <div class="head"><div class="ic ic-navy">📚</div> Catalogue</div>
                         <div class="val">{{ stats.total }}</div>
+                        <div class="lbl">Formations disponibles</div>
                     </div>
                 </div>
             </div>
             <div class="card">
                 <div class="card-pad">
-                    <div class="kpi" style="border: transparent;">
-                        <div class="head"><div class="ic ic-green"><Check /></div> <h2>Terminées</h2></div>
+                    <div class="kpi">
+                        <div class="head"><div class="ic ic-green">✅</div> Terminées</div>
                         <div class="val">{{ stats.completed }}</div>
+                        <div class="lbl">Certifiées</div>
                     </div>
                 </div>
             </div>
             <div class="card">
                 <div class="card-pad">
-                    <div class="kpi" style="border: transparent;">
-                        <div class="head"><div class="ic ic-red"><Hourglass /></div> <h2>En cours</h2></div>
+                    <div class="kpi">
+                        <div class="head"><div class="ic ic-red">⏳</div> En cours</div>
                         <div class="val">{{ stats.progress }}</div>
+                        <div class="lbl">Formations actives</div>
                     </div>
                 </div>
             </div>
             <div class="card">
                 <div class="card-pad">
-                    <div class="kpi" style="border: transparent;">
-                        <div class="head"><div class="ic ic-blue"><Award /></div> <h2>Badges</h2></div>
+                    <div class="kpi">
+                        <div class="head"><div class="ic">🏅</div> Badges</div>
                         <div class="val">{{ badges.length }}</div>
-                    </div>
-                </div>
-            </div>    
-        </div>
-        <div class="card">
-                <div class="card-pad">
-                    <div class="card-h"><h3>Mes formations</h3></div>
-                    <div class="mes-formations-list">
-                        <div class="my-training" v-for="formation in visibleMesFormations" :key="'my2'+formation.id">
-                            <div class="left">
-                                <div class="mini-icon" :style="{background:getColor(formation.color)}">{{ formation.icon }}</div>
-                                <div>
-                                    <strong>{{ formation.title }}</strong>
-                                    <p>{{ formation.progress }}% terminé</p>
-                                </div>
-                            </div>
-                            <div class="right">
-                                <div class="mini-progress"><div class="mini-fill" :style="{width:formation.progress+'%'}"></div></div>
-                            </div>
-                        </div>
-                        <div v-if="hasMoreMesFormations" class="load-more" @click="loadMoreMesFormations">
-                            <span>Voir plus</span>
-                            <span class="arrow">↓</span>
-                        </div>
+                        <div class="lbl">Débloqués</div>
                     </div>
                 </div>
             </div>
-    </div>
+        </div>
 
         <!-- RECHERCHE -->
-        <div class="card" style="padding: 2%;">
+        <div class="card">
             <div class="card-pad">
-                <div class="card-h"><h3>Rechercher la formation que vous souhaiter</h3></div>
+                <div class="card-h"><h3>Catalogue des formations</h3></div>
                 <input v-model="search" class="search-input" placeholder="Rechercher une formation...">
             </div>
+        </div>
 
         <!-- CATALOGUE -->
-        <div class="catalogue-list" :class="{ 'catalogue-scrollable': hasMoreCatalogue }">
         <div class="formation-grid">
-            <div class="formation-card" v-for="formation in visibleCatalogue" :key="formation.id">
+            <div class="formation-card" v-for="formation in filteredFormations" :key="formation.id">
                 <div class="formation-top">
                     <div class="formation-icon" :style="{background:getColor(formation.color)}">{{ formation.icon }}</div>
-                    <div style="    grid-column: span 2;">
+                    <div>
                         <h3>{{ formation.title }}</h3>
                         <span>{{ formation.category }}</span>
                     </div>
                 </div>
+                <div class="formation-info">
+                    <p>👨‍🏫 {{ formation.trainer }}</p>
+                    <p>🎯 {{ formation.level }}</p>
+                    <p>⏱ {{ formation.duration }}</p>
+                    <p>📅 {{ formation.date }}</p>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" :style="{width:formation.progress+'%'}"></div></div>
+                <div class="progress-label">{{ formation.progress }} %</div>
                 <div class="formation-footer">
                     <span class="status" :class="getStatusClass(formation.status)">{{ formation.status }}</span>
                     <button v-if="formation.progress==0" class="btn-primary" @click="inscrire(formation)">S'inscrire</button>
                     <button v-else class="btn-primary" @click="continuer(formation)">Continuer</button>
                 </div>
             </div>
-            <div v-if="hasMoreCatalogue" class="load-more catalogue-load-more" @click="loadMoreCatalogue">
-                <span>Voir plus</span>
-                <span class="arrow">↓</span>
-            </div>
         </div>
-        </div>
-    </div>
 
         <!-- MES FORMATIONS + BADGES -->
         <div class="two-cols">
-             <div class="card">
+            <div class="card">
                 <div class="card-pad">
-                    <div class="card-h"><h3>📜 Mes certificats</h3></div>
-                    <div class="certificate" v-for="cert in certificats" :key="cert.title">
-                        <div>
-                            <strong>{{ cert.title }}</strong>
-                            <p>Obtenu le {{ cert.date }}</p>
+                    <div class="card-h"><h3>📖 Mes formations</h3></div>
+                    <div class="my-training" v-for="formation in formations.filter(f=>f.progress>0)" :key="'my'+formation.id">
+                        <div class="left">
+                            <div class="mini-icon" :style="{background:getColor(formation.color)}">{{ formation.icon }}</div>
+                            <div>
+                                <strong>{{ formation.title }}</strong>
+                                <p>{{ formation.progress }}% terminé</p>
+                            </div>
                         </div>
-                        <button class="btn-primary">Télécharger</button>
+                        <div class="right">
+                            <div class="mini-progress"><div class="mini-fill" :style="{width:formation.progress+'%'}"></div></div>
+                        </div>
                     </div>
                 </div>
             </div>
+
             <div class="card">
                 <div class="card-pad">
                     <div class="card-h"><h3>🏅 Mes badges</h3></div>
@@ -254,7 +209,18 @@ function getColor(color) {
 
         <!-- CERTIFICATS + RECOMMANDATIONS -->
         <div class="two-cols">
-           
+            <div class="card">
+                <div class="card-pad">
+                    <div class="card-h"><h3>📜 Mes certificats</h3></div>
+                    <div class="certificate" v-for="cert in certificats" :key="cert.title">
+                        <div>
+                            <strong>{{ cert.title }}</strong>
+                            <p>Obtenu le {{ cert.date }}</p>
+                        </div>
+                        <button class="btn-primary">Télécharger</button>
+                    </div>
+                </div>
+            </div>
 
             <div class="card">
                 <div class="card-pad">
@@ -271,7 +237,27 @@ function getColor(color) {
                     </div>
                 </div>
             </div>
-                        <div class="card">
+        </div>
+
+        <!-- COMPÉTENCES -->
+        <div class="card">
+            <div class="card-pad">
+                <div class="card-h"><h3>📈 Mes compétences</h3></div>
+                <div class="skill" v-for="skill in competences" :key="skill.name">
+                    <div class="skill-header">
+                        <span>{{ skill.name }}</span>
+                        <strong>{{ skill.value }}%</strong>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" :style="{width:skill.value+'%'}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CALENDRIER + PROCHAINES SESSIONS -->
+        <div class="two-cols">
+            <div class="card">
                 <div class="card-pad">
                     <div class="card-h"><h3>📅 Prochaines sessions</h3></div>
                     <div class="timeline">
@@ -299,31 +285,24 @@ function getColor(color) {
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- COMPÉTENCES -->
-        <div class="card">
-            <div class="card-pad">
-                <div class="card-h"><h3>📈 Mes compétences</h3></div>
-                <div class="skill" v-for="skill in competences" :key="skill.name">
-                    <div class="skill-header">
-                        <span>{{ skill.name }}</span>
-                        <strong>{{ skill.value }}%</strong>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-fill" :style="{width:skill.value+'%'}"></div>
-                    </div>
-                </div>
+            <div class="card">
+            <div class="card-pad quote">
+                <h2>💡 Citation du mois</h2>
+                <blockquote>"L'apprentissage est un trésor qui suivra son propriétaire partout."</blockquote>
             </div>
         </div>
-
-        <!-- CALENDRIER + PROCHAINES SESSIONS -->
-
         </div>
+
+        <!-- Citation -->
+        
+    </div>
 </template>
 
 <style scoped>
-
+/* =====================================================
+   FORMATION PAGE — scoped overrides only
+   Base styles come from main.css
+===================================================== */
 
 .formation-page { display:flex; flex-direction:column; gap:24px; }
 
@@ -353,20 +332,15 @@ function getColor(color) {
 .hero .tri-hero { width:90px; height:5px; background:#fff; border-radius:20px; }
 
 /* ================= KPI ================= */
-.kpi-row { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+.kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
 .kpi { display:flex; flex-direction:column; gap:10px; }
 .kpi .head { display:flex; align-items:center; gap:10px; font-weight:700; color:var(--muted); }
-.kpi .val { font-size:32px;font-weight:800;letter-spacing:.5px }
+.kpi .val { font-size:34px; font-weight:800; color:var(--navy); }
 .kpi .lbl { color:var(--muted); font-size:14px; }
 
-.card-grid{
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-}
 /* ================= SEARCH ================= */
 .search-input {
-    width:100%; margin-top:15px; border:2px solid var(--line);
+    width:100%; margin-top:15px; border:1px solid var(--line);
     border-radius:12px; padding:14px 18px; outline:none;
     font-size:15px; transition:.25s; background:white;
 }
@@ -375,19 +349,8 @@ function getColor(color) {
 }
 
 /* ================= GRID & CARDS ================= */
-.catalogue-scrollable {
-    max-height: 460px;
-    overflow-y: auto;
-    scrollbar-gutter: stable;
-}
-.catalogue-load-more {
-    min-height: 200px;
-    height: auto;
-    margin-top: 0;
-    border:2px dashed var(--line); border-radius:18px;
-}
 .formation-grid {
-    display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:24px;margin:10px;
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:24px;
 }
 .formation-card {
     background:#fff; border:1px solid var(--line); border-radius:18px;
@@ -396,11 +359,9 @@ function getColor(color) {
 .formation-card:hover { transform:scale(1.01); border-color:var(--blue); }
 
 .formation-top {
-    display:grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    align-items:center; gap:18px; padding:22px;
+    display:flex; align-items:center; gap:18px; padding:22px;
+    border-bottom:1px solid var(--line);
 }
-
 .formation-icon {
     width:64px; height:64px; border-radius:16px; color:white;
     display:flex; align-items:center; justify-content:center;
@@ -440,15 +401,9 @@ function getColor(color) {
 .two-cols { display:grid; grid-template-columns:2fr 1fr; gap:22px; }
 
 /* Mes formations */
-.mes-formations-list {
-    max-height: calc(4 * 78px);
-    overflow-y: auto;
-    scrollbar-gutter: stable;
-}
 .my-training {
     display:flex; justify-content:space-between; align-items:center;
-    gap:18px; padding:16px 0; height:78px; box-sizing:border-box;
-    border-bottom:1px solid var(--line);
+    gap:18px; padding:16px 0; border-bottom:1px solid var(--line);
 }
 .my-training:last-child { border-bottom:none; }
 .left { display:flex; align-items:center; gap:15px; }
@@ -482,13 +437,9 @@ function getColor(color) {
 /* Recommandations */
 .recommended {
     display:flex; justify-content:space-between; align-items:center;
-    gap:16px; padding:22px 0; border-bottom:1px solid var(--line);
+    gap:16px; padding:15px 0; border-bottom:1px solid var(--line);
 }
 .recommended:last-child { border-bottom:none; }
-.recommended .left { gap:18px; }
-.recommended .mini-icon { width:54px; height:54px; font-size:26px; }
-.recommended strong { font-size:16px; }
-.recommended p { margin-top:4px; }
 
 /* Compétences */
 .skill { margin-top:18px; }
@@ -525,21 +476,6 @@ function getColor(color) {
 }
 .quote blockquote::before { content:"\201C"; color:var(--blue); font-size:42px; }
 .quote blockquote::after { content:"\201D"; color:var(--blue); font-size:42px; }
-
-/* Load More */
-.load-more {
-    display:flex; align-items:center; justify-content:center; gap:10px;
-    padding:0; height:78px; box-sizing:border-box; margin-top:0;
-    border:2px dashed var(--line); border-radius:12px;
-    cursor:pointer; transition:.25s;
-}
-.load-more:hover { border-color:var(--blue); background:var(--blue-soft); }
-.load-more span { font-weight:700; color:var(--navy); font-size:14px; }
-.load-more .arrow { font-size:18px; animation:bounce 1.5s infinite; }
-@keyframes bounce {
-    0%,100% { transform:translateY(0); }
-    50% { transform:translateY(4px); }
-}
 
 /* Animations */
 .formation-card { animation:fadeUp .45s ease; }

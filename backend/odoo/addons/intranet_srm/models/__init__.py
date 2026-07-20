@@ -7,3 +7,5 @@ from . import document
 from . import feedback
 from . import pole
 from . import user
+from . import formation
+from . import inscription

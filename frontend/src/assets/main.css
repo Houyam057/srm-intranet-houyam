@@ -128,7 +128,7 @@
   .kpi .head{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:12.5px;font-weight:600;margin-bottom:10px}
   .kpi .ic{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;flex:none}
   .kpi .ic svg{width:20px;height:20px;stroke:#fff}
-  .ic-navy{background:var(--navy)} .ic-green{background:var(--green)} .ic-red{background:var(--red)}
+  .ic-navy{background:var(--navy)} .ic-green{background:var(--green)} .ic-red{background:var(--red)} .ic-blue{background-color: #4A73AB;}
   .kpi .val{font-size:32px;font-weight:800;letter-spacing:.5px}
   .kpi .lbl{font-size:12.5px;color:var(--muted)}
   .kpi .trend{display:inline-flex;align-items:center;gap:5px;color:var(--green-2);font-size:12px;font-weight:700;margin-top:10px}

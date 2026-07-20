@@ -11,6 +11,7 @@ const routes = [
   { path : '/apps/sap-bi', name:'sap-bi',component:() => import ('../views/sap-bi.vue')},
   { path : '/apps/odoo', name:'odoo',component:() => import ('../views/Odoo.vue')},
   { path : '/formations-competences' , name :'formations-competences' ,component :() => import ('../views/Formation.vue')},
+  { path : '/test',name:'test',component :()=> import('../views/Test.vue')},
 
   {
     // équivalent de goDir(key) du mockup : une page générique alimentée par le param :key
