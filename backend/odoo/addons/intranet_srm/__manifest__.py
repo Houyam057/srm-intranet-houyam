@@ -16,6 +16,7 @@
         'views/document_views.xml',
         'views/feedback_views.xml',
         'views/user_views.xml',
+        'views/helpdesk_ticket_views.xml',
         'data/cron_data.xml',
         'data/demo_data.xml',
     ],
