@@ -1,17 +1,18 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { DIRS } from '../data/directions.js'
 import { odooApi } from '../api/odoo.js'
 
 const props = defineProps({
   key: { type: String, required: true }
 })
 const router = useRouter()
-const apiDirections = ref({})
+const direction = ref(null)
 
-// équivalent de : const d = DIRS[key]; document.getElementById('gdName')... du mockup
-const direction = computed(() => apiDirections.value[props.key] || DIRS[props.key] || { name: 'Direction inconnue', mgr: '—', pole: '—', eff: '—' })
+const directionName = computed(() => direction.value?.name || 'Direction inconnue')
+const managerName = computed(() => direction.value?.manager_name || '—')
+const poleName = computed(() => direction.value?.pole_name || '—')
+const description = computed(() => direction.value?.description || '')
 
 const notes = [
   { text: 'Note de service interne de la direction', date: '26/06/2026' },
@@ -32,20 +33,10 @@ const docs = [
 
 onMounted(async () => {
   try {
-    const response = await odooApi.get('/api/directions')
-    const directions = response.data?.data?.directions || []
-    apiDirections.value = directions.reduce((all, item) => {
-      if (!item.code) return all
-      all[item.code.toLowerCase()] = {
-        name: item.name,
-        mgr: item.manager_name || '—',
-        pole: item.pole_name || '—',
-        eff: item.employee_count ?? '—'
-      }
-      return all
-    }, {})
+    const response = await odooApi.get(`/api/directions/${props.key}`)
+    direction.value = response.data?.data || null
   } catch {
-    // Keep local mock data when Odoo is not reachable.
+    direction.value = null
   }
 })
 </script>
@@ -61,12 +52,11 @@ onMounted(async () => {
 
     <div class="gd-hero">
       <div class="kicker">Direction</div>
-      <h1>{{ direction.name }}</h1>
+      <h1>{{ directionName }}</h1>
       <div class="tri-h"></div>
       <div class="gd-meta">
-        <div><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg>Responsable : <b>{{ direction.mgr }}</b></div>
-        <div><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14"/></svg>Rattachement : <b>{{ direction.pole }}</b></div>
-        <div><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><b>{{ direction.eff }}</b> collaborateur(s)</div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg>Responsable : <b>{{ managerName }}</b></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14"/></svg>Rattachement : <b>{{ poleName }}</b></div>
       </div>
     </div>
 

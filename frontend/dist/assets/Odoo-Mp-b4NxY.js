@@ -1,0 +1,1 @@
+import{_ as s,b as o,d as t,e as r}from"./index-BuJa2iTh.js";const a={},d={class:"dashboard"};function n(c,e){return o(),t("div",d,[...e[0]||(e[0]=[r("iframe",{src:"https://eservices.srm-tta.ma/odoo?db=SRM_TTA_PROD",width:"100%",height:"600",style:{border:"none"}},null,-1)])])}const i=s(a,[["render",n]]);export{i as default};

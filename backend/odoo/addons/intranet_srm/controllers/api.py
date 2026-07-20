@@ -53,11 +53,21 @@ class IntranetAPI(http.Controller):
                 'email': user.email,
                 'phone': user.phone or '',
                 'role': user.role,
-                'direction_name': user.direction_name or '',
+                'direction_id': user.direction_id or 0,
                 'job_title': user.job_title or '',
                 'is_manager': user.is_manager,
                 'avatar_url': user.avatar_url or '',
             }
+
+            if user.direction_id:
+                Direction = request.env['intranet.direction_p'].sudo()
+                direction = Direction.browse(user.direction_id)
+                if direction.exists():
+                    data['direction_name'] = direction.name
+                else:
+                    data['direction_name'] = ''
+            else:
+                data['direction_name'] = ''
             return self._response(data=data)
         except Exception as e:
             return self._response(error=str(e), status=500)
@@ -112,7 +122,6 @@ class IntranetAPI(http.Controller):
                 'direction_p_name': direction.direction_p_name,
                 'employee_count': len(employees),
                 'description': direction.description,
-                'employees': employees,
             }
 
             return self._response(data=data)
@@ -146,9 +155,11 @@ class IntranetAPI(http.Controller):
     def get_employees(self):
         try:
             request.env.cr.execute("""
-                SELECT id, name, email, phone, login, role,
-                       direction_name, job_title, is_manager, active, created_at
-                FROM intranet_user
+                SELECT u.id, u.name, u.email, u.phone, u.login, u.role,
+                       u.direction_id, COALESCE(dp.name, '') as direction_name,
+                       u.job_title, u.is_manager, u.active, u.created_at
+                FROM intranet_user u
+                LEFT JOIN intranet_direction_p dp ON u.direction_id = dp.id
             """)
             columns = [desc[0] for desc in request.env.cr.description]
             rows = request.env.cr.fetchall()
@@ -177,7 +188,12 @@ class IntranetAPI(http.Controller):
     @http.route('/api/employees/<int:employee_id>', auth='public', methods=['GET'], csrf=False, cors='*')
     def get_employee(self, employee_id):
         try:
-            request.env.cr.execute("SELECT * FROM intranet_user WHERE id = %s", (employee_id,))
+            request.env.cr.execute("""
+                SELECT u.*, COALESCE(dp.name, '') as direction_name
+                FROM intranet_user u
+                LEFT JOIN intranet_direction_p dp ON u.direction_id = dp.id
+                WHERE u.id = %s
+            """, (employee_id,))
             columns = [desc[0] for desc in request.env.cr.description]
             row = request.env.cr.fetchone()
 
@@ -449,7 +465,7 @@ class IntranetAPI(http.Controller):
     @http.route('/api/dashboard', auth='public', methods=['GET'], csrf=False, cors='*')
     def get_dashboard(self):
         try:
-            Direction = request.env['intranet.direction'].sudo()
+            Direction = request.env['intranet.direction_p'].sudo()
             User = request.env['intranet.user'].sudo()
             News = request.env['intranet.news'].sudo()
 
