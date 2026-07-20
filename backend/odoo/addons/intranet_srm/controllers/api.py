@@ -73,7 +73,9 @@ class IntranetAPI(http.Controller):
             data = [{
                 'id': d.id,
                 'name': d.name,
+                'code': d.code or '',
                 'manager_name': d.manager_name,
+                'pole_name': d.pole_id.name or '',
                 'direction_p_name': d.direction_p_name,
                 'employee_count': User.search_count([('direction_id', '=', d.id)]),
                 'description': d.description,
@@ -104,7 +106,9 @@ class IntranetAPI(http.Controller):
             data = {
                 'id': direction.id,
                 'name': direction.name,
+                'code': direction.code or '',
                 'manager_name': direction.manager_name,
+                'pole_name': direction.pole_id.name or '',
                 'direction_p_name': direction.direction_p_name,
                 'employee_count': len(employees),
                 'description': direction.description,
@@ -126,8 +130,10 @@ class IntranetAPI(http.Controller):
             Direction = request.env['intranet.direction']
             new_direction = Direction.create({
                 'name': data.get('name'),
+                'code': data.get('code'),
                 'description': data.get('description'),
                 'manager_id': data.get('manager_id'),
+                'pole_id': data.get('pole_id'),
                 'direction_p_id': data.get('direction_p_id'),
             })
 

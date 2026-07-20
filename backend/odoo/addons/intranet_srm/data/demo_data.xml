@@ -17,39 +17,60 @@
             <field name="description">Direction Principale : fonctions de support</field>
         </record>
 
+        <!-- POLES (modele intranet.pole, distinct de intranet.direction_p) -->
+        <record id="pole_exploitations" model="intranet.pole">
+            <field name="name">Pôle Exploitations</field>
+            <field name="description">Pôle des exploitations</field>
+        </record>
+
+        <record id="pole_support" model="intranet.pole">
+            <field name="name">Pôle Fonctions Support</field>
+            <field name="description">Pôle des fonctions de support</field>
+        </record>
+
         <!-- DIRECTIONS -->
         <record id="direction_dg" model="intranet.direction">
             <field name="name">Direction Générale</field>
+            <field name="code">dg</field>
             <field name="direction_p_id" ref="direction_p_dg"/>
             <field name="description">Direction Générale de SRM-TTA</field>
         </record>
 
         <record id="direction_exploit" model="intranet.direction">
             <field name="name">Direction en charge des Exploitations</field>
+            <field name="code">exploit</field>
             <field name="direction_p_id" ref="direction_p_dg"/>
             <field name="description">Direction responsable des exploitations</field>
         </record>
 
         <record id="direction_eau" model="intranet.direction">
             <field name="name">Direction Exploitation Eau Potable</field>
+            <field name="code">eau</field>
+            <field name="pole_id" ref="pole_exploitations"/>
             <field name="direction_p_id" ref="direction_p_exploitations"/>
             <field name="description">Gestion de l'eau potable</field>
         </record>
 
         <record id="direction_assain" model="intranet.direction">
             <field name="name">Direction Exploitation Assainissement Liquide</field>
+            <field name="code">assain</field>
+            <field name="pole_id" ref="pole_exploitations"/>
             <field name="direction_p_id" ref="direction_p_exploitations"/>
             <field name="description">Gestion de l'assainissement</field>
         </record>
 
         <record id="direction_elec" model="intranet.direction">
             <field name="name">Direction Exploitation Électricité</field>
+            <field name="code">elec</field>
+            <field name="pole_id" ref="pole_exploitations"/>
             <field name="direction_p_id" ref="direction_p_exploitations"/>
             <field name="description">Gestion de l'électricité</field>
         </record>
 
         <record id="direction_rh" model="intranet.direction">
             <field name="name">Direction du Capital Humain</field>
+            <field name="code">rh</field>
+            <field name="pole_id" ref="pole_support"/>
             <field name="direction_p_id" ref="direction_p_support"/>
             <field name="description">Gestion des ressources humaines</field>
         </record>
