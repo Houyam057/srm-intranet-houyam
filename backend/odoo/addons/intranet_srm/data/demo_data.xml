@@ -18,42 +18,42 @@
         </record>
 
         <!-- DIRECTIONS -->
-        <record id="direction_dg" model="intranet.direction">
+        <record id="direction_dg" model="intranet.direction_p">
             <field name="name">Direction Générale</field>
             <field name="code">DG</field>
             <field name="pole_id" ref="pole_dg"/>
             <field name="description">Direction Générale de SRM-TTA</field>
         </record>
 
-        <record id="direction_exploit" model="intranet.direction">
+        <record id="direction_exploit" model="intranet.direction_p">
             <field name="name">Direction en charge des Exploitations</field>
             <field name="code">EXPLOIT</field>
             <field name="pole_id" ref="pole_dg"/>
             <field name="description">Direction responsable des exploitations</field>
         </record>
 
-        <record id="direction_eau" model="intranet.direction">
+        <record id="direction_eau" model="intranet.direction_p">
             <field name="name">Direction Exploitation Eau Potable</field>
             <field name="code">EAU</field>
             <field name="pole_id" ref="pole_exploitations"/>
             <field name="description">Gestion de l'eau potable</field>
         </record>
 
-        <record id="direction_assain" model="intranet.direction">
+        <record id="direction_assain" model="intranet.direction_p">
             <field name="name">Direction Exploitation Assainissement Liquide</field>
             <field name="code">ASSAIN</field>
             <field name="pole_id" ref="pole_exploitations"/>
             <field name="description">Gestion de l'assainissement</field>
         </record>
 
-        <record id="direction_elec" model="intranet.direction">
+        <record id="direction_elec" model="intranet.direction_p">
             <field name="name">Direction Exploitation Électricité</field>
             <field name="code">ELEC</field>
             <field name="pole_id" ref="pole_exploitations"/>
             <field name="description">Gestion de l'électricité</field>
         </record>
 
-        <record id="direction_rh" model="intranet.direction">
+        <record id="direction_rh" model="intranet.direction_p">
             <field name="name">Direction du Capital Humain</field>
             <field name="code">RH</field>
             <field name="pole_id" ref="pole_support"/>

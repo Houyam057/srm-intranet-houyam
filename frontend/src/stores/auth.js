@@ -54,6 +54,7 @@ export const useAuthStore = defineStore('auth', () => {
             user.value.email = me.email
             user.value.phone = me.phone
             user.value.role = me.role
+            user.value.direction_id = me.direction_id
             user.value.direction_name = me.direction_name
             user.value.job_title = me.job_title
             user.value.avatar_url = me.avatar_url
@@ -106,6 +107,7 @@ export const useAuthStore = defineStore('auth', () => {
             user.value.email = me.email
             user.value.phone = me.phone
             user.value.role = me.role
+            user.value.direction_id = me.direction_id
             user.value.direction_name = me.direction_name
             user.value.job_title = me.job_title
             user.value.avatar_url = me.avatar_url

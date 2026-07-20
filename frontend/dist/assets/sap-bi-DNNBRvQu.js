@@ -1,1 +1,0 @@
-import{_ as t,b as s,d as r,e as o}from"./index-D-y3K6t5.js";const a={},n={class:"dashboard"};function c(d,e){return s(),r("div",n,[...e[0]||(e[0]=[o("iframe",{src:"http://s09pp-bob-rpt01.srm-tth.local:8080/BOE/BI",width:"100%",height:"600",style:{border:"none"}},null,-1)])])}const i=t(a,[["render",c]]);export{i as default};

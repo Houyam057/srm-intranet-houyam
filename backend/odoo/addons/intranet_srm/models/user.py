@@ -20,7 +20,6 @@ class User(models.Model):
     login = fields.Char('Login', readonly=True)
     role = fields.Selection(ROLE_SELECTION, string='Rôle', readonly=True)
     direction_id = fields.Integer('Direction ID')
-    direction_name = fields.Char('Direction', readonly=True)
     job_title = fields.Char('Titre du Poste', readonly=True)
     is_manager = fields.Boolean('Est Manager', readonly=True)
     manages_direction_id = fields.Integer('Gère la Direction ID')
