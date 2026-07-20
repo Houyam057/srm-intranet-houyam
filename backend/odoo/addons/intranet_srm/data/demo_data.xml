@@ -1,62 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!-- POLES -->
-        <record id="pole_dg" model="intranet.pole">
+        <!-- DIRECTIONS PRINCIPALES (anciennement "poles") -->
+        <record id="direction_p_dg" model="intranet.direction_p">
             <field name="name">Direction Générale</field>
-            <field name="description">Pôle de la Direction Générale</field>
+            <field name="description">Direction Principale : Direction Générale</field>
         </record>
 
-        <record id="pole_exploitations" model="intranet.pole">
+        <record id="direction_p_exploitations" model="intranet.direction_p">
             <field name="name">Pôle Exploitations</field>
-            <field name="description">Pôle des exploitations</field>
+            <field name="description">Direction Principale : exploitations</field>
         </record>
 
-        <record id="pole_support" model="intranet.pole">
+        <record id="direction_p_support" model="intranet.direction_p">
             <field name="name">Pôle Fonctions Support</field>
-            <field name="description">Pôle des fonctions de support</field>
+            <field name="description">Direction Principale : fonctions de support</field>
         </record>
 
         <!-- DIRECTIONS -->
         <record id="direction_dg" model="intranet.direction">
             <field name="name">Direction Générale</field>
-            <field name="code">DG</field>
-            <field name="pole_id" ref="pole_dg"/>
+            <field name="direction_p_id" ref="direction_p_dg"/>
             <field name="description">Direction Générale de SRM-TTA</field>
         </record>
 
         <record id="direction_exploit" model="intranet.direction">
             <field name="name">Direction en charge des Exploitations</field>
-            <field name="code">EXPLOIT</field>
-            <field name="pole_id" ref="pole_dg"/>
+            <field name="direction_p_id" ref="direction_p_dg"/>
             <field name="description">Direction responsable des exploitations</field>
         </record>
 
         <record id="direction_eau" model="intranet.direction">
             <field name="name">Direction Exploitation Eau Potable</field>
-            <field name="code">EAU</field>
-            <field name="pole_id" ref="pole_exploitations"/>
+            <field name="direction_p_id" ref="direction_p_exploitations"/>
             <field name="description">Gestion de l'eau potable</field>
         </record>
 
         <record id="direction_assain" model="intranet.direction">
             <field name="name">Direction Exploitation Assainissement Liquide</field>
-            <field name="code">ASSAIN</field>
-            <field name="pole_id" ref="pole_exploitations"/>
+            <field name="direction_p_id" ref="direction_p_exploitations"/>
             <field name="description">Gestion de l'assainissement</field>
         </record>
 
         <record id="direction_elec" model="intranet.direction">
             <field name="name">Direction Exploitation Électricité</field>
-            <field name="code">ELEC</field>
-            <field name="pole_id" ref="pole_exploitations"/>
+            <field name="direction_p_id" ref="direction_p_exploitations"/>
             <field name="description">Gestion de l'électricité</field>
         </record>
 
         <record id="direction_rh" model="intranet.direction">
             <field name="name">Direction du Capital Humain</field>
-            <field name="code">RH</field>
-            <field name="pole_id" ref="pole_support"/>
+            <field name="direction_p_id" ref="direction_p_support"/>
             <field name="description">Gestion des ressources humaines</field>
         </record>
 

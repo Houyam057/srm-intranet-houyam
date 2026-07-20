@@ -418,6 +418,27 @@ class IntranetAPI(http.Controller):
         except Exception as e:
             return self._server_error(e)
 
+    # ===== HELPDESK =====
+    @http.route('/api/tickets', auth='user', methods=['POST'], csrf=False, cors='*')
+    def create_ticket(self):
+        try:
+            data = request.get_json_data()
+            missing = self._missing_fields(data, ['subject', 'message'])
+            if missing:
+                return self._response(error=f"Champs requis manquants : {', '.join(missing)}", status=400)
+
+            Ticket = request.env['intranet.helpdesk_ticket']
+            new_ticket = Ticket.create({
+                'employee_id': request.env.user.id,
+                'subject': data.get('subject'),
+                'category': data.get('category'),
+                'message': data.get('message'),
+            })
+
+            return self._response(data={'id': new_ticket.id, 'status': new_ticket.status}, status=201)
+        except Exception as e:
+            return self._server_error(e, status=400)
+
     # ===== DASHBOARD =====
     @http.route('/api/dashboard', auth='public', methods=['GET'], csrf=False, cors='*')
     def get_dashboard(self):

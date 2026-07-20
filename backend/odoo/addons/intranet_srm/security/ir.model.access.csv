@@ -19,3 +19,5 @@ access_pole_old_user,pole_old_user,model_intranet_pole_old,base.group_user,1,0,0
 access_pole_old_manager,pole_old_manager,model_intranet_pole_old,base.group_system,1,1,1,1
 access_user_user,user_user,model_intranet_user,base.group_user,1,1,1,0
 access_user_manager,user_manager,model_intranet_user,base.group_system,1,1,1,1
+access_helpdesk_ticket_user,helpdesk_ticket_user,model_intranet_helpdesk_ticket,base.group_user,1,1,1,0
+access_helpdesk_ticket_manager,helpdesk_ticket_manager,model_intranet_helpdesk_ticket,base.group_system,1,1,1,1

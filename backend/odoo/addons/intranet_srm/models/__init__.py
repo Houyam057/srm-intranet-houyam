@@ -5,5 +5,6 @@ from . import sub_direction
 from . import news
 from . import document
 from . import feedback
+from . import helpdesk_ticket
 from . import pole
 from . import user
