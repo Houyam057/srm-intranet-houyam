@@ -21,3 +21,7 @@ access_user_user,user_user,model_intranet_user,base.group_user,1,1,1,0
 access_user_manager,user_manager,model_intranet_user,base.group_system,1,1,1,1
 access_helpdesk_ticket_user,helpdesk_ticket_user,model_intranet_helpdesk_ticket,base.group_user,1,1,1,0
 access_helpdesk_ticket_manager,helpdesk_ticket_manager,model_intranet_helpdesk_ticket,base.group_system,1,1,1,1
+access_formation_user,formation_user,model_intranet_formation,base.group_user,1,0,0,0
+access_formation_manager,formation_manager,model_intranet_formation,base.group_system,1,1,1,1
+access_inscription_user,inscription_user,model_inscription_formation,base.group_user,1,1,1,0
+access_inscription_manager,inscription_manager,model_inscription_formation,base.group_system,1,1,1,1

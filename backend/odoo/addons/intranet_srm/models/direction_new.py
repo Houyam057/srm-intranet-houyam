@@ -6,10 +6,12 @@ class DirectionNew(models.Model):
     _rec_name = 'name'
 
     name = fields.Char('Nom', required=True)
+    code = fields.Char('Code')
     description = fields.Text('Description')
     manager_id = fields.Many2one('intranet.user', string='Manager')
     manager_name = fields.Char('Nom du Manager', related='manager_id.name', store=True)
 
+    pole_id = fields.Many2one('intranet.pole', string='Pôle')
     direction_p_id = fields.Many2one('intranet.direction_p', string='Direction Principale')
     direction_p_name = fields.Char('Direction P', related='direction_p_id.name', store=True)
 

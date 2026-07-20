@@ -8,3 +8,5 @@ from . import feedback
 from . import helpdesk_ticket
 from . import pole
 from . import user
+from . import formation
+from . import inscription

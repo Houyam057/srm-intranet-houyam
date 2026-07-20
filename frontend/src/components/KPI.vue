@@ -19,7 +19,7 @@ const kpis = [
             <div class="ic" :class="'ic-' + k.color">
               <component :is="k.icon" :size="24" />
             </div>
-            {{ k.label }}
+            <h2>{{ k.label }}</h2>
             <span class="dirtag">{{ k.tag }}</span>
           </div>
           <div class="val">{{ k.val }}</div>

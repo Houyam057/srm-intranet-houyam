@@ -1,1 +1,0 @@
-import{_ as t,b as s,d as r,e as o}from"./index-B86cnC9K.js";const a={},n={class:"dashboard"};function c(d,e){return s(),r("div",n,[...e[0]||(e[0]=[o("iframe",{src:"https://srm-tta.ma/",width:"100%",height:"600",style:{border:"none"}},null,-1)])])}const _=t(a,[["render",c]]);export{_ as default};
