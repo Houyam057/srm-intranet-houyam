@@ -2,12 +2,14 @@
 import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from './stores/auth.js'
+import { useUiStore } from './stores/ui.js'
 import Sidebar from './components/Sidebar.vue'
 import Topbar from './components/Topbar.vue'
 
 const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
+const uiStore = useUiStore()
 const authChecked = ref(false)
 
 onMounted(async () => {
@@ -25,6 +27,13 @@ onMounted(async () => {
     <template v-if="authChecked">
       <template v-if="authStore.isAuthenticated || route.name === 'login'">
         <Sidebar v-if="$route.meta.showSidebar !== false"/>
+        <!-- Fond sombre derriere le menu quand il est ouvert en tiroir (mobile/ecran divise) ; cliquer dessus le referme -->
+        <div
+          v-if="$route.meta.showSidebar !== false"
+          class="sidebar-backdrop"
+          :class="{ show: uiStore.sidebarOpen }"
+          @click="uiStore.closeSidebar()"
+        ></div>
 
         <div class="main">
           <Topbar v-if="$route.meta.showTopbar !== false"/>

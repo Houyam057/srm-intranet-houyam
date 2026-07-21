@@ -4,8 +4,10 @@ import { useRoute, useRouter } from 'vue-router'
 import { NAV_DIRECTIONS } from '../data/directions.js'
 import { Info,Phone  } from 'lucide-vue-next'
 import logo from '../assets/logo.png'
+import { useUiStore } from '../stores/ui.js'
 const route = useRoute()
 const router = useRouter()
+const uiStore = useUiStore()
 
 // équivalent du subDir.classList.toggle('open') du mockup
 const subOpen = ref(false)
@@ -56,7 +58,9 @@ function goToWebsite() {
 </script>
 
 <template>
-  <aside class="sidebar">
+  <!-- sidebar--open : classe ajoutee seulement sous 1150px, pour afficher le menu en tiroir (voir main.css).
+       @click.capture ferme le tiroir des qu'on choisit un lien, pour ne pas rester ouvert par-dessus la page -->
+  <aside class="sidebar" :class="{ 'sidebar--open': uiStore.sidebarOpen }" @click.capture="uiStore.closeSidebar()">
     <div class="brand">
       <!-- Remplacez par le vrai logo SRM-TTA (SVG/PNG) -->
       <img :src="logo" alt="Logo SRM-TTA" class="logo" />
