@@ -450,12 +450,18 @@ class IntranetAPI(http.Controller):
                 return self._response(error=f"Champs requis manquants : {', '.join(missing)}", status=400)
 
             Ticket = request.env['intranet.helpdesk_ticket']
-            new_ticket = Ticket.create({
-                'employee_id': request.env.user.id,
+            vals = {
                 'subject': data.get('subject'),
                 'category': data.get('category'),
                 'message': data.get('message'),
-            })
+            }
+            # employee_id pointe vers intranet.user, pas res.users : ne le renseigner
+            # que si un enregistrement intranet.user existe vraiment pour cet id,
+            # sinon la vue liste plante en essayant d'afficher un lien mort.
+            employee = request.env['intranet.user'].sudo().browse(request.env.user.id)
+            if employee.exists():
+                vals['employee_id'] = employee.id
+            new_ticket = Ticket.create(vals)
 
             return self._response(data={'id': new_ticket.id, 'status': new_ticket.status}, status=201)
         except Exception as e:
