@@ -10,6 +10,7 @@
                     <field name="subject"/>
                     <field name="employee_id"/>
                     <field name="category"/>
+                    <field name="urgency"/>
                     <field name="status"/>
                     <field name="created_at"/>
                 </list>
@@ -28,6 +29,7 @@
                                 <field name="subject"/>
                                 <field name="employee_id"/>
                                 <field name="category"/>
+                                <field name="urgency"/>
                                 <field name="status"/>
                             </group>
                         </group>

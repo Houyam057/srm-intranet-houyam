@@ -3,4 +3,6 @@ DirectionSRM-TTA.xlsx
 internship-log.md
 .claude/settings.local.json
 .agents
+ai_triage/models/
+ai_triage/.venv/
 ~$DirectionSRM-TTA.xlsx
