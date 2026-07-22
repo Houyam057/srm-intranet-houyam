@@ -23,6 +23,8 @@ const routes = [
   { path: '/helpdesk', name: 'helpdesk', component: () => import('../views/HelpDesk.vue') },
   {path : '/flashinfo', name: 'flashinfo', component: () => import('../views/FlashInfo.vue')},
   {path: '/notre-societe', name: 'notre-societe', component: () => import('../views/NotreSociete.vue')},
+  {path: '/nos-metiers', name: 'nos-metiers', component: () => import('../views/NosMetiers.vue')},
+  {path: '/documents', name: 'documents', component: () => import('../views/Documents.vue')},
   {  path: '/login',
     name: 'login',
     component: () => import('../views/Login.vue'),
