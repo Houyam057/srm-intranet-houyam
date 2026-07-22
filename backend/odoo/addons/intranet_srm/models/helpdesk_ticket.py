@@ -21,7 +21,9 @@ class HelpdeskTicket(models.Model):
     _name = 'intranet.helpdesk_ticket'
     _description = 'Ticket HelpDesk'
     _rec_name = 'subject'
-    _order = 'created_at desc'
+    # 'urgent' > 'normal' > 'low' alphabetiquement, donc "desc" met les tickets
+    # urgents en premier sans champ supplementaire pour la priorite.
+    _order = 'urgency desc, created_at desc'
 
     STATUS_SELECTION = [
         ('new', 'Nouveau'),

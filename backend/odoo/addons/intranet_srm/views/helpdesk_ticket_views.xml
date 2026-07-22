@@ -39,11 +39,31 @@
             </field>
         </record>
 
+        <!-- Helpdesk Ticket Search View : permet de filtrer/regrouper par urgence pour le tri -->
+        <record id="helpdesk_ticket_search_view" model="ir.ui.view">
+            <field name="name">Helpdesk Ticket Search</field>
+            <field name="model">intranet.helpdesk_ticket</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="subject"/>
+                    <field name="category"/>
+                    <filter string="Urgentes" name="filter_urgent" domain="[('urgency', '=', 'urgent')]"/>
+                    <filter string="Nouveaux" name="filter_new" domain="[('status', '=', 'new')]"/>
+                    <separator/>
+                    <filter string="Urgence" name="group_urgency" context="{'group_by': 'urgency'}"/>
+                    <filter string="Statut" name="group_status" context="{'group_by': 'status'}"/>
+                    <filter string="Catégorie" name="group_category" context="{'group_by': 'category'}"/>
+                </search>
+            </field>
+        </record>
+
         <!-- Helpdesk Ticket Action -->
         <record id="helpdesk_ticket_action" model="ir.actions.act_window">
             <field name="name">Tickets HelpDesk</field>
             <field name="res_model">intranet.helpdesk_ticket</field>
             <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="helpdesk_ticket_search_view"/>
+            <field name="context">{'search_default_group_urgency': 1}</field>
         </record>
 
         <!-- Menu Item -->
