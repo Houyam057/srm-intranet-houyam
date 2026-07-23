@@ -1,0 +1,87 @@
+subject,message,category,urgency
+"Raccourci clavier Excel","Bonjour, existe-t-il un raccourci pour figer les volets dans Excel ? Pas urgent, juste par curiosité.",Support informatique,low
+"Icone bureau mal alignee","L'icone de l'imprimante partagee s'est deplacee sur mon bureau, juste genant visuellement.",Support informatique,low
+"Imprimante du 2e etage bourree","L'imprimante du 2e etage affiche un bourrage papier, j'utilise celle du 3e en attendant.",Support informatique,normal
+"VPN lent depuis ce matin","La connexion VPN met plus de 30 secondes a se connecter depuis ce matin, ca ralentit mon travail.",Support informatique,normal
+"Impossible de me connecter a mon poste","Mon mot de passe Windows est refuse depuis ce matin, je ne peux pas du tout travailler.",Support informatique,urgent
+"Serveur de fichiers inaccessible pour toute l'equipe","Personne dans mon service n'arrive a acceder au serveur de fichiers partage depuis 9h, tout le monde est bloque.",Support informatique,urgent
+"Solde de conges restant","Pourriez-vous me confirmer combien de jours de conges il me reste pour cette annee ?",Ressources Humaines,low
+"Question sur la mutuelle","Je me demandais si la mutuelle d'entreprise couvre les soins dentaires, pas pressant.",Ressources Humaines,low
+"Demande d'attestation de travail","J'ai besoin d'une attestation de travail pour une demarche bancaire, dans les prochains jours si possible.",Ressources Humaines,normal
+"Remboursement de frais incomplet","Le remboursement de mes frais de mission du mois dernier est incomplet, il manque une ligne.",Ressources Humaines,normal
+"Signalement de harcelement","Je souhaite signaler une situation de harcelement de la part d'un collegue, c'est serieux et j'ai besoin d'un suivi rapide.",Ressources Humaines,urgent
+"Salaire non verse ce mois-ci","Mon salaire de ce mois n'a pas ete verse sur mon compte, c'est urgent pour moi.",Ressources Humaines,urgent
+"Porte du bureau qui grince","La porte de la salle de reunion B grince beaucoup, ce n'est pas grave mais agacant.",Maintenance,low
+"Ampoule a changer","Une ampoule est grillee dans le couloir du 1er etage, pas urgent.",Maintenance,low
+"Climatisation faible au 3e etage","La climatisation du 3e etage ne refroidit plus correctement depuis quelques jours.",Maintenance,normal
+"Chaise de bureau cassee","L'accoudoir de ma chaise de bureau est casse, je peux m'asseoir mais c'est inconfortable.",Maintenance,normal
+"Fuite d'eau pres de la salle serveur","Il y a une fuite d'eau visible au plafond juste au-dessus de la salle serveur, ca coule deja.",Maintenance,urgent
+"Prise electrique qui fait des etincelles","Une prise electrique dans l'open space fait des etincelles quand on branche un appareil, risque de securite.",Maintenance,urgent
+"Suggestion nouvelle saveur machine a cafe","Ce serait sympa d'avoir une option de cafe decafeine dans la machine, pas urgent du tout.",Suggestion,low
+"Suggestion police de caracere intranet","Je trouve la police de l'intranet un peu petite, peut-etre l'agrandir legerement.",Suggestion,low
+"Suggestion horaires flexibles","Je propose d'introduire des horaires flexibles pour les equipes non-terrain, a etudier quand vous avez le temps.",Suggestion,normal
+"Suggestion poubelles de tri","On pourrait ajouter des poubelles de tri selectif a chaque etage, ce serait bien pour le prochain trimestre.",Suggestion,normal
+"Suggestion urgente apres presque-accident","Suite a un presque-accident hier avec un chariot, je suggere de revoir en urgence la signalisation dans l'entrepot.",Suggestion,urgent
+"Suggestion revoir procedure d'evacuation","L'exercice d'evacuation de la semaine derniere a montre des points bloquants, il faudrait revoir la procedure rapidement.",Suggestion,urgent
+"Question generale sur l'organigramme","Je cherche a savoir qui contacter pour une question qui ne rentre dans aucune categorie precise, pas presse.",Autre,low
+"Demande d'information diverse","J'ai une question generale sur le fonctionnement de l'intranet, rien d'urgent.",Autre,low
+"Demande acces badge visiteur","Je dois organiser l'acces badge pour un visiteur externe la semaine prochaine.",Autre,normal
+"Question sur evenement interne","Je voudrais des details sur le prochain evenement d'entreprise, dans les jours qui viennent si possible.",Autre,normal
+"Situation inhabituelle a signaler en urgence","Une situation inhabituelle et sensible s'est produite ce matin, je ne sais pas quelle categorie utiliser mais j'ai besoin d'une reponse rapide.",Autre,urgent
+"Probleme urgent non catégorisable","J'ai un probleme urgent qui ne correspond a aucune categorie du formulaire, merci de me rappeler des que possible.",Autre,urgent
+"Preference theme sombre sur l'intranet","Serait-il possible d'activer un theme sombre sur l'intranet ? Pas urgent, juste une preference.",Support informatique,low
+"Question sur l'economiseur d'ecran","Je me demandais comment configurer l'economiseur d'ecran sur mon poste, simple curiosite.",Support informatique,low
+"Souris qui ne repond plus par moments","Ma souris se deconnecte parfois pendant quelques secondes, ca gene le travail mais je peux continuer.",Support informatique,normal
+"Ecran secondaire ne s'allume plus","Mon second ecran ne s'allume plus depuis hier, je travaille avec un seul ecran en attendant une solution.",Support informatique,normal
+"Ordinateur qui redemarre en boucle","Mon ordinateur redemarre en boucle depuis ce matin, impossible de travailler du tout.",Support informatique,urgent
+"Messagerie professionnelle inaccessible pour tout le service","Personne dans mon service ne peut acceder a la messagerie professionnelle depuis 8h ce matin.",Support informatique,urgent
+"Question sur les jours feries","Je voudrais savoir si un jour ferie recent a bien ete compte dans mon solde de conges, pas presse.",Ressources Humaines,low
+"Renseignement sur les formations internes","Question sur les formations internes disponibles ce trimestre, aucune urgence.",Ressources Humaines,low
+"Erreur sur le bulletin de paie","Une ligne de mon dernier bulletin de paie semble incorrecte, a corriger dans les prochains jours.",Ressources Humaines,normal
+"Demande de changement d'adresse","Je dois mettre a jour mon adresse dans mon dossier RH, pas trop presse mais avant la fin du mois.",Ressources Humaines,normal
+"Conflit avec un responsable a traiter rapidement","J'ai un conflit serieux avec mon responsable direct qui necessite une intervention rapide des RH.",Ressources Humaines,urgent
+"Absence non justifiee signalee a tort","Je suis marque en absence injustifiee alors que j'etais en conge valide, ca bloque mon salaire ce mois-ci.",Ressources Humaines,urgent
+"Store defectueux dans mon bureau","Le store de mon bureau reste bloque a moitie ferme, pas grave mais genant.",Maintenance,low
+"Peinture ecaillee dans le couloir","La peinture s'ecaille dans le couloir du rez-de-chaussee, purement esthetique.",Maintenance,low
+"Fenetre qui ferme mal en salle de pause","La fenetre de la salle de pause ferme mal et laisse entrer l'air froid, a corriger bientot.",Maintenance,normal
+"Robinet qui goutte aux toilettes","Un robinet goutte en continu aux toilettes du 2e etage depuis plusieurs jours.",Maintenance,normal
+"Plafond qui menace de s'effondrer","Une partie du plafond de l'entrepot semble ceder, risque de chute imminente.",Maintenance,urgent
+"Panne d'ascenseur avec une personne a l'interieur","L'ascenseur est bloque avec une personne coincee a l'interieur, intervention immediate necessaire.",Maintenance,urgent
+"Suggestion plante verte dans l'open space","Proposition d'ajouter quelques plantes vertes dans l'open space, purement decoratif.",Suggestion,low
+"Suggestion nouvelle couleur pour le logo intranet","Petite suggestion esthetique sur la couleur du logo de l'intranet.",Suggestion,low
+"Suggestion salle de sieste","Proposition d'amenager une petite salle de repos pour les pauses, a etudier ce trimestre.",Suggestion,normal
+"Suggestion covoiturage interne","Proposition de mettre en place un systeme de covoiturage entre collegues.",Suggestion,normal
+"Suggestion urgente sur le protocole incendie","Suite a un incident recent, je suggere de revoir en urgence le protocole incendie du batiment.",Suggestion,urgent
+"Suggestion revoir les acces securises apres intrusion","Apres une tentative d'intrusion hier soir, je suggere de renforcer en urgence les acces securises.",Suggestion,urgent
+"Question diverse sur le reglement interieur","Une question generale qui ne rentre dans aucune case precise, pas urgent.",Autre,low
+"Renseignement general sur les services internes","Je cherche a savoir qui contacter pour un sujet qui n'est pas categorise, sans urgence.",Autre,low
+"Demande d'information sur un projet transverse","Besoin d'informations sur un projet qui touche plusieurs services, dans la semaine si possible.",Autre,normal
+"Question administrative non classee","Une demande administrative qui ne correspond a aucune categorie du formulaire.",Autre,normal
+"Incident sensible non categorise a traiter vite","Un incident sensible s'est produit et ne rentre dans aucune categorie du formulaire, reponse rapide necessaire.",Autre,urgent
+"Probleme urgent hors des categories habituelles","Un probleme urgent qui sort du cadre habituel des categories, merci de me contacter au plus vite.",Autre,urgent
+"Poignee de porte legerement desserree","La poignee de la porte du bureau 204 est un peu desserree, ca fonctionne quand meme, purement esthetique.",Maintenance,low
+"Interrupteur de la salle de pause difficile a actionner","L'interrupteur de lumiere de la salle de pause est dur a actionner, pas grave.",Maintenance,low
+"Volet roulant bloque a moitie","Le volet roulant de la salle de reunion A reste bloque a moitie, ca genere une gene visuelle sans bloquer la reunion.",Maintenance,normal
+"Moquette decollee dans le couloir","La moquette du couloir du 2e etage se decolle par endroits, risque de trebucher a terme, a corriger dans les prochaines semaines.",Maintenance,normal
+"Odeur de gaz suspectee pres de la cuisine","Une odeur suspecte de gaz est detectee pres de la kitchenette du 3e etage, intervention immediate demandee.",Maintenance,urgent
+"Escalier de secours partiellement bloque","L'escalier de secours du batiment B est partiellement obstrue par des cartons, danger en cas d'evacuation.",Maintenance,urgent
+"Question sur le plan d'epargne entreprise","Je voudrais savoir comment fonctionne le plan d'epargne entreprise, pas presse, simple curiosite.",Ressources Humaines,low
+"Renseignement sur le processus de mobilite interne","Je m'interroge sur les etapes pour demander une mobilite interne, sans urgence particuliere.",Ressources Humaines,low
+"Erreur dans mon contrat de travail","J'ai remarque une erreur dans l'intitule de mon poste sur mon contrat, a corriger dans les prochaines semaines.",Ressources Humaines,normal
+"Demande de mise a jour de ma situation familiale","Je dois signaler un changement de situation familiale pour mon dossier RH, pas urgent mais avant la fin du mois.",Ressources Humaines,normal
+"Erreur bloquante sur ma fiche de paie de ce mois","Ma fiche de paie de ce mois affiche un montant errone qui bloque mon virement bancaire, besoin d'une correction rapide.",Ressources Humaines,urgent
+"Situation de discrimination a signaler","Je souhaite signaler une situation de discrimination vecue recemment, j'ai besoin d'un suivi RH rapide et confidentiel.",Ressources Humaines,urgent
+"Clavier qui repond avec un leger delai","Mon clavier a un leger delai de reponse depuis hier, ca ralentit un peu la saisie sans bloquer le travail.",Support informatique,normal
+"Synchronisation des emails irreguliere","La synchronisation de ma messagerie est irreguliere depuis ce matin, les emails arrivent avec du retard.",Support informatique,normal
+"Suggestion d'ecran d'affichage dans le hall","Je propose d'installer un ecran d'affichage des actualites dans le hall d'entree, a etudier ce semestre.",Suggestion,normal
+"Suggestion de session d'integration pour nouveaux arrivants","Je propose une session d'integration mensuelle pour les nouveaux arrivants, sans urgence particuliere.",Suggestion,normal
+"Demande d'information sur un partenariat externe","Je cherche des informations sur un partenariat externe recemment annonce, dans la semaine si possible.",Autre,normal
+"Question sur l'acces au parking visiteurs","Je voudrais savoir comment reserver une place de parking visiteur, dans les prochains jours.",Autre,normal
+"Icone application deplacee sur le bureau","L'icone du logiciel de facturation a change de place sur mon bureau, purement esthetique, pas genant.",Support informatique,low
+"Mise a jour logicielle qui echoue a repetition","La mise a jour d'un logiciel metier echoue a chaque tentative depuis deux jours, je continue a travailler avec l'ancienne version en attendant.",Support informatique,normal
+"Logiciel de facturation inaccessible pour tout le service","Personne dans le service comptabilite ne peut acceder au logiciel de facturation depuis ce matin, tout le monde est bloque.",Support informatique,urgent
+"Antivirus qui bloque une application metier critique","L'antivirus bloque le lancement d'une application metier indispensable, impossible de travailler sans une intervention rapide.",Support informatique,urgent
+"Question simple sur le badge d'acces","Je me demandais comment fonctionne le badge d'acces pour le parking, simple curiosite, pas presse.",Autre,low
+"Suggestion mineure sur la disposition des bureaux","Petite suggestion sur la disposition des bureaux dans l'open space, aucune urgence.",Suggestion,low
+"Incident de securite en cours dans le hall","Un incident de securite est en cours dans le hall d'entree et ne correspond a aucune categorie precise, intervention immediate necessaire.",Autre,urgent
+"Suggestion urgente suite a un accident evite de justesse","Suite a un accident evite de justesse ce matin, je suggere de revoir en urgence la signalisation au sol.",Suggestion,urgent

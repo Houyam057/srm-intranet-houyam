@@ -4,8 +4,10 @@ import { useRoute, useRouter } from 'vue-router'
 import { NAV_DIRECTIONS } from '../data/directions.js'
 import { Info,Phone  } from 'lucide-vue-next'
 import logo from '../assets/logo.png'
+import { useUiStore } from '../stores/ui.js'
 const route = useRoute()
 const router = useRouter()
+const uiStore = useUiStore()
 
 // équivalent du subDir.classList.toggle('open') du mockup
 const subOpen = ref(false)
@@ -53,10 +55,13 @@ function goToDirection(key) {
 function goToWebsite() {
   router.push({ name: 'notre-societe' })
 }
+
 </script>
 
 <template>
-  <aside class="sidebar">
+  <!-- sidebar--open : classe ajoutee seulement sous 1150px, pour afficher le menu en tiroir (voir main.css).
+       @click.capture ferme le tiroir des qu'on choisit un lien, pour ne pas rester ouvert par-dessus la page -->
+  <aside class="sidebar" :class="{ 'sidebar--open': uiStore.sidebarOpen }" @click.capture="uiStore.closeSidebar()">
     <div class="brand">
       <!-- Remplacez par le vrai logo SRM-TTA (SVG/PNG) -->
       <img :src="logo" alt="Logo SRM-TTA" class="logo" />
@@ -75,7 +80,7 @@ function goToWebsite() {
       <span>Notre société</span>
     </div>
 
-    <div class="nav-item">
+    <div class="nav-item" :class="{ active: isNosMetiers }" @click="goToNosMetiers">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s7 7.5 7 12a7 7 0 0 1-14 0c0-4.5 7-12 7-12z"/></svg>
       <span>Nos métiers</span>
     </div>

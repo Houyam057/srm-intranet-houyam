@@ -1,6 +1,7 @@
 <script setup>
 import { reactive, ref } from "vue";
 import { MapPin, Phone } from "lucide-vue-next";
+import { odooApi } from "../api/odoo.js";
 
 const form = reactive({
     subject: "",
@@ -8,20 +9,25 @@ const form = reactive({
     message: ""
 });
 
-function submitForm() {
-    console.log(form);
+const submitting = ref(false);
 
-    // Appel API ici
-
-    alert("Votre demande a été envoyée.");
-
-    const { subject, category, message } = form;
-    
-    emit('submit',{
-            subject,
-            category,
-            message
-    })
+async function submitForm() {
+    submitting.value = true;
+    try {
+        await odooApi.post('/api/tickets', {
+            subject: form.subject,
+            category: form.category,
+            message: form.message
+        });
+        alert("Votre demande a été envoyée.");
+        form.subject = "";
+        form.category = "";
+        form.message = "";
+    } catch (error) {
+        alert(error.response?.data?.error || "Impossible d'envoyer votre demande, réessayez plus tard.");
+    } finally {
+        submitting.value = false;
+    }
 }
 
 
@@ -98,8 +104,8 @@ function selectCategory(category) {
                         </label>
                     </div>
                     <br>
-                    <button type="submit" class="btn-primary">
-                        Envoyer la demande
+                    <button type="submit" class="btn-primary" :disabled="submitting">
+                        {{ submitting ? "Envoi..." : "Envoyer la demande" }}
                     </button>
                 </form>
             </div>

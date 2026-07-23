@@ -1,7 +1,11 @@
 import json
+import logging
 from odoo import http
 from odoo.http import request
 from datetime import datetime
+
+_logger = logging.getLogger(__name__)
+
 
 class IntranetAPI(http.Controller):
     """API REST pour l'Intranet SRM-TTA"""
@@ -19,6 +23,15 @@ class IntranetAPI(http.Controller):
         )
         response_obj.status_code = status
         return response_obj
+
+    def _missing_fields(self, data, required):
+        """Return the names of required keys that are absent or empty in data."""
+        return [f for f in required if not data.get(f)]
+
+    def _server_error(self, e, status=500):
+        """Log the real exception server-side; never echo internal details to the client."""
+        _logger.exception("API error")
+        return self._response(error="Une erreur interne est survenue.", status=status)
 
     # ===== USER =====
     @http.route('/api/user/me', auth='user', methods=['GET'], csrf=False, cors='*')
@@ -55,15 +68,25 @@ class IntranetAPI(http.Controller):
     def get_directions(self):
         try:
             Direction = request.env['intranet.direction'].sudo()
+<<<<<<< HEAD
+=======
+            User = request.env['intranet.user'].sudo()
+>>>>>>> c8f87b30f6980ce158dc783bf164985484c47d2a
             directions = Direction.search([('active', '=', True)])
 
             data = [{
                 'id': d.id,
                 'name': d.name,
-                'code': d.code,
+                'code': d.code or '',
                 'manager_name': d.manager_name,
+<<<<<<< HEAD
                 'pole_name': d.pole_id.name if d.pole_id else '',
                 'pole_manager_name': d.pole_id.manager_name if d.pole_id else '',
+=======
+                'pole_name': d.pole_id.name or '',
+                'direction_p_name': d.direction_p_name,
+                'employee_count': User.search_count([('direction_id', '=', d.id)]),
+>>>>>>> c8f87b30f6980ce158dc783bf164985484c47d2a
                 'description': d.description,
             } for d in directions]
 
@@ -75,18 +98,36 @@ class IntranetAPI(http.Controller):
     def get_direction(self, direction_id):
         try:
             Direction = request.env['intranet.direction'].sudo()
+<<<<<<< HEAD
+=======
+            User = request.env['intranet.user'].sudo()
+>>>>>>> c8f87b30f6980ce158dc783bf164985484c47d2a
             direction = Direction.browse(direction_id)
 
             if not direction.exists():
                 return self._response(error='Direction non trouvée', status=404)
 
+            employees = [{
+                'id': e.id,
+                'name': e.name,
+                'email': e.email,
+                'phone': e.phone,
+                'job_title': e.job_title,
+            } for e in User.search([('direction_id', '=', direction.id)])]
+
             data = {
                 'id': direction.id,
                 'name': direction.name,
-                'code': direction.code,
+                'code': direction.code or '',
                 'manager_name': direction.manager_name,
+<<<<<<< HEAD
                 'pole_name': direction.pole_id.name if direction.pole_id else '',
                 'pole_manager_name': direction.pole_id.manager_name if direction.pole_id else '',
+=======
+                'pole_name': direction.pole_id.name or '',
+                'direction_p_name': direction.direction_p_name,
+                'employee_count': len(employees),
+>>>>>>> c8f87b30f6980ce158dc783bf164985484c47d2a
                 'description': direction.description,
             }
 
@@ -98,18 +139,27 @@ class IntranetAPI(http.Controller):
     def create_direction(self):
         try:
             data = request.get_json_data()
+<<<<<<< HEAD
             Direction = request.env['intranet.direction']
+=======
+            missing = self._missing_fields(data, ['name'])
+            if missing:
+                return self._response(error=f"Champs requis manquants : {', '.join(missing)}", status=400)
+>>>>>>> c8f87b30f6980ce158dc783bf164985484c47d2a
 
+            Direction = request.env['intranet.direction']
             new_direction = Direction.create({
                 'name': data.get('name'),
                 'code': data.get('code'),
-                'pole_id': data.get('pole_id'),
                 'description': data.get('description'),
+                'manager_id': data.get('manager_id'),
+                'pole_id': data.get('pole_id'),
+                'direction_p_id': data.get('direction_p_id'),
             })
 
             return self._response(data={'id': new_direction.id, 'name': new_direction.name}, status=201)
         except Exception as e:
-            return self._response(error=str(e), status=400)
+            return self._server_error(e, status=400)
 
     # ===== EMPLOYEES =====
     @http.route('/api/employees', auth='public', methods=['GET'], csrf=False, cors='*')
@@ -236,8 +286,11 @@ class IntranetAPI(http.Controller):
     def create_news(self):
         try:
             data = request.get_json_data()
-            News = request.env['intranet.news']
+            missing = self._missing_fields(data, ['title'])
+            if missing:
+                return self._response(error=f"Champs requis manquants : {', '.join(missing)}", status=400)
 
+            News = request.env['intranet.news']
             new_news = News.create({
                 'title': data.get('title'),
                 'content': data.get('content'),
@@ -249,7 +302,7 @@ class IntranetAPI(http.Controller):
 
             return self._response(data={'id': new_news.id, 'title': new_news.title}, status=201)
         except Exception as e:
-            return self._response(error=str(e), status=400)
+            return self._server_error(e, status=400)
 
     # ===== DOCUMENTS =====
     @http.route('/api/documents', auth='public', methods=['GET'], csrf=False, cors='*')
@@ -294,8 +347,11 @@ class IntranetAPI(http.Controller):
     def create_feedback(self):
         try:
             data = request.get_json_data()
-            Feedback = request.env['intranet.feedback']
+            missing = self._missing_fields(data, ['mood'])
+            if missing:
+                return self._response(error=f"Champs requis manquants : {', '.join(missing)}", status=400)
 
+            Feedback = request.env['intranet.feedback']
             new_feedback = Feedback.create({
                 'employee_id': request.env.user.id,
                 'mood': data.get('mood'),
@@ -306,7 +362,7 @@ class IntranetAPI(http.Controller):
 
             return self._response(data={'id': new_feedback.id}, status=201)
         except Exception as e:
-            return self._response(error=str(e), status=400)
+            return self._server_error(e, status=400)
 
     @http.route('/api/feedback/stats', auth='public', methods=['GET'], csrf=False, cors='*')
     def get_feedback_stats(self):
@@ -380,11 +436,47 @@ class IntranetAPI(http.Controller):
         try:
             Message = request.env['mail.message'].sudo()
             msg = Message.browse(email_id)
-            if msg.exists():
-                msg.write({'message_flag': True})
+            if not msg.exists():
+                return self._response(error='Message non trouvé', status=404)
+
+            partner_id = request.env.user.partner_id.id
+            notification = request.env['mail.notification'].sudo().search([
+                ('mail_message_id', '=', email_id),
+                ('res_partner_id', '=', partner_id),
+            ], limit=1)
+            if notification:
+                notification.write({'is_read': True})
+
             return self._response(data={'id': email_id, 'is_read': True})
         except Exception as e:
-            return self._response(error=str(e), status=500)
+            return self._server_error(e)
+
+    # ===== HELPDESK =====
+    @http.route('/api/tickets', auth='user', methods=['POST'], csrf=False, cors='*')
+    def create_ticket(self):
+        try:
+            data = request.get_json_data()
+            missing = self._missing_fields(data, ['subject', 'message'])
+            if missing:
+                return self._response(error=f"Champs requis manquants : {', '.join(missing)}", status=400)
+
+            Ticket = request.env['intranet.helpdesk_ticket']
+            vals = {
+                'subject': data.get('subject'),
+                'category': data.get('category'),
+                'message': data.get('message'),
+            }
+            # employee_id pointe vers intranet.user, pas res.users : ne le renseigner
+            # que si un enregistrement intranet.user existe vraiment pour cet id,
+            # sinon la vue liste plante en essayant d'afficher un lien mort.
+            employee = request.env['intranet.user'].sudo().browse(request.env.user.id)
+            if employee.exists():
+                vals['employee_id'] = employee.id
+            new_ticket = Ticket.create(vals)
+
+            return self._response(data={'id': new_ticket.id, 'status': new_ticket.status}, status=201)
+        except Exception as e:
+            return self._server_error(e, status=400)
 
     # ===== DASHBOARD =====
     @http.route('/api/dashboard', auth='public', methods=['GET'], csrf=False, cors='*')
