@@ -1,4 +1,6 @@
 guide.txt
+__pycache__/
+*.py[cod]
 DirectionSRM-TTA.xlsx
 internship-log.md
 rapport-stage/
