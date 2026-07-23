@@ -7,6 +7,7 @@ _logger = logging.getLogger(__name__)
 # ai_triage/ lives at the repo root, as a sibling of backend/, decoupled from this Odoo addon.
 MODELS_DIR = Path(__file__).resolve().parents[5] / 'ai_triage' / 'models'
 _urgency_model = None
+_category_model = None
 
 
 def _load_urgency_model():
@@ -15,6 +16,14 @@ def _load_urgency_model():
         import joblib
         _urgency_model = joblib.load(MODELS_DIR / 'urgency_model.joblib')
     return _urgency_model
+
+
+def _load_category_model():
+    global _category_model
+    if _category_model is None:
+        import joblib
+        _category_model = joblib.load(MODELS_DIR / 'category_model.joblib')
+    return _category_model
 
 
 class HelpdeskTicket(models.Model):
@@ -54,9 +63,19 @@ class HelpdeskTicket(models.Model):
             _logger.exception("Echec de la prediction d'urgence, ticket cree sans urgence predite")
             return False
 
+    def _predict_category(self, subject, message):
+        try:
+            model = _load_category_model()
+            return model.predict([f"{subject or ''} {message or ''}"])[0]
+        except Exception:
+            _logger.exception("Echec de la prediction de categorie, ticket cree sans categorie predite")
+            return False
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
             if not vals.get('urgency'):
                 vals['urgency'] = self._predict_urgency(vals.get('subject'), vals.get('message'))
+            if not vals.get('category'):
+                vals['category'] = self._predict_category(vals.get('subject'), vals.get('message'))
         return super().create(vals_list)
