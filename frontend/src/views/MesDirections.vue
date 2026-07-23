@@ -19,16 +19,20 @@ function isMyDirection(d) {
 
 const groups = computed(() => {
   const poleMap = {}
+  const poleManagerMap = {}
   for (const d of directions.value) {
     if (d.code === 'DG') continue
     const pole = d.pole_name || 'Sans pôle'
-    if (!poleMap[pole]) poleMap[pole] = []
+    if (!poleMap[pole]) {
+      poleMap[pole] = []
+      poleManagerMap[pole] = d.pole_manager_name || '—'
+    }
     poleMap[pole].push(d)
   }
   return Object.entries(poleMap).map(([pole, items]) => ({
     pole,
     title: items[0]?.name || pole,
-    mgr: items[0]?.manager_name || '—',
+    mgr: poleManagerMap[pole],
     items
   }))
 })
@@ -60,7 +64,7 @@ onMounted(async () => {
     <div class="card-h" style="margin-bottom:0"><h3 style="font-size:20px">Nos Directions</h3></div>
 
     <!-- ACCESS BANNER -->
-    <div class="access-banner">
+    <!--<div class="access-banner">
       <div class="lk">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
       </div>
@@ -69,7 +73,7 @@ onMounted(async () => {
         <p>Vous accédez à votre direction de rattachement. Les autres espaces sont affichés en lecture restreinte.</p>
       </div>
     </div>
-
+  -->
     <!-- LOADING -->
     <div v-if="loading" style="text-align:center;padding:40px">Chargement des directions...</div>
 
@@ -81,15 +85,14 @@ onMounted(async () => {
           <h3>{{ directionP.name }}</h3>
           <p>{{ directionP.description || 'Direction de tête' }}</p>
         </div>
-        <div class="mgr">Directeur / Directrice<b>{{ directionP.manager_name || '—' }}</b></div>
+        <div class="mgr">Directeur / Directrice<b>{{ directionP.pole_manager_name || directionP.manager_name || '—' }}</b></div>
       </div>
 
       <!-- GROUPES / PÔLES -->
       <div class="dgroup" v-for="group in groups" :key="group.pole">
         <div class="gh">
           <span class="chip">{{ group.pole }}</span>
-          <h3>{{ group.pole }}</h3>
-          <span class="mgr">Responsable : {{ group.mgr }}</span>
+          <h3>{{ group.mgr }}</h3>
         </div>
         <div class="dcards">
           <div

@@ -10,9 +10,10 @@
                     <field name="name"/>
                     <field name="email"/>
                     <field name="phone"/>
-                    <field name="role"/>
-                    <field name="direction_name"/>
                     <field name="job_title"/>
+                    <field name="direction_name"/>
+                    <field name="role"/>
+                    <field name="res_user_id"/>
                 </list>
             </field>
         </record>
@@ -30,13 +31,13 @@
                                 <field name="email"/>
                                 <field name="phone"/>
                                 <field name="login"/>
-                                <field name="role"/>
+                                <field name="job_title"/>
                             </group>
                             <group>
-                                <field name="direction_name"/>
-                                <field name="job_title"/>
+                                <field name="direction_id"/>
+                                <field name="role"/>
                                 <field name="is_manager"/>
-                                <field name="avatar_url"/>
+                                <field name="res_user_id"/>
                             </group>
                         </group>
                     </sheet>

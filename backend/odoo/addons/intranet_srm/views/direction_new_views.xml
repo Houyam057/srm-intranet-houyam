@@ -9,7 +9,7 @@
                 <list>
                     <field name="name"/>
                     <field name="manager_name"/>
-                    <field name="direction_p_name"/>
+                    <field name="pole_id"/>
                     <field name="sub_direction_count"/>
                 </list>
             </field>
@@ -28,7 +28,7 @@
                         <group>
                             <group>
                                 <field name="manager_id"/>
-                                <field name="direction_p_id"/>
+                                <field name="pole_id"/>
                             </group>
                             <group>
                                 <field name="sub_direction_count" readonly="1"/>

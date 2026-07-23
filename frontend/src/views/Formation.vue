@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, watch } from "vue";
-import {Check,Hourglass,Award,LibraryBig  } from 'lucide-vue-next'
+import {Check,Hourglass,Award,LibraryBig,Star,Shield ,UserStar ,ChartColumnBig, Crown  } from 'lucide-vue-next'
 
 const search = ref("");
 const pageStart = ref(0);
@@ -17,19 +17,13 @@ const formations = ref([
     { id: 4, title: "CyberSécurité", category: "Sécurité", level: "Intermédiaire", duration: "10 heures", trainer: "DSI", status: "Disponible", progress: 0, date: "30 Septembre 2026", places: 20, color: "red", icon: "🛡️" },
     { id: 5, title: "Gestion des Achats", category: "Achats", level: "Expert", duration: "15 heures", trainer: "Direction Achats", status: "En cours", progress: 45, date: "15 Novembre 2026", places: 10, color: "navy", icon: "📦" },
     { id: 6, title: "Communication Professionnelle", category: "RH", level: "Débutant", duration: "4 heures", trainer: "Direction RH", status: "Disponible", progress: 0, date: "3 Décembre 2026", places: 25, color: "blue", icon: "💬" },
-    { id: 7, title: "Excel Avancé", category: "Bureautique", level: "Intermédiaire", duration: "8 heures", trainer: "Service Informatique", status: "En cours", progress: 65, date: "20 Septembre 2026", places: 12, color: "navy", icon: "📊" },
-    { id: 8, title: "Power BI", category: "Business Intelligence", level: "Débutant", duration: "12 heures", trainer: "Consultant BI", status: "Disponible", progress: 0, date: "12 Octobre 2026", places: 18, color: "blue", icon: "📈" },
-    { id: 9, title: "Leadership", category: "Management", level: "Avancé", duration: "6 heures", trainer: "Direction RH", status: "Terminée", progress: 100, date: "5 Août 2026", places: 0, color: "green", icon: "👥" },
-    { id: 10, title: "CyberSécurité", category: "Sécurité", level: "Intermédiaire", duration: "10 heures", trainer: "DSI", status: "Disponible", progress: 0, date: "30 Septembre 2026", places: 20, color: "red", icon: "🛡️" },
-    { id: 11, title: "Gestion des Achats", category: "Achats", level: "Expert", duration: "15 heures", trainer: "Direction Achats", status: "En cours", progress: 45, date: "15 Novembre 2026", places: 10, color: "navy", icon: "📦" },
-    { id: 12, title: "Communication Professionnelle", category: "RH", level: "Débutant", duration: "4 heures", trainer: "Direction RH", status: "Disponible", progress: 0, date: "3 Décembre 2026", places: 25, color: "blue", icon: "💬" }
 ]);
 
 const badges = ref([
-    { title: "Excel Expert", icon: "🏆" },
-    { title: "Power BI", icon: "📈" },
-    { title: "Leadership", icon: "👑" },
-    { title: "Cyber", icon: "🛡️" }
+    { title: "Excel Expert", icon: UserStar  },
+    { title: "Power BI", icon: ChartColumnBig },
+    { title: "Leadership", icon: Crown },
+    { title: "Cyber", icon: Shield }
 ]);
 
 const certificats = ref([
@@ -154,7 +148,7 @@ function getColor(color) {
             <div class="card">
                 <div class="card-pad">
                     <div class="kpi" style="border: transparent;">
-                        <div class="head"><div class="ic ic-red"><Hourglass /></div> <h2>En cours</h2></div>
+                        <div class="head"><div class="ic ic-gold"><Hourglass /></div> <h2>En cours</h2></div>
                         <div class="val">{{ stats.progress }}</div>
                     </div>
                 </div>
@@ -162,13 +156,24 @@ function getColor(color) {
             <div class="card">
                 <div class="card-pad">
                     <div class="kpi" style="border: transparent;">
-                        <div class="head"><div class="ic ic-blue"><Award /></div> <h2>Badges</h2></div>
+                        <div class="head"><div class="ic ic-blue"><Star /></div> <h2>Compétences</h2></div>
                         <div class="val">{{ badges.length }}</div>
                     </div>
                 </div>
             </div>    
         </div>
         <div class="card">
+                <div class="card-pad">
+                    <div class="card-h"><h3>Mes Compétences</h3></div>
+                    <div class="badge-grid">
+                        <div class="badge-card" v-for="badge in badges" :key="badge.title">
+                            <div class="badge-icon">  <component :is="badge.icon" :size="32" /></div>
+                            <div>{{ badge.title }}</div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+            <div class="card">
                 <div class="card-pad">
                     <div class="card-h"><h3>Mes formations</h3></div>
                     <div class="mes-formations-list">
@@ -180,9 +185,7 @@ function getColor(color) {
                                     <p>{{ formation.progress }}% terminé</p>
                                 </div>
                             </div>
-                            <div class="right">
-                                <div class="mini-progress"><div class="mini-fill" :style="{width:formation.progress+'%'}"></div></div>
-                            </div>
+
                         </div>
                         <div v-if="hasMoreMesFormations" class="load-more" @click="loadMoreMesFormations">
                             <span>Voir plus</span>
@@ -226,100 +229,7 @@ function getColor(color) {
     </div>
 
         <!-- MES FORMATIONS + BADGES -->
-        <div class="two-cols">
-             <div class="card">
-                <div class="card-pad">
-                    <div class="card-h"><h3>📜 Mes certificats</h3></div>
-                    <div class="certificate" v-for="cert in certificats" :key="cert.title">
-                        <div>
-                            <strong>{{ cert.title }}</strong>
-                            <p>Obtenu le {{ cert.date }}</p>
-                        </div>
-                        <button class="btn-primary">Télécharger</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-pad">
-                    <div class="card-h"><h3>🏅 Mes badges</h3></div>
-                    <div class="badge-grid">
-                        <div class="badge-card" v-for="badge in badges" :key="badge.title">
-                            <div class="badge-icon">{{ badge.icon }}</div>
-                            <div>{{ badge.title }}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- CERTIFICATS + RECOMMANDATIONS -->
-        <div class="two-cols">
-           
-
-            <div class="card">
-                <div class="card-pad">
-                    <div class="card-h"><h3>⭐ Recommandées</h3></div>
-                    <div class="recommended" v-for="formation in recommended" :key="'rec'+formation.id">
-                        <div class="left">
-                            <div class="mini-icon" :style="{background:getColor(formation.color)}">{{ formation.icon }}</div>
-                            <div>
-                                <strong>{{ formation.title }}</strong>
-                                <p>{{ formation.duration }}</p>
-                            </div>
-                        </div>
-                        <button class="btn-primary" @click="inscrire(formation)">Voir</button>
-                    </div>
-                </div>
-            </div>
-                        <div class="card">
-                <div class="card-pad">
-                    <div class="card-h"><h3>📅 Prochaines sessions</h3></div>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-date">20 SEP</div>
-                            <div class="timeline-content">
-                                <strong>Excel Avancé</strong>
-                                <p>Salle Formation A • 09:00</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">28 SEP</div>
-                            <div class="timeline-content">
-                                <strong>CyberSécurité</strong>
-                                <p>Salle Informatique • 14:00</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">05 OCT</div>
-                            <div class="timeline-content">
-                                <strong>Leadership</strong>
-                                <p>Salle Réunion • 09:30</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- COMPÉTENCES -->
-        <div class="card">
-            <div class="card-pad">
-                <div class="card-h"><h3>📈 Mes compétences</h3></div>
-                <div class="skill" v-for="skill in competences" :key="skill.name">
-                    <div class="skill-header">
-                        <span>{{ skill.name }}</span>
-                        <strong>{{ skill.value }}%</strong>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-fill" :style="{width:skill.value+'%'}"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- CALENDRIER + PROCHAINES SESSIONS -->
-
-        </div>
+    </div>
 </template>
 
 <style scoped>
@@ -353,7 +263,7 @@ function getColor(color) {
 .hero .tri-hero { width:90px; height:5px; background:#fff; border-radius:20px; }
 
 /* ================= KPI ================= */
-.kpi-row { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+.kpi-row { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
 .kpi { display:flex; flex-direction:column; gap:10px; }
 .kpi .head { display:flex; align-items:center; gap:10px; font-weight:700; color:var(--muted); }
 .kpi .val { font-size:32px;font-weight:800;letter-spacing:.5px }
@@ -362,7 +272,8 @@ function getColor(color) {
 .card-grid{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  grid-template-rows: 1fr 1fr;
+  gap: 7px;
 }
 /* ================= SEARCH ================= */
 .search-input {

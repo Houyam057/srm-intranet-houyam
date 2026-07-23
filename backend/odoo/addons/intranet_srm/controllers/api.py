@@ -30,7 +30,7 @@ class IntranetAPI(http.Controller):
                 return self._response(error='Utilisateur non trouvé', status=404)
 
             User = request.env['intranet.user'].sudo()
-            user = User.browse(odoo_user.id)
+            user = User.search([('res_user_id', '=', odoo_user.id)], limit=1)
             if not user.exists():
                 return self._response(error='Utilisateur non trouvé', status=404)
 
@@ -40,21 +40,12 @@ class IntranetAPI(http.Controller):
                 'email': user.email,
                 'phone': user.phone or '',
                 'role': user.role,
-                'direction_id': user.direction_id or 0,
+                'direction_id': user.direction_id.id if user.direction_id else 0,
                 'job_title': user.job_title or '',
                 'is_manager': user.is_manager,
                 'avatar_url': user.avatar_url or '',
+                'direction_name': user.direction_name or '',
             }
-
-            if user.direction_id:
-                Direction = request.env['intranet.direction_p'].sudo()
-                direction = Direction.browse(user.direction_id)
-                if direction.exists():
-                    data['direction_name'] = direction.name
-                else:
-                    data['direction_name'] = ''
-            else:
-                data['direction_name'] = ''
             return self._response(data=data)
         except Exception as e:
             return self._response(error=str(e), status=500)
@@ -63,7 +54,7 @@ class IntranetAPI(http.Controller):
     @http.route('/api/directions', auth='public', methods=['GET'], csrf=False, cors='*')
     def get_directions(self):
         try:
-            Direction = request.env['intranet.direction_p'].sudo()
+            Direction = request.env['intranet.direction'].sudo()
             directions = Direction.search([('active', '=', True)])
 
             data = [{
@@ -71,8 +62,8 @@ class IntranetAPI(http.Controller):
                 'name': d.name,
                 'code': d.code,
                 'manager_name': d.manager_name,
-                'pole_name': d.pole_name,
-                'direction_count': d.direction_count,
+                'pole_name': d.pole_id.name if d.pole_id else '',
+                'pole_manager_name': d.pole_id.manager_name if d.pole_id else '',
                 'description': d.description,
             } for d in directions]
 
@@ -83,7 +74,7 @@ class IntranetAPI(http.Controller):
     @http.route('/api/directions/<int:direction_id>', auth='public', methods=['GET'], csrf=False, cors='*')
     def get_direction(self, direction_id):
         try:
-            Direction = request.env['intranet.direction_p'].sudo()
+            Direction = request.env['intranet.direction'].sudo()
             direction = Direction.browse(direction_id)
 
             if not direction.exists():
@@ -94,8 +85,8 @@ class IntranetAPI(http.Controller):
                 'name': direction.name,
                 'code': direction.code,
                 'manager_name': direction.manager_name,
-                'pole_name': direction.pole_name,
-                'direction_count': direction.direction_count,
+                'pole_name': direction.pole_id.name if direction.pole_id else '',
+                'pole_manager_name': direction.pole_id.manager_name if direction.pole_id else '',
                 'description': direction.description,
             }
 
@@ -107,7 +98,7 @@ class IntranetAPI(http.Controller):
     def create_direction(self):
         try:
             data = request.get_json_data()
-            Direction = request.env['intranet.direction_p']
+            Direction = request.env['intranet.direction']
 
             new_direction = Direction.create({
                 'name': data.get('name'),
@@ -126,10 +117,10 @@ class IntranetAPI(http.Controller):
         try:
             request.env.cr.execute("""
                 SELECT u.id, u.name, u.email, u.phone, u.login, u.role,
-                       u.direction_id, COALESCE(dp.name, '') as direction_name,
+                       u.direction_id, COALESCE(d.name, '') as direction_name,
                        u.job_title, u.is_manager, u.active, u.created_at
                 FROM intranet_user u
-                LEFT JOIN intranet_direction_p dp ON u.direction_id = dp.id
+                LEFT JOIN intranet_direction d ON u.direction_id = d.id
             """)
             columns = [desc[0] for desc in request.env.cr.description]
             rows = request.env.cr.fetchall()
@@ -159,9 +150,9 @@ class IntranetAPI(http.Controller):
     def get_employee(self, employee_id):
         try:
             request.env.cr.execute("""
-                SELECT u.*, COALESCE(dp.name, '') as direction_name
+                SELECT u.*, COALESCE(d.name, '') as direction_name
                 FROM intranet_user u
-                LEFT JOIN intranet_direction_p dp ON u.direction_id = dp.id
+                LEFT JOIN intranet_direction d ON u.direction_id = d.id
                 WHERE u.id = %s
             """, (employee_id,))
             columns = [desc[0] for desc in request.env.cr.description]
@@ -399,7 +390,7 @@ class IntranetAPI(http.Controller):
     @http.route('/api/dashboard', auth='public', methods=['GET'], csrf=False, cors='*')
     def get_dashboard(self):
         try:
-            Direction = request.env['intranet.direction_p'].sudo()
+            Direction = request.env['intranet.direction'].sudo()
             User = request.env['intranet.user'].sudo()
             News = request.env['intranet.news'].sudo()
 

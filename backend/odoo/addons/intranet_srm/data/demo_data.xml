@@ -17,47 +17,102 @@
             <field name="description">Pôle des fonctions de support</field>
         </record>
 
-        <!-- DIRECTIONS -->
-        <record id="direction_dg" model="intranet.direction_p">
+        <!-- DIRECTION GENERALE -->
+        <record id="dir_dg" model="intranet.direction">
             <field name="name">Direction Générale</field>
             <field name="code">DG</field>
             <field name="pole_id" ref="pole_dg"/>
-            <field name="description">Direction Générale de SRM-TTA</field>
         </record>
 
-        <record id="direction_exploit" model="intranet.direction_p">
-            <field name="name">Direction en charge des Exploitations</field>
-            <field name="code">EXPLOIT</field>
+        <!-- DIRECTIONS RATTACHEES A LA DG -->
+        <record id="dir_qse" model="intranet.direction">
+            <field name="name">Développement et Suivi des Performances, QSE</field>
+            <field name="code">QSE</field>
             <field name="pole_id" ref="pole_dg"/>
-            <field name="description">Direction responsable des exploitations</field>
         </record>
 
-        <record id="direction_eau" model="intranet.direction_p">
-            <field name="name">Direction Exploitation Eau Potable</field>
-            <field name="code">EAU</field>
-            <field name="pole_id" ref="pole_exploitations"/>
-            <field name="description">Gestion de l'eau potable</field>
+        <record id="dir_communication" model="intranet.direction">
+            <field name="name">Communication Externe et Marketing</field>
+            <field name="code">COMM</field>
+            <field name="pole_id" ref="pole_dg"/>
         </record>
 
-        <record id="direction_assain" model="intranet.direction_p">
-            <field name="name">Direction Exploitation Assainissement Liquide</field>
-            <field name="code">ASSAIN</field>
-            <field name="pole_id" ref="pole_exploitations"/>
-            <field name="description">Gestion de l'assainissement</field>
+        <record id="dir_controle" model="intranet.direction">
+            <field name="name">Contrôle Permanent</field>
+            <field name="code">CTRL</field>
+            <field name="pole_id" ref="pole_dg"/>
         </record>
 
-        <record id="direction_elec" model="intranet.direction_p">
-            <field name="name">Direction Exploitation Électricité</field>
-            <field name="code">ELEC</field>
-            <field name="pole_id" ref="pole_exploitations"/>
-            <field name="description">Gestion de l'électricité</field>
+        <record id="dir_audit" model="intranet.direction">
+            <field name="name">Audit Interne</field>
+            <field name="code">AUDIT</field>
+            <field name="pole_id" ref="pole_dg"/>
         </record>
 
-        <record id="direction_rh" model="intranet.direction_p">
+        <record id="dir_gouvernance" model="intranet.direction">
+            <field name="name">Gouvernance, Gestion des Contrats et Relations Institutionnelles</field>
+            <field name="code">GOV</field>
+            <field name="pole_id" ref="pole_dg"/>
+        </record>
+
+        <record id="dir_invest" model="intranet.direction">
+            <field name="name">Direction des Investissements</field>
+            <field name="code">INVEST</field>
+            <field name="pole_id" ref="pole_dg"/>
+        </record>
+
+        <record id="dir_clientele" model="intranet.direction">
+            <field name="name">Direction Clientèle</field>
+            <field name="code">CLI</field>
+            <field name="pole_id" ref="pole_dg"/>
+        </record>
+
+        <record id="dir_rh" model="intranet.direction">
             <field name="name">Direction du Capital Humain</field>
             <field name="code">RH</field>
-            <field name="pole_id" ref="pole_support"/>
-            <field name="description">Gestion des ressources humaines</field>
+            <field name="pole_id" ref="pole_dg"/>
+        </record>
+
+        <record id="dir_houceima" model="intranet.direction">
+            <field name="name">Direction Province Al Hoceima</field>
+            <field name="code">PROV-HOU</field>
+            <field name="pole_id" ref="pole_dg"/>
+        </record>
+
+        <record id="dir_tetouan" model="intranet.direction">
+            <field name="name">Direction Province Tétouan</field>
+            <field name="code">PROV-TET</field>
+            <field name="pole_id" ref="pole_dg"/>
+        </record>
+
+        <record id="dir_larache" model="intranet.direction">
+            <field name="name">Direction Province Larache</field>
+            <field name="code">PROV-LAR</field>
+            <field name="pole_id" ref="pole_dg"/>
+        </record>
+
+        <record id="dir_chefchaouen" model="intranet.direction">
+            <field name="name">Direction Province Chefchaouen</field>
+            <field name="code">PROV-CHE</field>
+            <field name="pole_id" ref="pole_dg"/>
+        </record>
+
+        <record id="dir_ouazzane" model="intranet.direction">
+            <field name="name">Direction Province Ouazzane</field>
+            <field name="code">PROV-OUA</field>
+            <field name="pole_id" ref="pole_dg"/>
+        </record>
+
+        <record id="dir_fahs" model="intranet.direction">
+            <field name="name">Direction Province Fahs-Anjra</field>
+            <field name="code">PROV-FAH</field>
+            <field name="pole_id" ref="pole_dg"/>
+        </record>
+
+        <record id="dir_mdiq" model="intranet.direction">
+            <field name="name">Direction Province M'diq-Fnideq</field>
+            <field name="code">PROV-MDI</field>
+            <field name="pole_id" ref="pole_dg"/>
         </record>
 
         <!-- NEWS -->

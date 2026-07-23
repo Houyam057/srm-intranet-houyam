@@ -12,8 +12,6 @@ class DirectionNew(models.Model):
     manager_name = fields.Char('Nom du Manager', related='manager_id.name', store=True)
 
     pole_id = fields.Many2one('intranet.pole', string='Pôle')
-    direction_p_id = fields.Many2one('intranet.direction_p', string='Direction Principale')
-    direction_p_name = fields.Char('Direction P', related='direction_p_id.name', store=True)
 
     sub_direction_ids = fields.One2many('intranet.sub_direction', 'direction_id', string='Sous-Directions')
     sub_direction_count = fields.Integer('Nombre de Sous-Directions', compute='_compute_sub_direction_count', store=True)

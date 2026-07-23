@@ -4,6 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from './stores/auth.js'
 import Sidebar from './components/Sidebar.vue'
 import Topbar from './components/Topbar.vue'
+import ChatWidget from './components/ChatWidget.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -53,6 +54,7 @@ onMounted(async () => {
         </div>
       </template>
       <router-view v-else />
+      <ChatWidget v-if="authStore.isAuthenticated" />
     </template>
   </div>
 </template>

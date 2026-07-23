@@ -13,13 +13,22 @@ export const DIRS = {
   daf:         { name: "Direction Administrative et Financière", mgr: "BEN ABDESSADAK Nisrine", pole: "Pôle Fonctions Support", eff: 1 },
   juridique:   { name: "Direction Juridique et Assurances", mgr: "AMRANI Mohamed", pole: "Pôle Fonctions Support", eff: 1 },
   dsi:         { name: "Direction Systèmes d'Information et Transformation Digitale", mgr: "BAKALI TAHIRI Mohamed", pole: "Pôle Fonctions Support", eff: 1 },
-  audit:       { name: "Direction Audit Interne", mgr: "ELKHAMLICHI Mehdia", pole: "Direction Générale", eff: 1 },
-  clientele:   { name: "Direction Clientèle", mgr: "OUJGHA Radouane", pole: "Direction Générale", eff: 3 },
+  audit:       { name: "Direction Audit Interne", mgr: "EL KHAMICHI Mehdia", pole: "Direction Générale", eff: 1 },
+  clientele:   { name: "Direction Clientèle", mgr: "OUJGHA Redouane", pole: "Direction Générale", eff: 3 },
   controle:    { name: "Direction Contrôle Permanent", mgr: "BENNOUNA Maha", pole: "Direction Générale", eff: 5 },
   qse:         { name: "Direction Développement et Suivi des Performances, QSE", mgr: "TAIMI Omar", pole: "Direction Générale", eff: 2 },
-  gouvernance: { name: "Direction Gouvernance, Gestion des Contrats et Relations Institutionnelles", mgr: "EL ALAOUI EL ABIDI Kawla", pole: "Direction Générale", eff: 1 },
-  invest:      { name: "Direction des Investissements", mgr: "ERRAYSSOUNY Anouar", pole: "Direction Générale", eff: 4 },
-  rh:          { name: "Direction du Capital Humain", mgr: "GHAMMAD Souhail", pole: "Direction Générale", eff: 1 }
+  gouvernance: { name: "Direction Gouvernance, Gestion des Contrats et Relations Institutionnelles", mgr: "EL ALAOUI EL ABIDI Khaoula", pole: "Direction Générale", eff: 1 },
+  invest:      { name: "Direction des Investissements", mgr: "ERRAYSSOUNI Anouar", pole: "Direction Générale", eff: 4 },
+  rh:          { name: "Direction du Capital Humain", mgr: "EL KHOMSI Jihad", pole: "Direction Générale", eff: 1 },
+  communication: { name: "Communication Externe et Marketing", mgr: "ZEFZAF Hind", pole: "Direction Générale", eff: 1 },
+  // Directions Provinciales
+  prov_houceima:   { name: "Direction Province Al Hoceima", mgr: "SOUJAA Souhail", pole: "Direction Générale", eff: 1 },
+  prov_tetouan:    { name: "Direction Province Tétouan", mgr: "ZITANE Mohamed Reda", pole: "Direction Générale", eff: 1 },
+  prov_larache:    { name: "Direction Province Larache", mgr: "ZAIM Mohamed", pole: "Direction Générale", eff: 1 },
+  prov_chefchaouen:{ name: "Direction Province Chefchaouen", mgr: "EL HASSANI Mohamed", pole: "Direction Générale", eff: 1 },
+  prov_ouazzane:   { name: "Direction Province Ouazzane", mgr: "EL MOUSSAOUI Hicham", pole: "Direction Générale", eff: 1 },
+  prov_fahs:       { name: "Direction Province Fahs-Anjra", mgr: "HRARTI Siham", pole: "Direction Générale", eff: 1 },
+  prov_mdiq:       { name: "Direction Province M'diq-Fnideq", mgr: "ABDOUN Mohamed", pole: "Direction Générale", eff: 1 }
 }
 
 // Structure du sous-menu "Nos Directions" (groupe > items) — reprend le HTML statique du mockup

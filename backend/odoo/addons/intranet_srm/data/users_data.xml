@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="user_drissi_kamili" model="intranet.user">
+            <field name="name">DRISSI KAMILI Bouchra</field>
+            <field name="email">drissi.kamili.bouchra@srm-tta.ma</field>
+            <field name="login">drissi.kamili.bouchra</field>
+            <field name="direction_id" eval="ref('dir_dg')"/>
+            <field name="job_title">directeur</field>
+            <field name="is_manager" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="user_taimi_omar" model="intranet.user">
+            <field name="name">TAIMI Omar</field>
+            <field name="email">taimi.omar@srm-tta.ma</field>
+            <field name="login">taimi.omar</field>
+            <field name="direction_id" eval="ref('dir_qse')"/>
+            <field name="job_title">directeur</field>
+            <field name="is_manager" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="user_zefzaf_hind" model="intranet.user">
+            <field name="name">ZEFZAF Hind</field>
+            <field name="email">zefzaf.hind@srm-tta.ma</field>
+            <field name="login">zefzaf.hind</field>
+            <field name="direction_id" eval="ref('dir_communication')"/>
+            <field name="job_title">directeur</field>
+            <field name="is_manager" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="user_bennouna_maha" model="intranet.user">
+            <field name="name">BENNOUNA Maha</field>
+            <field name="email">bennouna.maha@srm-tta.ma</field>
+            <field name="login">bennouna.maha</field>
+            <field name="direction_id" eval="ref('dir_controle')"/>
+            <field name="job_title">directeur</field>
+            <field name="is_manager" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="user_el_khamlichi_mehdia" model="intranet.user">
+            <field name="name">EL KHAMICHI Mehdia</field>
+            <field name="email">el.khamlichi.mehdia@srm-tta.ma</field>
+            <field name="login">el.khamlichi.mehdia</field>
+            <field name="direction_id" eval="ref('dir_audit')"/>
+            <field name="job_title">directeur</field>
+            <field name="is_manager" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="user_el_alaoui_el_abidi_khaoula" model="intranet.user">
+            <field name="name">EL ALAOUI EL ABIDI Khaoula</field>
+            <field name="email">el.alaoui.el.abidi.khaoula@srm-tta.ma</field>
+            <field name="login">el.alaoui.el.abidi.khaoula</field>
+            <field name="direction_id" eval="ref('dir_gouvernance')"/>
+            <field name="job_title">directeur</field>
+            <field name="is_manager" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="user_erraysouni_anouar" model="intranet.user">
+            <field name="name">ERRAYSSOUNI Anouar</field>
+            <field name="email">erraysouni.anouar@srm-tta.ma</field>
+            <field name="login">erraysouni.anouar</field>
+            <field name="direction_id" eval="ref('dir_invest')"/>
+            <field name="job_title">directeur</field>
+            <field name="is_manager" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="user_oujgha_redouane" model="intranet.user">
+            <field name="name">OUJGHA Redouane</field>
+            <field name="email">oujgha.redouane@srm-tta.ma</field>
+            <field name="login">oujgha.redouane</field>
+            <field name="direction_id" eval="ref('dir_clientele')"/>
+            <field name="job_title">directeur</field>
+            <field name="is_manager" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="user_el_khomsi_jihad" model="intranet.user">
+            <field name="name">EL KHOMSI Jihad</field>
+            <field name="email">el.khomsi.jihad@srm-tta.ma</field>
+            <field name="login">el.khomsi.jihad</field>
+            <field name="direction_id" eval="ref('dir_rh')"/>
+            <field name="job_title">directeur</field>
+            <field name="is_manager" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="user_soujaa_souhail" model="intranet.user">
+            <field name="name">SOUJAA Souhail</field>
+            <field name="email">soujaa.souhail@srm-tta.ma</field>
+            <field name="login">soujaa.souhail</field>
+            <field name="direction_id" eval="ref('dir_houceima')"/>
+            <field name="job_title">directeur</field>
+            <field name="is_manager" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="user_zitane_mohamed_reda" model="intranet.user">
+            <field name="name">ZITANE Mohamed Reda</field>
+            <field name="email">zitane.mohamed.reda@srm-tta.ma</field>
+            <field name="login">zitane.mohamed.reda</field>
+            <field name="direction_id" eval="ref('dir_tetouan')"/>
+            <field name="job_title">directeur</field>
+            <field name="is_manager" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="user_zaim_mohamed" model="intranet.user">
+            <field name="name">ZAIM Mohamed</field>
+            <field name="email">zaim.mohamed@srm-tta.ma</field>
+            <field name="login">zaim.mohamed</field>
+            <field name="direction_id" eval="ref('dir_larache')"/>
+            <field name="job_title">directeur</field>
+            <field name="is_manager" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="user_el_hassani_mohamed" model="intranet.user">
+            <field name="name">EL HASSANI Mohamed</field>
+            <field name="email">el.hassani.mohamed@srm-tta.ma</field>
+            <field name="login">el.hassani.mohamed</field>
+            <field name="direction_id" eval="ref('dir_chefchaouen')"/>
+            <field name="job_title">directeur</field>
+            <field name="is_manager" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="user_el_moussaoui_hicham" model="intranet.user">
+            <field name="name">EL MOUSSAOUI Hicham</field>
+            <field name="email">el.moussaoui.hicham@srm-tta.ma</field>
+            <field name="login">el.moussaoui.hicham</field>
+            <field name="direction_id" eval="ref('dir_ouazzane')"/>
+            <field name="job_title">directeur</field>
+            <field name="is_manager" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="user_hrarti_siham" model="intranet.user">
+            <field name="name">HRARTI Siham</field>
+            <field name="email">hrarti.siham@srm-tta.ma</field>
+            <field name="login">hrarti.siham</field>
+            <field name="direction_id" eval="ref('dir_fahs')"/>
+            <field name="job_title">directeur</field>
+            <field name="is_manager" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="user_abdoun_mohamed" model="intranet.user">
+            <field name="name">ABDOUN Mohamed</field>
+            <field name="email">abdoun.mohamed@srm-tta.ma</field>
+            <field name="login">abdoun.mohamed</field>
+            <field name="direction_id" eval="ref('dir_mdiq')"/>
+            <field name="job_title">directeur</field>
+            <field name="is_manager" eval="True"/>
+            <field name="active" eval="True"/>
+        </record>
+    </data>
+</odoo>

@@ -3,6 +3,7 @@
 import { useRouter } from "vue-router"
 import SAPBI from "../assets/sap-bi.svg"
 import SAP from "../assets/sap.svg"
+import SOMEI from "../assets/somei.svg"
 const router = useRouter()
 const apps = [
   {
@@ -10,27 +11,34 @@ const apps = [
     name: "Odoo",
     icon: "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/odoo.svg",
     description: "Une plateforme de gestion intégrée permettant de centraliser les processus métiers de notre organisation",
-    route: "/apps/odoo"
+    url:"https://eservices.srm-tta.ma/odoo?db=SRM_TTA_PROD"
   },
   {
     id: 2,
     name: "SAP",
     icon: SAP,
     description: "Gérez les processus clés de l'entreprise grâce à SAP : finance, achats, ventes, logistique et gestion des ressources.",
-    route: "/apps/sap"
   },
   {
     id: 3,
     name: "SAP BI",
     icon: SAPBI,
     description: "Plateforme d'analyse décisionnelle offrant des rapports, tableaux de bord et indicateurs de performance en temps réel.",
-    route: "/apps/sap-bi"
+    url: "http://s09pp-bob-rpt01.srm-tth.local:8080/BOE/BI"
+  },
+  {
+    id: 4,
+    name: "WatErp / Somei",
+    icon: SOMEI,
+    description: "Wat.erp simplifie la gestion de l'eau et de l'assainissement : abonnements, télérelevé, détection de fuites, facturation et espace client.",
+    url: "https://identity-tth.srm-tth.local/login?signin=2552753e197809c75cebf12a825d1ab7"
   }
 ]
 
-function openApp(route) {
-  router.push(route)
-}
+const openApp = (url) => {
+  if(!url) {return;}
+  window.open(url, "_blank"); 
+};
 </script>
 
 <template>
@@ -60,7 +68,7 @@ function openApp(route) {
         </p>
 
         <div class="actions">
-            <button @click="openApp(app.route)">
+            <button @click="openApp(app.url)">
                 Open
             </button>
         </div>
@@ -89,8 +97,8 @@ function openApp(route) {
 
 .apps-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 40px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
 }
 
 .app-card {

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ai_base_url_config" model="ir.config_parameter">
+            <field name="key">chatbot.ai_base_url</field>
+            <field name="value">https://api.groq.com/openai/v1</field>
+        </record>
+
+        <record id="ai_model_config" model="ir.config_parameter">
+            <field name="key">chatbot.ai_model</field>
+            <field name="value">llama3-8b-8192</field>
+        </record>
+    </data>
+</odoo>

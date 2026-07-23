@@ -8,6 +8,8 @@ class Pole(models.Model):
 
     name = fields.Char('Nom du Pôle', required=True)
     description = fields.Text('Description')
+    manager_id = fields.Many2one('intranet.user', string='Responsable')
+    manager_name = fields.Char('Nom du Responsable', related='manager_id.name', store=True)
 
     def __str__(self):
         return self.name
