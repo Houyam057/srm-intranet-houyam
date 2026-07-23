@@ -59,3 +59,29 @@ subject,message,category,urgency
 "Question administrative non classee","Une demande administrative qui ne correspond a aucune categorie du formulaire.",Autre,normal
 "Incident sensible non categorise a traiter vite","Un incident sensible s'est produit et ne rentre dans aucune categorie du formulaire, reponse rapide necessaire.",Autre,urgent
 "Probleme urgent hors des categories habituelles","Un probleme urgent qui sort du cadre habituel des categories, merci de me contacter au plus vite.",Autre,urgent
+"Poignee de porte legerement desserree","La poignee de la porte du bureau 204 est un peu desserree, ca fonctionne quand meme, purement esthetique.",Maintenance,low
+"Interrupteur de la salle de pause difficile a actionner","L'interrupteur de lumiere de la salle de pause est dur a actionner, pas grave.",Maintenance,low
+"Volet roulant bloque a moitie","Le volet roulant de la salle de reunion A reste bloque a moitie, ca genere une gene visuelle sans bloquer la reunion.",Maintenance,normal
+"Moquette decollee dans le couloir","La moquette du couloir du 2e etage se decolle par endroits, risque de trebucher a terme, a corriger dans les prochaines semaines.",Maintenance,normal
+"Odeur de gaz suspectee pres de la cuisine","Une odeur suspecte de gaz est detectee pres de la kitchenette du 3e etage, intervention immediate demandee.",Maintenance,urgent
+"Escalier de secours partiellement bloque","L'escalier de secours du batiment B est partiellement obstrue par des cartons, danger en cas d'evacuation.",Maintenance,urgent
+"Question sur le plan d'epargne entreprise","Je voudrais savoir comment fonctionne le plan d'epargne entreprise, pas presse, simple curiosite.",Ressources Humaines,low
+"Renseignement sur le processus de mobilite interne","Je m'interroge sur les etapes pour demander une mobilite interne, sans urgence particuliere.",Ressources Humaines,low
+"Erreur dans mon contrat de travail","J'ai remarque une erreur dans l'intitule de mon poste sur mon contrat, a corriger dans les prochaines semaines.",Ressources Humaines,normal
+"Demande de mise a jour de ma situation familiale","Je dois signaler un changement de situation familiale pour mon dossier RH, pas urgent mais avant la fin du mois.",Ressources Humaines,normal
+"Erreur bloquante sur ma fiche de paie de ce mois","Ma fiche de paie de ce mois affiche un montant errone qui bloque mon virement bancaire, besoin d'une correction rapide.",Ressources Humaines,urgent
+"Situation de discrimination a signaler","Je souhaite signaler une situation de discrimination vecue recemment, j'ai besoin d'un suivi RH rapide et confidentiel.",Ressources Humaines,urgent
+"Clavier qui repond avec un leger delai","Mon clavier a un leger delai de reponse depuis hier, ca ralentit un peu la saisie sans bloquer le travail.",Support informatique,normal
+"Synchronisation des emails irreguliere","La synchronisation de ma messagerie est irreguliere depuis ce matin, les emails arrivent avec du retard.",Support informatique,normal
+"Suggestion d'ecran d'affichage dans le hall","Je propose d'installer un ecran d'affichage des actualites dans le hall d'entree, a etudier ce semestre.",Suggestion,normal
+"Suggestion de session d'integration pour nouveaux arrivants","Je propose une session d'integration mensuelle pour les nouveaux arrivants, sans urgence particuliere.",Suggestion,normal
+"Demande d'information sur un partenariat externe","Je cherche des informations sur un partenariat externe recemment annonce, dans la semaine si possible.",Autre,normal
+"Question sur l'acces au parking visiteurs","Je voudrais savoir comment reserver une place de parking visiteur, dans les prochains jours.",Autre,normal
+"Icone application deplacee sur le bureau","L'icone du logiciel de facturation a change de place sur mon bureau, purement esthetique, pas genant.",Support informatique,low
+"Mise a jour logicielle qui echoue a repetition","La mise a jour d'un logiciel metier echoue a chaque tentative depuis deux jours, je continue a travailler avec l'ancienne version en attendant.",Support informatique,normal
+"Logiciel de facturation inaccessible pour tout le service","Personne dans le service comptabilite ne peut acceder au logiciel de facturation depuis ce matin, tout le monde est bloque.",Support informatique,urgent
+"Antivirus qui bloque une application metier critique","L'antivirus bloque le lancement d'une application metier indispensable, impossible de travailler sans une intervention rapide.",Support informatique,urgent
+"Question simple sur le badge d'acces","Je me demandais comment fonctionne le badge d'acces pour le parking, simple curiosite, pas presse.",Autre,low
+"Suggestion mineure sur la disposition des bureaux","Petite suggestion sur la disposition des bureaux dans l'open space, aucune urgence.",Suggestion,low
+"Incident de securite en cours dans le hall","Un incident de securite est en cours dans le hall d'entree et ne correspond a aucune categorie precise, intervention immediate necessaire.",Autre,urgent
+"Suggestion urgente suite a un accident evite de justesse","Suite a un accident evite de justesse ce matin, je suggere de revoir en urgence la signalisation au sol.",Suggestion,urgent
