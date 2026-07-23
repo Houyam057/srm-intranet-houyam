@@ -3,7 +3,7 @@ DirectionSRM-TTA.xlsx
 internship-log.md
 rapport-stage/
 rapport-stage.zip
-.claude/settings.local.json
+.claude/
 .agents
 ai_triage/models/
 ai_triage/.venv/
