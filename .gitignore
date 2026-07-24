@@ -7,11 +7,7 @@ rapport-stage/
 rapport-stage.zip
 .claude/
 .agents
-<<<<<<< HEAD
-~$DirectionSRM-TTA.xlsx
 PLAN_CHATBOT.md
-=======
 ai_triage/models/
 ai_triage/.venv/
 ~$DirectionSRM-TTA.xlsx
->>>>>>> c8f87b30f6980ce158dc783bf164985484c47d2a

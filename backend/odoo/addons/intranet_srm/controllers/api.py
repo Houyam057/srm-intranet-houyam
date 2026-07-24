@@ -68,10 +68,6 @@ class IntranetAPI(http.Controller):
     def get_directions(self):
         try:
             Direction = request.env['intranet.direction'].sudo()
-<<<<<<< HEAD
-=======
-            User = request.env['intranet.user'].sudo()
->>>>>>> c8f87b30f6980ce158dc783bf164985484c47d2a
             directions = Direction.search([('active', '=', True)])
 
             data = [{
@@ -79,14 +75,8 @@ class IntranetAPI(http.Controller):
                 'name': d.name,
                 'code': d.code or '',
                 'manager_name': d.manager_name,
-<<<<<<< HEAD
                 'pole_name': d.pole_id.name if d.pole_id else '',
                 'pole_manager_name': d.pole_id.manager_name if d.pole_id else '',
-=======
-                'pole_name': d.pole_id.name or '',
-                'direction_p_name': d.direction_p_name,
-                'employee_count': User.search_count([('direction_id', '=', d.id)]),
->>>>>>> c8f87b30f6980ce158dc783bf164985484c47d2a
                 'description': d.description,
             } for d in directions]
 
@@ -98,10 +88,7 @@ class IntranetAPI(http.Controller):
     def get_direction(self, direction_id):
         try:
             Direction = request.env['intranet.direction'].sudo()
-<<<<<<< HEAD
-=======
             User = request.env['intranet.user'].sudo()
->>>>>>> c8f87b30f6980ce158dc783bf164985484c47d2a
             direction = Direction.browse(direction_id)
 
             if not direction.exists():
@@ -120,14 +107,9 @@ class IntranetAPI(http.Controller):
                 'name': direction.name,
                 'code': direction.code or '',
                 'manager_name': direction.manager_name,
-<<<<<<< HEAD
                 'pole_name': direction.pole_id.name if direction.pole_id else '',
                 'pole_manager_name': direction.pole_id.manager_name if direction.pole_id else '',
-=======
-                'pole_name': direction.pole_id.name or '',
-                'direction_p_name': direction.direction_p_name,
                 'employee_count': len(employees),
->>>>>>> c8f87b30f6980ce158dc783bf164985484c47d2a
                 'description': direction.description,
             }
 
@@ -139,13 +121,9 @@ class IntranetAPI(http.Controller):
     def create_direction(self):
         try:
             data = request.get_json_data()
-<<<<<<< HEAD
-            Direction = request.env['intranet.direction']
-=======
             missing = self._missing_fields(data, ['name'])
             if missing:
                 return self._response(error=f"Champs requis manquants : {', '.join(missing)}", status=400)
->>>>>>> c8f87b30f6980ce158dc783bf164985484c47d2a
 
             Direction = request.env['intranet.direction']
             new_direction = Direction.create({
@@ -154,7 +132,6 @@ class IntranetAPI(http.Controller):
                 'description': data.get('description'),
                 'manager_id': data.get('manager_id'),
                 'pole_id': data.get('pole_id'),
-                'direction_p_id': data.get('direction_p_id'),
             })
 
             return self._response(data={'id': new_direction.id, 'name': new_direction.name}, status=201)
