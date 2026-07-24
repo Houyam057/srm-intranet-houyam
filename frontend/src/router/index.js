@@ -4,6 +4,8 @@ const routes = [
   { path: '/', name: 'accueil', component: () => import('../views/Accueil.vue') },
   { path: '/directions', name: 'mesdirections', component: () => import('../views/MesDirections.vue') },
   {path:'/profil', name:'profil', component: () => import('../views/Profile.vue')},
+  {path:'/nos-metiers', name:'nos-metiers', component: () => import('../views/NosMetiers.vue')},
+  {path:'/documents', name:'documents', component: () => import('../views/Documents.vue')},
   // Page détaillée "riche" : correspond à la page-direction (Communication & Marketing) de la maquette
   { path: '/directions/comm', name: 'direction-comm', component: () => import('../views/Direction.vue') },
   { path : '/apps',name:'apps', component:() =>  import ('../views/Apps.vue')},

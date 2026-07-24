@@ -21,6 +21,9 @@ const isFlashInfo = computed(() => route.name === 'flashinfo')
 const isNotreSociete = computed(() => route.name === 'notre-societe')
 const isApps = computed(() => ['apps', 'sap', 'sap-bi', 'odoo'].includes(route.name))
 const isFormation = computed(() => route.name==='formations-competences' )
+const isNosMetiers = computed(() => route.name === 'nos-metiers')
+const isProfil = computed(() => route.name === 'profil')
+const isDocuments = computed(() => route.name === 'documents')
 
 function goToFormation(){
   router.push({name:'formations-competences'})
@@ -56,6 +59,17 @@ function goToWebsite() {
   router.push({ name: 'notre-societe' })
 }
 
+function goToNosMetiers() {
+  router.push({ name: 'nos-metiers' })
+}
+
+function goToProfil() {
+  router.push({ name: 'profil' })
+}
+
+function goToDocuments() {
+  router.push({ name: 'documents' })
+}
 </script>
 
 <template>
@@ -96,11 +110,11 @@ function goToWebsite() {
     </div>
 
 
-    <div class="nav-item">
+    <div class="nav-item" :class="{ active: isProfil }" @click="goToProfil">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M8 6V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1"/><circle cx="9" cy="12" r="2"/><path d="M6 17c.8-1.5 4.2-1.5 6 0M15 11h3M15 15h3"/></svg>
       <span>Mon Espace Collaborateur</span>
     </div>
-    <div class="nav-item">
+    <div class="nav-item" :class="{ active: isDocuments }" @click="goToDocuments">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
       <span>Documents &amp; Procédures</span>
     </div>
