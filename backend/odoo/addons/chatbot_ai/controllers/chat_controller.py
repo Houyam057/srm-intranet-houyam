@@ -31,6 +31,11 @@ class ChatbotController(http.Controller):
         response_obj.status_code = status
         return response_obj
 
+    def _server_error(self, e, status=500):
+        """Log l'exception reelle cote serveur ; ne jamais renvoyer son detail au client."""
+        _logger.exception("Erreur chatbot_ai")
+        return self._response(error="Une erreur interne est survenue.", status=status)
+
     @http.route('/api/chat', auth='user', methods=['POST'], csrf=False, cors='*')
     def send_message(self):
         """Reçoit un message et retourne la réponse de l'IA."""
@@ -47,7 +52,7 @@ class ChatbotController(http.Controller):
             if conversation_id:
                 conversation = Conversation.browse(conversation_id)
                 if not conversation.exists() or conversation.user_id.id != request.env.uid:
-                    conversation = Conversation.create({'user_id': request.env.uid})
+                    return self._response(error='Conversation non trouvée', status=404)
             else:
                 conversation = Conversation.create({'user_id': request.env.uid})
 
@@ -59,8 +64,7 @@ class ChatbotController(http.Controller):
             ai_service = AIService(request.env)
             ai_response = ai_service.get_response(user_message, history=history)
 
-            conversation.add_message('user', user_message)
-            conversation.add_message('assistant', ai_response)
+            conversation.add_messages([('user', user_message), ('assistant', ai_response)])
 
             return self._response(data={
                 'response': ai_response,
@@ -68,8 +72,7 @@ class ChatbotController(http.Controller):
             })
 
         except Exception as e:
-            _logger.exception("Erreur dans /api/chat")
-            return self._response(error=str(e), status=500)
+            return self._server_error(e)
 
     @http.route('/api/chat/history', auth='user', methods=['GET'], csrf=False, cors='*')
     def get_history(self, conversation_id=None, limit=20):
@@ -104,8 +107,7 @@ class ChatbotController(http.Controller):
             })
 
         except Exception as e:
-            _logger.exception("Erreur dans /api/chat/history")
-            return self._response(error=str(e), status=500)
+            return self._server_error(e)
 
     @http.route('/api/chat/conversation/<int:conversation_id>', auth='user', methods=['DELETE'], csrf=False, cors='*')
     def delete_conversation(self, conversation_id):
@@ -121,5 +123,4 @@ class ChatbotController(http.Controller):
             return self._response(data={'deleted': True})
 
         except Exception as e:
-            _logger.exception("Erreur dans /api/chat/conversation/delete")
-            return self._response(error=str(e), status=500)
+            return self._server_error(e)

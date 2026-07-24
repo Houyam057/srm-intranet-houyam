@@ -34,13 +34,15 @@ class ChatbotConversation(models.Model):
             except (json.JSONDecodeError, TypeError, KeyError, StopIteration):
                 rec.name = 'Nouvelle conversation'
 
-    def add_message(self, role, content):
+    def add_messages(self, entries):
+        """Ajoute plusieurs messages (role, content) en un seul write."""
         self.ensure_one()
         try:
             msgs = json.loads(self.messages or '[]')
         except (json.JSONDecodeError, TypeError):
             msgs = []
-        msgs.append({'role': role, 'content': content})
+        for role, content in entries:
+            msgs.append({'role': role, 'content': content})
         self.write({
             'messages': json.dumps(msgs),
             'updated_at': fields.Datetime.now(),
