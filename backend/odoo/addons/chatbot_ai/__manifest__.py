@@ -9,6 +9,7 @@
     'depends': ['base', 'mail'],
     'data': [
         'security/ir.model.access.csv',
+        'security/chatbot_conversation_rules.xml',
         'views/conversation_views.xml',
     ],
     'installable': True,
