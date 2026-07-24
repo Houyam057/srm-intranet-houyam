@@ -10,6 +10,7 @@
     'data': [
         'security/ir.model.access.csv',
         'security/chatbot_conversation_rules.xml',
+        'data/ai_config.xml',
         'views/conversation_views.xml',
     ],
     'installable': True,
