@@ -11,7 +11,7 @@ export const odooApi = axios.create({
 odooApi.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401 || error.response?.status === 403) {
+    if (error.response?.status === 401) {
       window.location.href = '/login'
     }
     return Promise.reject(error)

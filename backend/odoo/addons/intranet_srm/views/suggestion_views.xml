@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="suggestion_list_view" model="ir.ui.view">
+            <field name="name">Suggestion List</field>
+            <field name="model">intranet.suggestion</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="title"/>
+                    <field name="category"/>
+                    <field name="author_name"/>
+                    <field name="state"/>
+                    <field name="created_at"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="suggestion_form_view" model="ir.ui.view">
+            <field name="name">Suggestion Form</field>
+            <field name="model">intranet.suggestion</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="title"/>
+                                <field name="category"/>
+                                <field name="state"/>
+                            </group>
+                            <group>
+                                <field name="author_name"/>
+                                <field name="created_at"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="message" widget="text"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="suggestion_action" model="ir.actions.act_window">
+            <field name="name">Suggestions</field>
+            <field name="res_model">intranet.suggestion</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="menu_suggestion" name="Suggestions" action="suggestion_action" parent="menu_intranet_content"/>
+    </data>
+</odoo>

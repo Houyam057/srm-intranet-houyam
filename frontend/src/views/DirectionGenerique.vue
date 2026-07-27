@@ -2,6 +2,7 @@
 import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { odooApi } from '../api/odoo.js'
+import KPI from '../components/KPI.vue'
 
 const props = defineProps({
   key: { type: String, required: true }
@@ -13,6 +14,7 @@ const directionName = computed(() => direction.value?.name || 'Direction inconnu
 const managerName = computed(() => direction.value?.manager_name || '—')
 const poleName = computed(() => direction.value?.pole_name || '—')
 const description = computed(() => direction.value?.description || '')
+const directionId = computed(() => direction.value?.id || null)
 
 const notes = [
   { text: 'Note de service interne de la direction', date: '26/06/2026' },
@@ -33,7 +35,7 @@ const docs = [
 
 onMounted(async () => {
   try {
-    const response = await odooApi.get(`/api/directions/${props.key}`)
+    const response = await odooApi.get(`/api/directions/by-key/${props.key}`)
     direction.value = response.data?.data || null
   } catch {
     direction.value = null
@@ -64,6 +66,9 @@ onMounted(async () => {
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
       Page type de la maquette — le contenu réel (notes, projets, documents, équipe) sera propre à chaque direction et visible selon le profil de l'utilisateur.
     </div>
+
+    <!-- KPI de la direction -->
+    <KPI v-if="directionId" :direction-id="directionId" />
 
     <div class="grid" style="grid-template-columns:repeat(3,1fr);margin-top:20px">
       <div class="card card-pad">

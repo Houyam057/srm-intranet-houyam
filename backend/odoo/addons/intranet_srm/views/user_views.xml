@@ -10,11 +10,6 @@
                     <field name="name"/>
                     <field name="email"/>
                     <field name="phone"/>
-<<<<<<< HEAD
-=======
-                    <field name="role"/>
-                    <field name="direction_id"/>
->>>>>>> c8f87b30f6980ce158dc783bf164985484c47d2a
                     <field name="job_title"/>
                     <field name="direction_name"/>
                     <field name="role"/>
@@ -40,11 +35,7 @@
                             </group>
                             <group>
                                 <field name="direction_id"/>
-<<<<<<< HEAD
                                 <field name="role"/>
-=======
-                                <field name="job_title"/>
->>>>>>> c8f87b30f6980ce158dc783bf164985484c47d2a
                                 <field name="is_manager"/>
                                 <field name="res_user_id"/>
                             </group>
