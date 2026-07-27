@@ -141,5 +141,26 @@
             <field name="category">Réunion</field>
             <field name="published">True</field>
         </record>
+
+        <!-- KPIS -->
+        <record id="kpi_clients_satisfaits" model="intranet.kpi">
+            <field name="name">Clients satisfaits</field>
+            <field name="val">87.0</field>
+        </record>
+
+        <record id="kpi_taux_recouvrement" model="intranet.kpi">
+            <field name="name">Taux de recouvrement</field>
+            <field name="val">99.2</field>
+        </record>
+
+        <record id="kpi_reclamations_traitees" model="intranet.kpi">
+            <field name="name">Réclamations traitées</field>
+            <field name="val">96.0</field>
+        </record>
+
+        <record id="mappage_kpi_clientele" model="intranet.mappage_kpi">
+            <field name="direction_id" ref="dir_clientele"/>
+            <field name="kpi_id" ref="kpi_clients_satisfaits"/>
+        </record>
     </data>
 </odoo>

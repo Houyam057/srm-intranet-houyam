@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import api, models, fields
 
 class Kpi(models.Model):
     _name = 'intranet.kpi'
@@ -14,6 +14,7 @@ class Kpi(models.Model):
     active = fields.Boolean('Actif', default=True)
     created_at = fields.Datetime('Date de création', default=fields.Datetime.now)
 
+    @api.depends('mappage_ids')
     def _compute_direction_count(self):
         for record in self:
             record.direction_count = len(record.mappage_ids)
