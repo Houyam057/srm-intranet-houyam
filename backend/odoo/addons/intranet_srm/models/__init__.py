@@ -9,3 +9,6 @@ from . import pole
 from . import user
 from . import formation
 from . import inscription
+from . import suggestion
+from . import kpi
+from . import mappage_kpi

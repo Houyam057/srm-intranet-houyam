@@ -3,11 +3,23 @@ import { onMounted, ref } from 'vue'
 import HeroCarousel from '../components/HeroCarousel.vue'
 import MoodBarometer from '../components/MoodBarometer.vue'
 import KPI from '../components/KPI.vue'
+import SuggestionModal from '../components/SuggestionModal.vue'
 import { odooApi } from '../api/odoo.js'
 import { useRouter } from 'vue-router'
 import {Bell } from 'lucide-vue-next'
+import { useAuthStore } from '../stores/auth.js'
 
 const router = useRouter()
+const auth = useAuthStore()
+const showSuggestionModal = ref(false)
+const successMessage = ref('')
+const showSuccess = ref(false)
+
+function onSuggestionSubmitted() {
+  successMessage.value = 'Suggestion soumise avec succès !'
+  showSuccess.value = true
+  setTimeout(() => { showSuccess.value = false }, 3000)
+}
 
 // Dans une vraie appli, ces tableaux viendraient d'appels à l'API Express :
 // GET /api/kpi, GET /api/notes-service, GET /api/actualites, GET /api/flash-info
@@ -64,7 +76,7 @@ onMounted(async () => {
 })
 
 function toHelpdesk(){
-  router.push({ name: 'helpdesk' })
+  showSuggestionModal.value = true
 }
 </script>
 
@@ -94,7 +106,7 @@ function toHelpdesk(){
 
     <!-- KPI -->
     <div class="card card-pad" style="margin-top:20px">
-      <KPI />
+      <KPI :direction-id="auth.user?.direction_id" />
     </div>
     <!-- ARTICLES + SUGGESTIONS + MOOD -->
     <div class="grid" style="grid-template-columns:1.6fr 1fr;margin-top:20px">
@@ -202,19 +214,37 @@ function toHelpdesk(){
       </div>
     </div>
 
-    <!-- DIGITAL LEARNING -->
-    <div class="dlearn">
-      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
-          stroke-linejoin="round">
-          <path d="M22 10L12 5 2 10l10 5 10-5z" />
-          <path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5" />
-        </svg></div>
-      <div><b>Digital Learning — se former en ligne</b><span>Catalogue de formations, parcours métiers et habilitations
-          obligatoires</span></div>
-      <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
-          stroke-linejoin="round">
-          <path d="M5 12h14M13 6l6 6-6 6" />
-        </svg></span>
-    </div>
+    <SuggestionModal :show="showSuggestionModal" @close="showSuggestionModal = false" @submitted="onSuggestionSubmitted" />
+
+    <Teleport to="body">
+      <transition name="toast">
+        <div v-if="showSuccess" class="toast-success">{{ successMessage }}</div>
+      </transition>
+    </Teleport>
   </div>
 </template>
+
+<style scoped>
+.toast-success {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  background: #16a34a;
+  color: #fff;
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  z-index: 10000;
+}
+.toast-enter-active,
+.toast-leave-active {
+  transition: all 0.3s ease;
+}
+.toast-enter-from,
+.toast-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+</style>

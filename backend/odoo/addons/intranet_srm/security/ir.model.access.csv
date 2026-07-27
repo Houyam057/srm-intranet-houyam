@@ -23,3 +23,9 @@ access_formation_user,formation_user,model_intranet_formation,base.group_user,1,
 access_formation_manager,formation_manager,model_intranet_formation,base.group_system,1,1,1,1
 access_inscription_user,inscription_user,model_inscription_formation,base.group_user,1,1,1,0
 access_inscription_manager,inscription_manager,model_inscription_formation,base.group_system,1,1,1,1
+access_suggestion_user,suggestion_user,model_intranet_suggestion,base.group_user,1,1,1,0
+access_suggestion_manager,suggestion_manager,model_intranet_suggestion,base.group_system,1,1,1,1
+access_kpi_user,kpi_user,model_intranet_kpi,base.group_user,1,1,1,0
+access_kpi_manager,kpi_manager,model_intranet_kpi,base.group_system,1,1,1,1
+access_mappage_kpi_user,mappage_kpi_user,model_intranet_mappage_kpi,base.group_user,1,1,1,0
+access_mappage_kpi_manager,mappage_kpi_manager,model_intranet_mappage_kpi,base.group_system,1,1,1,1

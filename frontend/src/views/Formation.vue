@@ -1,6 +1,7 @@
 <script setup>
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 import {Check,Hourglass,Award,LibraryBig,Star,Shield ,UserStar ,ChartColumnBig, Crown  } from 'lucide-vue-next'
+import { odooApi } from '../api/odoo.js'
 
 const search = ref("");
 const pageStart = ref(0);
@@ -10,14 +11,33 @@ const CATALOGUE_PAGE_SIZE = 5;
 
 watch(search, () => { pageStart.value = 0; cataloguePage.value = 0; });
 
-const formations = ref([
-    { id: 1, title: "Excel Avancé", category: "Bureautique", level: "Intermédiaire", duration: "8 heures", trainer: "Service Informatique", status: "En cours", progress: 65, date: "20 Septembre 2026", places: 12, color: "navy", icon: "📊" },
-    { id: 2, title: "Power BI", category: "Business Intelligence", level: "Débutant", duration: "12 heures", trainer: "Consultant BI", status: "Disponible", progress: 0, date: "12 Octobre 2026", places: 18, color: "blue", icon: "📈" },
-    { id: 3, title: "Leadership", category: "Management", level: "Avancé", duration: "6 heures", trainer: "Direction RH", status: "Terminée", progress: 100, date: "5 Août 2026", places: 0, color: "green", icon: "👥" },
-    { id: 4, title: "CyberSécurité", category: "Sécurité", level: "Intermédiaire", duration: "10 heures", trainer: "DSI", status: "Disponible", progress: 0, date: "30 Septembre 2026", places: 20, color: "red", icon: "🛡️" },
-    { id: 5, title: "Gestion des Achats", category: "Achats", level: "Expert", duration: "15 heures", trainer: "Direction Achats", status: "En cours", progress: 45, date: "15 Novembre 2026", places: 10, color: "navy", icon: "📦" },
-    { id: 6, title: "Communication Professionnelle", category: "RH", level: "Débutant", duration: "4 heures", trainer: "Direction RH", status: "Disponible", progress: 0, date: "3 Décembre 2026", places: 25, color: "blue", icon: "💬" },
-]);
+const formations = ref([]);
+
+onMounted(async () => {
+    try {
+        const res = await odooApi.get('/api/formations');
+        formations.value = (res.data.data?.formations || []).map(f => ({
+            ...f,
+            status: f.state === 'published' ? 'Disponible' : f.state === 'closed' ? 'Terminée' : 'Brouillon',
+            progress: 0,
+            icon: getCategoryIcon(f.category),
+            places: f.max_participants || 20,
+        }));
+    } catch (e) {
+        console.error('Erreur chargement formations', e);
+    }
+});
+
+function getCategoryIcon(cat) {
+    const icons = {
+        technique: '💻',
+        management: '👥',
+        securite: '🛡️',
+        qualite: '✅',
+        autre: '📚',
+    };
+    return icons[cat] || '📚';
+}
 
 const badges = ref([
     { title: "Excel Expert", icon: UserStar  },
@@ -179,7 +199,8 @@ function getColor(color) {
                     <div class="mes-formations-list">
                         <div class="my-training" v-for="formation in visibleMesFormations" :key="'my2'+formation.id">
                             <div class="left">
-                                <div class="mini-icon" :style="{background:getColor(formation.color)}">{{ formation.icon }}</div>
+                                <div v-if="formation.image_url" class="mini-icon" :style="{backgroundImage: `url(${formation.image_url})`, backgroundSize:'cover', backgroundPosition:'center'}"></div>
+                                <div v-else class="mini-icon" :style="{background:getColor(formation.color)}">{{ formation.icon }}</div>
                                 <div>
                                     <strong>{{ formation.title }}</strong>
                                     <p>{{ formation.progress }}% terminé</p>
@@ -208,7 +229,8 @@ function getColor(color) {
         <div class="formation-grid">
             <div class="formation-card" v-for="formation in visibleCatalogue" :key="formation.id">
                 <div class="formation-top">
-                    <div class="formation-icon" :style="{background:getColor(formation.color)}">{{ formation.icon }}</div>
+                    <div v-if="formation.image_url" class="formation-img" :style="{backgroundImage: `url(${formation.image_url})`}"></div>
+                    <div v-else class="formation-icon" :style="{background:getColor(formation.color)}">{{ formation.icon }}</div>
                     <div style="    grid-column: span 2;">
                         <h3>{{ formation.title }}</h3>
                         <span>{{ formation.category }}</span>
@@ -316,6 +338,11 @@ function getColor(color) {
     width:64px; height:64px; border-radius:16px; color:white;
     display:flex; align-items:center; justify-content:center;
     font-size:28px; flex:none;
+}
+.formation-img {
+    width:64px; height:64px; border-radius:16px;
+    background-size:cover; background-position:center;
+    flex:none;
 }
 .formation-top h3 { margin:0; color:var(--ink); font-size:20px; }
 .formation-top span { color:var(--muted); font-size:14px; }

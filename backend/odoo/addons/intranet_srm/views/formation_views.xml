@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="formation_list_view" model="ir.ui.view">
+            <field name="name">Formation List</field>
+            <field name="model">intranet.formation</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="image" widget="image" width="50"/>
+                    <field name="nom"/>
+                    <field name="formateur"/>
+                    <field name="category"/>
+                    <field name="date_debut"/>
+                    <field name="date_fin"/>
+                    <field name="lieu"/>
+                    <field name="state"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="formation_form_view" model="ir.ui.view">
+            <field name="name">Formation Form</field>
+            <field name="model">intranet.formation</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <field name="image" widget="image" class="oe_avatar"/>
+                            <h1><field name="nom" placeholder="Nom de la formation"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="formateur"/>
+                                <field name="category"/>
+                                <field name="lieu"/>
+                            </group>
+                            <group>
+                                <field name="date_debut"/>
+                                <field name="date_fin"/>
+                                <field name="max_participants"/>
+                                <field name="state"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="description" widget="text"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="formation_search_view" model="ir.ui.view">
+            <field name="name">Formation Search</field>
+            <field name="model">intranet.formation</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="nom"/>
+                    <field name="formateur"/>
+                    <filter string="Publiées" name="published" domain="[('state', '=', 'published')]"/>
+                    <separator/>
+                    <filter string="Catégorie" name="group_category" context="{'group_by': 'category'}"/>
+                    <filter string="État" name="group_state" context="{'group_by': 'state'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="formation_action" model="ir.actions.act_window">
+            <field name="name">Formations</field>
+            <field name="res_model">intranet.formation</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="formation_search_view"/>
+        </record>
+
+        <menuitem id="menu_formation" name="Formations" action="formation_action" parent="menu_intranet_content"/>
+    </data>
+</odoo>

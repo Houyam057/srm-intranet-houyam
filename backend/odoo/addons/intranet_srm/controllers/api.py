@@ -68,6 +68,7 @@ class IntranetAPI(http.Controller):
     def get_directions(self):
         try:
             Direction = request.env['intranet.direction'].sudo()
+            User = request.env['intranet.user'].sudo()
             directions = Direction.search([('active', '=', True)])
 
             data = [{
@@ -77,10 +78,33 @@ class IntranetAPI(http.Controller):
                 'manager_name': d.manager_name,
                 'pole_name': d.pole_id.name if d.pole_id else '',
                 'pole_manager_name': d.pole_id.manager_name if d.pole_id else '',
+                'employee_count': User.search_count([('direction_id', '=', d.id)]),
                 'description': d.description,
             } for d in directions]
 
             return self._response(data={'directions': data})
+        except Exception as e:
+            return self._response(error=str(e), status=500)
+
+    @http.route('/api/directions/by-key/<string:key>', auth='public', methods=['GET'], csrf=False, cors='*')
+    def get_direction_by_key(self, key):
+        try:
+            Direction = request.env['intranet.direction'].sudo()
+            direction = Direction.search([('code', '=', key), ('active', '=', True)], limit=1)
+
+            if not direction:
+                return self._response(error='Direction non trouvée', status=404)
+
+            data = {
+                'id': direction.id,
+                'name': direction.name,
+                'code': direction.code or '',
+                'manager_name': direction.manager_name,
+                'pole_name': direction.pole_id.name if direction.pole_id else '',
+                'description': direction.description,
+            }
+
+            return self._response(data=data)
         except Exception as e:
             return self._response(error=str(e), status=500)
 
@@ -324,18 +348,33 @@ class IntranetAPI(http.Controller):
     def create_feedback(self):
         try:
             data = request.get_json_data()
-            missing = self._missing_fields(data, ['mood'])
-            if missing:
-                return self._response(error=f"Champs requis manquants : {', '.join(missing)}", status=400)
+            if not data:
+                return self._response(error='Aucune donnée reçue.', status=400)
+
+            mood = data.get('mood')
+            if not mood:
+                return self._response(error='Le champ mood est requis.', status=400)
+
+            valid_moods = ['very_bad', 'bad', 'neutral', 'good', 'very_good']
+            if mood not in valid_moods:
+                return self._response(error=f'Mood invalide: {mood}', status=400)
 
             Feedback = request.env['intranet.feedback']
-            new_feedback = Feedback.create({
-                'employee_id': request.env.user.id,
-                'mood': data.get('mood'),
-                'comment': data.get('comment'),
+            cooldown = Feedback.check_vote_cooldown()
+            if not cooldown['can_vote']:
+                return self._response(error='Vous devez attendre 24h entre deux votes.', status=403)
+
+            employee = request.env['intranet.user'].sudo().search([('res_user_id', '=', request.env.user.id)], limit=1)
+            vals = {
+                'mood': mood,
+                'comment': data.get('comment', ''),
                 'category': data.get('category', 'Général'),
                 'anonymous': data.get('anonymous', False),
-            })
+            }
+            if employee:
+                vals['employee_id'] = employee.id
+
+            new_feedback = Feedback.create(vals)
 
             return self._response(data={'id': new_feedback.id}, status=201)
         except Exception as e:
@@ -347,6 +386,16 @@ class IntranetAPI(http.Controller):
             Feedback = request.env['intranet.feedback'].sudo()
             stats = Feedback.get_mood_stats()
             return self._response(data={'stats': stats})
+        except Exception as e:
+            return self._response(error=str(e), status=500)
+
+    @http.route('/api/feedback/status', auth='user', methods=['GET'], csrf=False, cors='*')
+    def get_feedback_status(self):
+        try:
+            Feedback = request.env['intranet.feedback']
+            cooldown = Feedback.check_vote_cooldown()
+            stats = Feedback.sudo().get_mood_stats()
+            return self._response(data={'can_vote': cooldown['can_vote'], 'next_vote_at': cooldown['next_vote_at'], 'remaining_seconds': cooldown['remaining_seconds'], 'stats': stats})
         except Exception as e:
             return self._response(error=str(e), status=500)
 
@@ -454,6 +503,108 @@ class IntranetAPI(http.Controller):
             return self._response(data={'id': new_ticket.id, 'status': new_ticket.status}, status=201)
         except Exception as e:
             return self._server_error(e, status=400)
+
+    # ===== SUGGESTIONS =====
+    @http.route('/api/suggestions', auth='user', methods=['POST'], csrf=False, cors='*')
+    def create_suggestion(self):
+        try:
+            data = request.get_json_data()
+            missing = self._missing_fields(data, ['title', 'message'])
+            if missing:
+                return self._response(error=f"Champs requis manquants : {', '.join(missing)}", status=400)
+
+            Suggestion = request.env['intranet.suggestion']
+            new_suggestion = Suggestion.create({
+                'title': data.get('title'),
+                'category': data.get('category', 'amelioration'),
+                'message': data.get('message'),
+                'state': 'submitted',
+            })
+
+            return self._response(data={'id': new_suggestion.id}, status=201)
+        except Exception as e:
+            return self._server_error(e, status=400)
+
+    # ===== FORMATIONS =====
+    @http.route('/api/formations', auth='public', methods=['GET'], csrf=False, cors='*')
+    def get_formations(self):
+        try:
+            Formation = request.env['intranet.formation'].sudo()
+            formations = Formation.search([('state', '=', 'published'), ('active', '=', True)])
+
+            data = []
+            for f in formations:
+                image_url = f'/web/image/intranet.formation/{f.id}/image' if f.image else ''
+                data.append({
+                    'id': f.id,
+                    'title': f.nom,
+                    'description': f.description or '',
+                    'category': f.category or '',
+                    'trainer': f.formateur or '',
+                    'date_debut': f.date_debut.isoformat() if f.date_debut else '',
+                    'date_fin': f.date_fin.isoformat() if f.date_fin else '',
+                    'lieu': f.lieu or '',
+                    'max_participants': f.max_participants,
+                    'state': f.state,
+                    'image_url': image_url,
+                    'color': 'navy',
+                })
+
+            return self._response(data={'formations': data})
+        except Exception as e:
+            return self._response(error=str(e), status=500)
+
+    # ===== KPIs =====
+    @http.route('/api/kpis', auth='public', methods=['GET'], csrf=False, cors='*')
+    def get_kpis(self):
+        try:
+            direction_id = request.params.get('direction_id')
+            Kpi = request.env['intranet.kpi'].sudo()
+            kpis = Kpi.search([('active', '=', True)])
+
+            if direction_id:
+                Mappage = request.env['intranet.mappage_kpi'].sudo()
+                mappages = Mappage.search([('direction_id', '=', int(direction_id))])
+                kpi_ids = mappages.mapped('kpi_id').ids
+                kpis = kpis.filtered(lambda k: k.id in kpi_ids)
+
+            data = [{
+                'id': k.id,
+                'name': k.name,
+                'val': k.val,
+                'direction_count': k.direction_count,
+            } for k in kpis]
+
+            return self._response(data={'kpis': data})
+        except Exception as e:
+            return self._response(error=str(e), status=500)
+
+    @http.route('/api/kpis/<int:kpi_id>', auth='public', methods=['GET'], csrf=False, cors='*')
+    def get_kpi(self, kpi_id):
+        try:
+            Kpi = request.env['intranet.kpi'].sudo()
+            kpi = Kpi.browse(kpi_id)
+
+            if not kpi.exists():
+                return self._response(error='KPI non trouvé', status=404)
+
+            mappages = [{
+                'id': m.id,
+                'direction_id': m.direction_id.id,
+                'direction_name': m.direction_name,
+            } for m in kpi.mappage_ids]
+
+            data = {
+                'id': kpi.id,
+                'name': kpi.name,
+                'val': kpi.val,
+                'direction_count': kpi.direction_count,
+                'mappages': mappages,
+            }
+
+            return self._response(data=data)
+        except Exception as e:
+            return self._response(error=str(e), status=500)
 
     # ===== DASHBOARD =====
     @http.route('/api/dashboard', auth='public', methods=['GET'], csrf=False, cors='*')

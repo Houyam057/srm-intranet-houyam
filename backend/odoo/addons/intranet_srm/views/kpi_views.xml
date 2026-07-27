@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="kpi_list_view" model="ir.ui.view">
+            <field name="name">KPI List</field>
+            <field name="model">intranet.kpi</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="val"/>
+                    <field name="direction_count"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="kpi_form_view" model="ir.ui.view">
+            <field name="name">KPI Form</field>
+            <field name="model">intranet.kpi</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="val"/>
+                            </group>
+                            <group>
+                                <field name="direction_count" readonly="1"/>
+                            </group>
+                        </group>
+                        <field name="mappage_ids"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="kpi_action" model="ir.actions.act_window">
+            <field name="name">KPIs</field>
+            <field name="res_model">intranet.kpi</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="menu_kpi" name="KPIs" action="kpi_action" parent="menu_intranet_main"/>
+    </data>
+</odoo>

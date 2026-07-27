@@ -17,14 +17,13 @@
             <field name="description">Pôle des fonctions de support</field>
         </record>
 
-        <!-- DIRECTION GENERALE -->
+        <!-- DIRECTIONS -->
         <record id="dir_dg" model="intranet.direction">
             <field name="name">Direction Générale</field>
             <field name="code">DG</field>
             <field name="pole_id" ref="pole_dg"/>
         </record>
 
-        <!-- DIRECTIONS RATTACHEES A LA DG -->
         <record id="dir_qse" model="intranet.direction">
             <field name="name">Développement et Suivi des Performances, QSE</field>
             <field name="code">QSE</field>
