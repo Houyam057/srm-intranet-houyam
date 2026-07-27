@@ -8,7 +8,7 @@
 
         <record id="ai_model_config" model="ir.config_parameter">
             <field name="key">chatbot.ai_model</field>
-            <field name="value">llama3-8b-8192</field>
+            <field name="value">llama-3.1-8b-instant</field>
         </record>
     </data>
 </odoo>
